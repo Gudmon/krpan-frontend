@@ -1,0 +1,35 @@
+<div class="mt-14 w-full">
+  <div class="w-full h-full flex justify-center items-center mt-8 mb-2">
+      <p>Tippek</p>
+  </div>
+  <div class="w-full h-full flex justify-center items-center">
+      <p-inputSwitch  [(ngModel)]="hintsChecked"></p-inputSwitch>
+  </div>
+  <div class="mx-auto">
+      <app-krpan-trailer-overview-hints *ngIf="hintsChecked"></app-krpan-trailer-overview-hints>
+  </div>
+</div>
+
+<div class="ml-2 md:ml-10 lg:ml-14 my-10">
+  <p class="text-xl font-bold">Erdészeti pótkocsik szűrése alváz típus szerint</p>
+</div>
+
+<div class="grid gap-3 md:flex  rounded-3xl ">
+  <div class="md:rounded-2xl md:ml-10 lg:ml-14 mb-6 md:mb-0">
+      <nav class="flex flex-col md:flex-row mx-auto rounded-xl bg-[rgba(0,0,0,.7)]"  aria-label="Tabs" role="tablist">
+          <button (click)="setSelectedChassisType(1, $event)" [ngClass]="{'bg-primary-color text-[rgb(0,0,0)]': (krpanService.selectedChassisType$ | async) === 1}" type="button"class="md:rounded-xl font-semibold py-2 px-6 inline-flex items-center gap-x-2 border-b-2 border-transparent text-sm lg:text-lg xl:text-xl whitespace-nowrap text-white" id="horizontal-alignment-item-1">
+              Egy
+          </button>
+          <button (click)="setSelectedChassisType(2, $event)" [ngClass]="{'bg-primary-color text-[rgb(0,0,0)]': (krpanService.selectedChassisType$ | async) === 2}" type="button" class="md:rounded-xl font-semibold py-2 px-6 inline-flex items-center gap-x-2 border-b-2 border-transparent text-sm lg:text-lg xl:text-xl whitespace-nowrap text-[rgb(255,255,255)]" id="horizontal-alignment-item-2">
+              Dupla
+          </button>
+          <button (click)="setSelectedChassisType(3, $event)" [ngClass]="{'bg-primary-color text-[rgb(0,0,0)]': (krpanService.selectedChassisType$ | async) === 3}" type="button" class="md:rounded-xl font-semibold py-2 px-6 inline-flex items-center gap-x-2 border-b-2 border-transparent text-sm lg:text-lg xl:text-xl whitespace-nowrap text-[rgb(255,255,255)]" id="horizontal-alignment-item-2">
+              Unibody
+          </button>
+      </nav>
+  </div>                  
+</div>
+
+<app-krpan-trailer-cards *ngIf="krpanService.selectedMachineType$ !== null && (krpanService.selectedMachineType$ | async) === 1" [trailers]="trailers" (buttonClickEmitter)="navigateToTrailer($event)"></app-krpan-trailer-cards>
+    
+

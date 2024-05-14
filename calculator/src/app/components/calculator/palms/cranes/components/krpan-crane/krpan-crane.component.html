@@ -1,0 +1,258 @@
+
+<app-krpan-crane-information *ngIf="crane && !fromTrailer" [crane]="crane" (trailerSelected)="navigateToTrailer($event)"></app-krpan-crane-information>
+
+<div *ngIf="!fromTrailer && id" class="w-full h-full flex justify-center items-center mt-16">
+    <button (click)="loadCraneConfigurations(this.id!)" [disabled]="(krpanService.craneSelected$ | async)" [ngClass]="{'disabled': (krpanService.craneSelected$ | async)}" class="m-auto py-10 px-20 rounded-xl mb-2 bg-[--primary-color] active:bg-gray-700 text-base font-bold uppercase shadow hover:opacity-80 outline-none focus:outline-none">Kalkulálás</button>
+</div>
+
+<div *ngIf="(krpanService.craneSelected$ | async) && !fromTrailer" class="w-full h-full flex justify-center items-center mt-8 mb-2">
+    <p>Tippek</p>
+</div>
+<div *ngIf="(krpanService.craneSelected$ | async) && !fromTrailer" class="w-full h-full flex justify-center items-center">
+    <p-inputSwitch  [(ngModel)]="hintsChecked"></p-inputSwitch>
+</div>
+<div *ngIf="(krpanService.craneSelected$ | async) && !fromTrailer" class="mx-auto">
+    <app-krpan-crane-calculator-hints *ngIf="hintsChecked"></app-krpan-crane-calculator-hints>
+</div>
+
+<form [formGroup]="craneFormGroup">
+    <ng-container *ngIf="(krpanService.craneSelected$ | async)" class="bg-slate-200">
+        <div #configElement class="flex align-middle justify-center my-10">
+            <div class="w-11/12">
+
+                <div *ngIf="craneSelected && controlBlocks.length > 0" class="justify-content-center my-4 py-4">
+                    <div class="flex gap-2">
+                        <span>Vezértömb</span>
+                        <button (click)="toggleDialog('controlBlocks', true)"><i class="fa-solid fa-circle-info"></i></button>                
+                        <app-control-blocks-dialog [controlBlocks]="controlBlocks" [controlBlocksDialogVisible]="showControlBlocksDialog" (dialogVisible)="toggleDialog('controlBlocks', false)"></app-control-blocks-dialog>
+                    </div>
+                    <p-listbox optionDisabled="disabledOption" (onChange)="handleControlBlockChange($event)" formControlName="selectedControlBlock" [options]="controlBlocks" optionLabel="namePrice"></p-listbox>                   
+                </div>
+
+                <div *ngIf="craneSelected && frameTypes.length > 0" class="justify-content-center my-4 py-4">
+                    <div class="flex gap-2">
+                        <span>Talpaló</span>
+                        <button (click)="toggleDialog('frameTypes', true)"><i class="fa-solid fa-circle-info"></i></button>                
+                        <app-frame-types-dialog [frameTypes]="frameTypes" [frameTypesDialogVisible]="showFrameTypesDialog" (dialogVisible)="toggleDialog('frameTypes', false)"></app-frame-types-dialog>                    
+                    </div>
+                    <p-listbox optionDisabled="disabledOption" (onChange)="handleFrameTypeChange($event)" formControlName="selectedFrameType" [options]="frameTypes" optionLabel="namePrice"></p-listbox>                   
+                </div>     
+                          
+                <div *ngIf="craneSelected && rotators.length > 0" class="justify-content-center my-4 py-4">
+                    <div class="flex gap-2">
+                        <span>Rotátor</span>
+                        <button (click)="toggleDialog('rotators', true)"><i class="fa-solid fa-circle-info"></i></button>  
+                        <app-rotators-dialog [rotators]="rotators" [rotatorsDialogVisible]="showRotatorsDialog" (dialogVisible)="toggleDialog('rotators', false)"></app-rotators-dialog>                    
+                    </div>
+                    <p-listbox optionDisabled="disabledOption" (onChange)="handleRotatorChange($event)" formControlName="selectedRotator" [options]="rotators" optionLabel="namePrice"></p-listbox>                   
+                </div>
+
+                <div *ngIf="craneSelected && grapples.length > 0" class="justify-content-center my-4 py-4">
+                    <div class="flex gap-2">
+                        <span>Kanál</span>
+                        <button (click)="toggleDialog('grapples', true)"><i class="fa-solid fa-circle-info"></i></button>  
+                        <app-grapples-dialog [grapples]="grapples" [grapplesDialogVisible]="showGrapplesDialog" (dialogVisible)="toggleDialog('grapples', false)"></app-grapples-dialog>                            
+                    </div>
+                    <p-listbox #grappleListBox optionDisabled="disabledOption" (onChange)="handleGrappleChange($event)" formControlName="selectedGrapple" [options]="grapples" optionLabel="namePrice"></p-listbox>                   
+                </div>
+
+                <div *ngIf="craneSelected && grapples.length > 0" formArrayName="selectedGrapples" class="justify-content-center my-4 py-4">
+                    <div *ngFor="let cityControl of selectedGrapples.controls; let i = index">
+                      <p-listbox #grappleListBoxes (onChange)="handleMultipleGrappleChange($event, i)"  optionDisabled="disabledOption" class="mt-10" [formControlName]="i" [options]="grapples" optionLabel="namePrice"></p-listbox>
+                      <button type="button" class="ml-auto p-1 px-2 mb-6 bg-red-500  active:bg-gray-700 text-sm font-bold uppercase  rounded shadow hover:shadow-lg outline-none focus:outline-none" (click)="removeGrapple(i)">Eltávolítás</button>
+                    </div>
+                    <button type="button" class="m-auto bg-[--primary-color] py-2 px-2 rounded mb-2 text-black text-md uppercase" (click)="addGrapple()">Kanál hozzáadása</button>
+                </div>               
+
+                <div *ngIf="craneSelected && winches.length > 0" class="justify-content-center my-4 py-4">
+                    <div class="flex gap-2">
+                        <span>Csörlő</span>
+                        <button (click)="toggleDialog('winches', true)"><i class="fa-solid fa-circle-info"></i></button>  
+                        <app-winches-dialog [winches]="winches" [winchesDialogVisible]="showWinchesDialog" (dialogVisible)="toggleDialog('winches', false)"></app-winches-dialog>
+                    </div>
+                    <p-listbox #winchListBox optionDisabled="disabledOption" (onChange)="handleWinchChange($event)" formControlName="selectedWinch" [options]="winches" optionLabel="namePrice"></p-listbox>                   
+                </div>
+
+                <div *ngIf="craneSelected && protectionSleeves" class="justify-content-center my-4 py-4">
+                    <div class="mb-4">
+                        <button (click)="toggleDialog('protectionSleeves', true)"><i class="fa-solid fa-circle-info"></i></button> 
+                        <app-protection-sleeves-dialog [protectionSleeves]="protectionSleeves" [protectionSleevesDialogVisible]="showProtectionSleevesDialog" (dialogVisible)="toggleDialog('protectionSleeves', false)"></app-protection-sleeves-dialog>            
+                    </div>
+                    <div class="flex gap-2">
+                        <p-checkbox #protectionSleevesCheckBox (onChange)="onProtectionSleevesChange($event)" [value]="protectionSleeves" formControlName="selectedProtectionSleeves" inputId="ProtectionSleevesSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="ProtectionSleevesSelected">{{protectionSleeves.namePrice}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="craneSelected && electricalFloating" class="justify-content-center my-4 py-4">
+                    <div class="mb-4">
+                        <button (click)="toggleDialog('electricalFloating', true)"><i class="fa-solid fa-circle-info"></i></button> 
+                        <app-electrical-floating-dialog [electricalFloating]="electricalFloating" [electricalFloatingDialogVisible]="showElectricalFloatingDialog" (dialogVisible)="toggleDialog('electricalFloating', false)"></app-electrical-floating-dialog>            
+                    </div>
+                    <div class="flex gap-2">
+                        <p-checkbox [ngClass]="{'checkBox' : this.craneFormGroup.get('selectedElectricalFloating')?.disabled}" #electricalFloatingCheckBox (onChange)="onElectricalFloatingChange($event)" [value]="electricalFloating" formControlName="selectedElectricalFloating" inputId="ElectricalFloatingSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="ElectricalFloatingSelected">{{electricalFloating.namePrice}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="craneSelected && valveBlock" class="justify-content-center my-4 py-4">
+                    <div class="mb-4">
+                        <button (click)="toggleDialog('valveBlock', true)"><i class="fa-solid fa-circle-info"></i></button> 
+                        <app-valve-block-dialog [valveBlock]="valveBlock" [valveBlockDialogVisible]="showValveBlockDialog" (dialogVisible)="toggleDialog('valveBlock', false)"></app-valve-block-dialog>            
+                    </div>
+                    <div class="flex gap-2">
+                        <p-checkbox [ngClass]="{'checkBox' : this.craneFormGroup.get('selectedValveBlock')?.disabled}" #valveBlockCheckBox (onChange)="onValveBlockChange($event)" [value]="valveBlock" formControlName="selectedValveBlock" inputId="ValveBlockSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="ValveBlockSelected">{{valveBlock.namePrice}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="craneSelected && dampings.length > 0" class="justify-content-center my-4 py-4">
+                    <div class="flex gap-2">
+                        <span>Csillapító</span>
+                        <button (click)="toggleDialog('dampings', true)"><i class="fa-solid fa-circle-info"></i></button>  
+                        <app-dampings-dialog [dampings]="dampings" [dampingsDialogVisible]="showDampingsDialog" (dialogVisible)="toggleDialog('dampings', false)"></app-dampings-dialog>
+                    </div>
+                    <p-listbox #dampingsBox optionDisabled="disabledOption" (onChange)="handleDampingChange($event)" formControlName="selectedDamping" [options]="dampings" optionLabel="namePrice"></p-listbox>                   
+                </div>
+
+                <div *ngIf="craneSelected && light" class="justify-content-center my-4 py-4">
+                    <div class="mb-4">
+                        <button (click)="toggleDialog('light', true)"><i class="fa-solid fa-circle-info"></i></button> 
+                        <app-crane-light-dialog [craneLight]="light" [craneLightDialogVisible]="showLightDialog" (dialogVisible)="toggleDialog('light', false)"></app-crane-light-dialog>            
+                    </div>
+                    <div class="flex gap-2">
+                        <p-checkbox #lightCheckBox (onChange)="onLightChange($event)" [value]="light" formControlName="selectedLight" inputId="LightSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="LightSelected">{{light.namePrice}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="craneSelected && operatorSeat" class="justify-content-center my-4 py-4">
+                    <div class="mb-4">
+                        <button (click)="toggleDialog('operatorSeat', true)"><i class="fa-solid fa-circle-info"></i></button> 
+                        <app-operator-seat-dialog [operatorSeat]="operatorSeat" [operatorSeatDialogVisible]="showOperatorSeatDialog" (dialogVisible)="toggleDialog('operatorSeat', false)"></app-operator-seat-dialog>            
+                    </div>
+                    <div class="flex gap-2">
+                        <p-checkbox #operatorSeatCheckBox (onChange)="onOperatorSeatChange($event)" [value]="operatorSeat" formControlName="selectedOperatorSeat" inputId="OperatorSeatSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="OperatorSeatSelected">{{operatorSeat.namePrice}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="craneSelected && oilCooler" class="justify-content-center my-4 py-4">
+                    <div class="mb-4">
+                        <button (click)="toggleDialog('oilCooler', true)"><i class="fa-solid fa-circle-info"></i></button> 
+                        <app-crane-oilcooler-dialog [oilCooler]="oilCooler" [oilCoolerDialogVisible]="showOilCoolerDialog" (dialogVisible)="toggleDialog('oilCooler', false)"></app-crane-oilcooler-dialog>            
+                    </div>
+                    <div class="flex gap-2">
+                        <p-checkbox #oilCoolerCheckBox (onChange)="onOilCoolerChange($event)" [value]="oilCooler" formControlName="selectedOilCooler" inputId="OilCoolerSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="OilCoolerSelected">{{oilCooler.namePrice}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="craneSelected && rotatorBrakes.length > 0" class="justify-content-center my-4 py-4">
+                    <div class="flex gap-2">
+                        <span>Rotátor fék</span>
+                        <button (click)="toggleDialog('rotatorBrakes', true)"><i class="fa-solid fa-circle-info"></i></button>  
+                        <app-rotator-brakes-dialog [rotatorBrakes]="rotatorBrakes" [rotatorBrakesDialogVisible]="showRotatorBrakesDialog" (dialogVisible)="toggleDialog('rotatorBrakes', false)"></app-rotator-brakes-dialog>
+                    </div>
+                    <p-listbox (onChange)="handleRotatorBrakeChange($event)" formControlName="selectedRotatorBrake" [options]="rotatorBrakes" optionLabel="namePrice"></p-listbox>                   
+                </div> 
+
+                <div *ngIf="craneSelected && joystickHolder" class="justify-content-center my-4 py-4">
+                    <div class="mb-4">
+                        <button (click)="toggleDialog('joystickHolder', true)"><i class="fa-solid fa-circle-info"></i></button> 
+                        <app-joystick-holder-dialog [joystickHolder]="joystickHolder" [joystickHolderDialogVisible]="showJoystickHolderDialog" (dialogVisible)="toggleDialog('joystickHolder', false)"></app-joystick-holder-dialog>            
+                    </div>
+                    <div class="flex gap-2">
+                        <p-checkbox #joystickHolderCheckBox (onChange)="onJoystickHolderChange($event)" [value]="joystickHolder" formControlName="selectedJoystickHolder" inputId="JoystickHolderSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="JoystickHolderSelected">{{joystickHolder.namePrice}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="craneSelected && hoseGuards.length > 0" class="justify-content-center my-4 py-4">
+                    <div class="flex gap-2">
+                        <span>Tömlő védő</span>
+                        <button (click)="toggleDialog('hoseGuards', true)"><i class="fa-solid fa-circle-info"></i></button>  
+                        <app-hose-guards-dialog [hoseGuards]="hoseGuards" [hoseGuardsDialogVisible]="showHoseGuardsDialog" (dialogVisible)="toggleDialog('hoseGuards', false)"></app-hose-guards-dialog>
+                    </div>
+                    <p-listbox #hoseGuardListBox optionDisabled="disabledOption" (onChange)="handleHoseGuardChange($event)" formControlName="selectedHoseGuard" [options]="hoseGuards" optionLabel="namePrice"></p-listbox>                   
+                </div>
+
+                <div *ngIf="craneSelected && turningDeviceCounterPlate" class="justify-content-center my-4 py-4">
+                    <div class="mb-4">
+                        <button (click)="toggleDialog('turningDeviceCounterPlate', true)"><i class="fa-solid fa-circle-info"></i></button> 
+                        <app-turning-counter-plate-dialog [turningDeviceCounterPlate]="turningDeviceCounterPlate" [turningDeviceCounterPlateDialogVisible]="showTurningDeviceCounterPlateDialog" (dialogVisible)="toggleDialog('turningDeviceCounterPlate', false)"></app-turning-counter-plate-dialog>            
+                    </div>
+                    <div class="flex gap-2">
+                        <p-checkbox #turningDeviceCounterPlateCheckBox (onChange)="onTurningDeviceCounterPlateChange($event)" [value]="turningDeviceCounterPlate" formControlName="selectedTurningDeviceCounterPlate" inputId="TurningDeviceCounterPlateSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="TurningDeviceCounterPlateSelected">{{turningDeviceCounterPlate.namePrice}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="craneSelected && supportLegCounterPlate" class="justify-content-center my-4 py-4">
+                    <div class="mb-4">
+                        <button (click)="toggleDialog('supportLegCounterPlate', true)"><i class="fa-solid fa-circle-info"></i></button> 
+                        <app-support-counter-plate-dialog [supportLegCounterPlate]="supportLegCounterPlate" [supportLegCounterPlateDialogVisible]="showSupportLegCounterPlateDialog" (dialogVisible)="toggleDialog('supportLegCounterPlate', false)"></app-support-counter-plate-dialog>            
+                    </div>
+                    <div class="flex gap-2">
+                        <p-checkbox #supportLegCounterPlateCheckBox (onChange)="onSupportLegCounterPlateChange($event)" [value]="supportLegCounterPlate" formControlName="selectedSupportLegCounterPlate" inputId="SupportLegCounterPlateSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="SupportLegCounterPlateSelected">{{supportLegCounterPlate.namePrice}}</label>
+                    </div>
+                </div> 
+
+                <div *ngIf="craneSelected && boomGuard" class="justify-content-center my-4 py-4">
+                    <div class="mb-4">
+                        <button (click)="toggleDialog('boomGuard', true)"><i class="fa-solid fa-circle-info"></i></button> 
+                        <app-boomguard-dialog [boomGuard]="boomGuard" [boomGuardDialogVisible]="showBoomGuardDialog" (dialogVisible)="toggleDialog('boomGuard', false)"></app-boomguard-dialog>            
+                    </div>
+                    <div class="flex gap-2">
+                        <p-checkbox #boomGuardCheckBox (onChange)="onBoomGuardChange($event)" [value]="boomGuard" formControlName="selectedBoomGuard" inputId="BoomGuardSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="BoomGuardSelected">{{boomGuard.namePrice}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="craneSelected && cover" class="justify-content-center my-4 py-4">
+                    <div class="mb-4">
+                        <button (click)="toggleDialog('cover', true)"><i class="fa-solid fa-circle-info"></i></button> 
+                        <app-cover-dialog [cover]="cover" [coverDialogVisible]="showCoverDialog" (dialogVisible)="toggleDialog('cover', false)"></app-cover-dialog>            
+                    </div>
+                    <div class="flex gap-2">
+                        <p-checkbox [ngClass]="{'checkBox' : this.craneFormGroup.get('selectedCover')?.disabled}" #coverCheckBox (onChange)="onCoverChange($event)" [value]="cover" formControlName="selectedCover" inputId="CoverSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="CoverSelected">{{cover.namePrice}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="craneSelected && woodControl" class="justify-content-center my-4 py-4">
+                    <div class="mb-4">
+                        <button (click)="toggleDialog('woodControl', true)"><i class="fa-solid fa-circle-info"></i></button> 
+                        <app-woodcontrol-dialog [woodControl]="woodControl" [woodControlDialogVisible]="showWoodControlDialog" (dialogVisible)="toggleDialog('woodControl', false)"></app-woodcontrol-dialog>            
+                    </div>
+                    <div class="flex gap-2">
+                        <p-checkbox [ngClass]="{'checkBox' : this.craneFormGroup.get('selectedWoodControl')?.disabled}" #woodControlCheckBox (onChange)="onWoodControlChange($event)" [value]="woodControl" formControlName="selectedWoodControl" inputId="WoodControlSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="WoodControlSelected">{{woodControl.namePrice}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="craneSelected && linkage" class="justify-content-center my-4 py-4">
+                    <div class="mb-4">
+                        <button (click)="toggleDialog('linkage', true)"><i class="fa-solid fa-circle-info"></i></button> 
+                        <app-linkage-dialog [linkage]="linkage" [linkageDialogVisible]="showLinkageDialog" (dialogVisible)="toggleDialog('linkage', false)"></app-linkage-dialog>            
+                    </div>
+                    <div class="flex gap-2">
+                        <p-checkbox [ngClass]="{'checkBox' : this.craneFormGroup.get('selectedLinkage')?.disabled}" #linkageCheckBox (onChange)="onLinkageChange($event)" [value]="linkage" formControlName="selectedLinkage" inputId="LinkageSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="LinkageSelected">{{linkage.namePrice}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="craneSelected && craneShipping" class="justify-content-center my-4 py-4">
+                    <div class="flex">
+                        <p-radioButton id="craneShipping" [value]="craneShipping" formControlName="selectedShipping"></p-radioButton>
+                        <label [for]="craneShipping.id" class="ml-2">{{ craneShipping.namePrice }}</label>
+                    </div>
+                </div>
+
+                <hr *ngIf="crane && !fromTrailer" class="mb-2 mt-4 h-0.5 border-t-0 bg-black opacity-100 dark:opacity-50" />
+            </div>
+        </div>
+        <app-krpan-trailer-cards *ngIf="crane && crane.trailer && (krpanService.craneSelected$ | async) && !fromTrailer" [trailers]="crane.trailer" (buttonClickEmitter)="selectTrailer($event)"></app-krpan-trailer-cards>
+    </ng-container>
+</form>

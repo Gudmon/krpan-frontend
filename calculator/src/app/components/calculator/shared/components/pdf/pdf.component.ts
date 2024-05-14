@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PalmsService } from '../../../palms/shared/services/palms.service';
 import { PdfService } from '../../../../../services/pdf.service';
 import { ConfigurationItem } from '../../../../../models/configuration-item';
 import { concatMap } from 'rxjs';
@@ -9,6 +8,7 @@ import { EmailService } from '../../../../../services/email.service';
 import { LoadingService } from '../../../../../services/loading.service';
 import { MessageService } from 'primeng/api'
 import { ToastModule } from 'primeng/toast';
+import { KrpanService } from '../../../palms/shared/services/krpan.service';
 
 @Component({
   selector: 'app-pdf',
@@ -23,7 +23,7 @@ export class PdfComponent implements OnInit{
   blurred: boolean = false;
   pdfSaved: boolean = false;
 
-  constructor(private readonly palmsService: PalmsService,
+  constructor(private readonly krpanService: KrpanService,
     private readonly pdfService: PdfService,
     private readonly emailService: EmailService,
     private readonly loadingService: LoadingService,
@@ -68,8 +68,8 @@ export class PdfComponent implements OnInit{
 
   sendPdfAndDownload() {
     const object: PdfModel = {};
-    if (this.palmsService._trailerSelected.value === true) {
-      const woodSorter = this.palmsService.selectedWoodSorter();
+    if (this.krpanService._trailerSelected.value === true) {
+      const woodSorter = this.krpanService.selectedWoodSorter();
       const newWoodSorter: ConfigurationItem | undefined = woodSorter
         ? {
             ...woodSorter,
@@ -77,44 +77,44 @@ export class PdfComponent implements OnInit{
           }
         : undefined;
 
-      const bunkAdapter = this.palmsService.selectedBunkAdapter();
+      const bunkAdapter = this.krpanService.selectedBunkAdapter();
       const newBunkAdapter: ConfigurationItem | undefined = bunkAdapter
         ? {
             ...bunkAdapter,
             price: bunkAdapter.price.toString(),
           }
         : undefined;  
-      const bunkExtension = this.palmsService.selectedBunkExtension();
+      const bunkExtension = this.krpanService.selectedBunkExtension();
       const newBunkExtension: ConfigurationItem | undefined = bunkExtension
         ? {
             ...bunkExtension,
             price: bunkExtension.price.toString(),
           }
         : undefined;   
-      object.TrailerName = this.palmsService._selectedTrailer.value?.name;
-      object.Stanchion = this.palmsService.selectedStanchion();
-      object.Brake = this.palmsService.selectedBrake();
-      object.Propulsion = this.palmsService.selectedPropulsion();
-      object.Drawbar = this.palmsService.selectedDrawbar();
-      object.Platform = this.palmsService.selectedPlatform();
-      object.OilPump = this.palmsService.selectedOilPump();
-      object.OilTank = this.palmsService.selectedOilTank();
-      object.TrailerOilCooler = this.palmsService.selectedTrailerOilCooler();
-      object.BolsterLock = this.palmsService.selectedBolsterLock();
-      object.BBox = this.palmsService.selectedBBox();
+      object.TrailerName = this.krpanService._selectedTrailer.value?.name;
+      object.Stanchion = this.krpanService.selectedStanchion();
+      object.Brake = this.krpanService.selectedBrake();
+      object.Propulsion = this.krpanService.selectedPropulsion();
+      object.Drawbar = this.krpanService.selectedDrawbar();
+      object.Platform = this.krpanService.selectedPlatform();
+      object.OilPump = this.krpanService.selectedOilPump();
+      object.OilTank = this.krpanService.selectedOilTank();
+      object.TrailerOilCooler = this.krpanService.selectedTrailerOilCooler();
+      object.BolsterLock = this.krpanService.selectedBolsterLock();
+      object.BBox = this.krpanService.selectedBBox();
       object.WoodSorter = newWoodSorter;
-      object.HandBrake = this.palmsService.selectedHandBrake();
-      object.ChainsawHolder = this.palmsService.selectedChainsawHolder();
-      object.UnderrunProtection = this.palmsService.selectedUnderrunProtection();
+      object.HandBrake = this.krpanService.selectedHandBrake();
+      object.ChainsawHolder = this.krpanService.selectedChainsawHolder();
+      object.UnderrunProtection = this.krpanService.selectedUnderrunProtection();
       object.BunkAdapter = newBunkAdapter;
       object.BunkExtension = newBunkExtension;
-      object.FrameExtension = this.palmsService.selectedFrameExtension();
-      object.TrailerLight = this.palmsService.selectedTrailerLight();
-      object.SupportLeg = this.palmsService.selectedSupportLeg();
-      object.Tyre = this.palmsService.selectedTyre();
-      object.TrailerShipping = this.palmsService.selectedTrailerShipping();
-      object.MOT = this.palmsService.selectedMOT();
-      const stanchionExtension = this.palmsService.selectedStanchionExtension();
+      object.FrameExtension = this.krpanService.selectedFrameExtension();
+      object.TrailerLight = this.krpanService.selectedTrailerLight();
+      object.SupportLeg = this.krpanService.selectedSupportLeg();
+      object.Tyre = this.krpanService.selectedTyre();
+      object.TrailerShipping = this.krpanService.selectedTrailerShipping();
+      object.MOT = this.krpanService.selectedMOT();
+      const stanchionExtension = this.krpanService.selectedStanchionExtension();
       const newStanchionExtension: ConfigurationItem | undefined = stanchionExtension
         ? {
             ...stanchionExtension,
@@ -122,48 +122,48 @@ export class PdfComponent implements OnInit{
           }
         : undefined;
       object.StanchionExtension = newStanchionExtension;
-      object.HydroPack = this.palmsService.selectedHydroPack();
+      object.HydroPack = this.krpanService.selectedHydroPack();
     }else {
       object.Grapples = [];
     }
 
-    if (this.palmsService._craneSelected.value === true) {
+    if (this.krpanService._craneSelected.value === true) {
       const crane: ConfigurationItem = {
-        id: this.palmsService._selectedCrane.value!.id,
-        name: this.palmsService._selectedCrane.value!.name,
-        price: this.palmsService._selectedCrane.value!.price,
+        id: this.krpanService._selectedCrane.value!.id,
+        name: this.krpanService._selectedCrane.value!.name,
+        price: this.krpanService._selectedCrane.value!.price,
         code: '',
-        namePrice: this.palmsService._selectedCrane.value!.name + " " + this.palmsService._selectedCrane.value!.price + "€"
+        namePrice: this.krpanService._selectedCrane.value!.name + " " + this.krpanService._selectedCrane.value!.price + "€"
       }
       object.Crane = crane;
-      object.ControlBlock = this.palmsService.selectedControlBlock();
-      object.FrameType = this.palmsService.selectedFrameType();
-      object.Rotator = this.palmsService.selectedRotator();
-      object.Grapple = this.palmsService.selectedGrapple();
-      object.Grapples = this.palmsService.selectedGrapples;
-      object.Winch = this.palmsService.selectedWinch();
-      object.ProtectionSleeves = this.palmsService.selectedProtectionSleeves();
-      object.ElectricalFloating = this.palmsService.selectedElectricalFloating();
-      object.ValveBlock = this.palmsService.selectedValveBlock();
-      object.Damping = this.palmsService.selectedDamping();
-      object.CraneLight = this.palmsService.selectedCraneLight();
-      object.OperatorSeat = this.palmsService.selectedOperatorSeat();
-      object.CraneOilCooler = this.palmsService.selectedCraneOilCooler();
-      object.RotatorBrake = this.palmsService.selectedRotatorBrake();
-      object.JoystickHolder = this.palmsService.selectedJoystickHolder();
-      object.HoseGuard = this.palmsService.selectedHoseGuard();
-      object.TurningDeviceCounterPlate = this.palmsService.selectedTurningDeviceCounterPlate();
-      object.SupportLegCounterPlate = this.palmsService.selectedSupportLegCounterPlate();
-      object.BoomGuard = this.palmsService.selectedBoomGuard();
-      object.Cover = this.palmsService.selectedCover();
-      object.WoodControl = this.palmsService.selectedWoodControl();
-      object.Linkage = this.palmsService.selectedLinkage();
-      object.CraneShipping = this.palmsService.selectedCraneShipping();
+      object.ControlBlock = this.krpanService.selectedControlBlock();
+      object.FrameType = this.krpanService.selectedFrameType();
+      object.Rotator = this.krpanService.selectedRotator();
+      object.Grapple = this.krpanService.selectedGrapple();
+      object.Grapples = this.krpanService.selectedGrapples;
+      object.Winch = this.krpanService.selectedWinch();
+      object.ProtectionSleeves = this.krpanService.selectedProtectionSleeves();
+      object.ElectricalFloating = this.krpanService.selectedElectricalFloating();
+      object.ValveBlock = this.krpanService.selectedValveBlock();
+      object.Damping = this.krpanService.selectedDamping();
+      object.CraneLight = this.krpanService.selectedCraneLight();
+      object.OperatorSeat = this.krpanService.selectedOperatorSeat();
+      object.CraneOilCooler = this.krpanService.selectedCraneOilCooler();
+      object.RotatorBrake = this.krpanService.selectedRotatorBrake();
+      object.JoystickHolder = this.krpanService.selectedJoystickHolder();
+      object.HoseGuard = this.krpanService.selectedHoseGuard();
+      object.TurningDeviceCounterPlate = this.krpanService.selectedTurningDeviceCounterPlate();
+      object.SupportLegCounterPlate = this.krpanService.selectedSupportLegCounterPlate();
+      object.BoomGuard = this.krpanService.selectedBoomGuard();
+      object.Cover = this.krpanService.selectedCover();
+      object.WoodControl = this.krpanService.selectedWoodControl();
+      object.Linkage = this.krpanService.selectedLinkage();
+      object.CraneShipping = this.krpanService.selectedCraneShipping();
     } else {
       object.Grapples = [];
     }
 
-    object.totalPrice = this.palmsService._totalPrice().toString();
+    object.totalPrice = this.krpanService._totalPrice().toString();
 
     this.loadingService.enableLoader();
     this.pdfService
@@ -187,8 +187,8 @@ export class PdfComponent implements OnInit{
 
   sendPdf(){
     const object: PdfModel = {
-      Stanchion: this.palmsService.selectedStanchion(),
-      Brake: this.palmsService.selectedBrake()
+      Stanchion: this.krpanService.selectedStanchion(),
+      Brake: this.krpanService.selectedBrake()
     }
     this.pdfService.sendPdf(object).subscribe((resp) => {
       this.pdfService.pdfId.set(resp.id);

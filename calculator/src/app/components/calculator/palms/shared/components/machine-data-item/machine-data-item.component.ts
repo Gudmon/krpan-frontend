@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { PalmsTrailer } from '../../../trailers/models/palms-trailer';
+import { KrpanTrailer } from '../../../trailers/models/krpan-trailer';
 
 @Component({
   selector: 'app-trailer-data-item',

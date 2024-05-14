@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 import { LandingComponent } from './landing/landing.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { PalmsOverviewComponent } from './components/calculator/palms/shared/components/palms-overview/palms-overview.component';
-import { PalmsCranePageComponent } from './components/calculator/palms/cranes/components/palms-crane-page/palms-crane-page.component';
-import { PalmsTrailerPageComponent } from './components/calculator/palms/trailers/components/palms-trailer-page/palms-trailer-page.component';
+import { KrpanOverviewComponent } from './components/calculator/palms/shared/components/krpan-overview/krpan-overview.component';
+import { KrpanCranePageComponent } from './components/calculator/palms/cranes/components/krpan-crane-page/krpan-crane-page.component';
+import { KrpanTrailerPageComponent } from './components/calculator/palms/trailers/components/krpan-trailer-page/krpan-trailer-page.component';
 import { CustomerMapComponent } from './components/customer-map/customer-map.component';
 import { UsefulReadingComponent } from './components/useful-reading/useful-reading/useful-reading.component';
 import { ChooseTrailerComponent } from './components/useful-reading/choose-trailer/choose-trailer.component';
@@ -14,9 +14,9 @@ import { ImportantComponent } from './components/useful-reading/important/import
 
 export const routes: Routes = [
     {path: '', component: LandingComponent},
-    {path: 'calculator/palms', component: PalmsOverviewComponent},
-    {path: 'calculator/palms/trailers/:id', component: PalmsTrailerPageComponent},
-    {path: 'calculator/palms/cranes/:id', component: PalmsCranePageComponent},
+    {path: 'calculator/krpan', component: KrpanOverviewComponent},
+    {path: 'calculator/krpan/trailers/:id', component: KrpanTrailerPageComponent},
+    {path: 'calculator/krpan/cranes/:id', component: KrpanCranePageComponent},
     {path: 'customer-map', component: CustomerMapComponent},
     {path: 'useful-reading', component: UsefulReadingComponent},
     {path: 'useful-reading/choose-trailer', component: ChooseTrailerComponent},

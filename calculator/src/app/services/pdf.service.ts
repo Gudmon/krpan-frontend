@@ -3,7 +3,7 @@ import { jsPDF } from 'jspdf';
 import { FormatPricePipe } from '../components/pipes/format-price.pipe';
 import { RemovePricePipe } from '../components/pipes/remove-price.pipe';
 import { HttpClient } from '@angular/common/http';
-import { PalmsService } from '../components/calculator/palms/shared/services/palms.service';
+import { KrpanService } from '../components/calculator/palms/shared/services/krpan.service';
 import { Observable } from 'rxjs';
 import { PdfModel } from '../components/calculator/shared/components/pdf/pdf.component';
 
@@ -16,7 +16,7 @@ export class PdfService {
 
   constructor(
     private httpClient: HttpClient,
-    private palmsService: PalmsService) { }
+    private krpanService: KrpanService) { }
 
   pdfId = signal<string>("");
 

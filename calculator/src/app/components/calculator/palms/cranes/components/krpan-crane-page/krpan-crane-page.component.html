@@ -1,0 +1,84 @@
+<app-navigation></app-navigation>
+<app-krpan-crane></app-krpan-crane>
+<app-krpan-trailer *ngIf="(krpanService.selectedTrailer$ | async)" [id]="(krpanService.selectedTrailer$ | async)?.id"></app-krpan-trailer>
+<div class="mx-10 ">       
+    <div class="w-full sm:w-10/12 md:w-8/12 lg:w-6/12 xl:w-4/12 fixed bottom-1 right-1 z-10">
+        <p-accordion *ngIf="(krpanService.selectedCrane$ | async) && (krpanService.craneSelected$ | async)" [activeIndex]="this.krpanService._selectedAccordion()">
+            <p-accordionTab>
+                <ng-template pTemplate="header" class="flex justify-around">
+                    <div class="flex gap-2 w-full">
+                        <p class="mr-auto text-sm lg:text-base"><span class="">{{(krpanService.selectedCrane$ | async)?.name}} Daru: </span><span class="font-extrabold text-lg">{{krpanService._cranePrice() | formatPrice}}</span></p>
+                        @if((krpanService.craneSelected$ | async) && (krpanService.trailerSelected$ | async)){
+                            <p class="mr-auto text-sm lg:text-base"><span class="">Összesen: </span><span class="font-extrabold text-lg">{{krpanService._totalPrice() | formatPrice}}</span></p>
+                        }
+                        <button (click)="deleteCrane(); $event.stopPropagation()" class="ml-auto px-2 bg-red-500  active:bg-gray-700 text-sm font-bold uppercase  rounded shadow hover:shadow-lg outline-none focus:outline-none">Törlés</button>
+                    </div>
+                </ng-template>
+                <div class="max-h-96 overflow-auto">
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedControlBlock()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedFrameType()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedRotator()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedGrapple()"></app-accessory-item>
+                    @for (grapple of this.krpanService.selectedGrapples; track $index) {
+                        <app-accessory-item [accessoryItem]="grapple"></app-accessory-item>
+                    }                   
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedWinch()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedProtectionSleeves()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedElectricalFloating()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedValveBlock()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedDamping()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedCraneLight()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedOperatorSeat()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedCraneOilCooler()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedRotatorBrake()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedJoystickHolder()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedHoseGuard()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedTurningDeviceCounterPlate()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedSupportLegCounterPlate()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedBoomGuard()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedCover()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedWoodControl()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedLinkage()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedCraneShipping()"></app-accessory-item>
+                </div>             
+            </p-accordionTab>
+
+            <p-accordionTab *ngIf="(krpanService.selectedTrailer$ | async) && (krpanService.trailerSelected$ | async)">
+                <ng-template pTemplate="header" class="flex justify-around">
+                    <div class="flex gap-2 w-full">
+                        <p class="mr-auto text-sm lg:text-base"><span class="">{{(krpanService.selectedTrailer$ | async)?.name}} Pótkocsi: </span><span class="font-extrabold text-lg">{{krpanService._trailerPrice() | formatPrice}}</span></p>
+                        <button (click)="deleteTrailer(); $event.stopPropagation()" class="ml-auto px-2 bg-red-500  active:bg-gray-700 text-sm font-bold uppercase  rounded shadow hover:shadow-lg outline-none focus:outline-none">Törlés</button>
+                    </div>
+                </ng-template>
+                <div class="max-h-96 overflow-auto">
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedStanchion()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedBrake()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedPropulsion()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedDrawbar()"></app-accessory-item>                  
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedPlatform()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedHydroPack()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedOilPump()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedOilTank()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedTrailerOilCooler()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedSupportLeg()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedTrailerLight()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedTyre()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedBolsterLock()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedBBox()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedWoodSorter()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedHandBrake()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedChainsawHolder()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedUnderrunProtection()"></app-accessory-item> 
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedBunkAdapter()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedBunkExtension()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedFrameExtension()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedStanchionExtension()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedTrailerShipping()"></app-accessory-item>      
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedMOT()"></app-accessory-item>             
+                </div>             
+            </p-accordionTab>   
+        </p-accordion>
+    </div>   
+    <app-pdf *ngIf="(krpanService.selectedTrailer$ | async) && (krpanService.trailerSelected$ | async) || (krpanService.selectedCrane$ | async) && (krpanService.craneSelected$ | async)"></app-pdf> 
+</div> 
+<app-footer></app-footer>

@@ -8,7 +8,6 @@ module.exports = {
       colors: {
         "primary-color": "var(--primary-color)",
         "krpan-color": "var(--krpan-color)",
-        "palms-color": "var(--palms-color)"
       },
     },
   },

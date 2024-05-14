@@ -25,7 +25,7 @@ constructor(){
             },
             {
                 label: 'Kalkulátor',
-                routerLink: '/calculator/palms'
+                routerLink: '/calculator/krpan'
             },
             {
                 label: 'Ügyféltérkép',

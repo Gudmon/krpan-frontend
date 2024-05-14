@@ -46,7 +46,7 @@ export class AppComponent implements OnInit {
                 "notice_banner_loaded": () => {
                 },
                 "i_agree_button_clicked": (consent: any) => {     
-                    this.loadClarityScript("lxxyj7muce")
+                    //this.loadClarityScript("lxxyj7muce")
                 },
                 "i_decline_button_clicked": () => {
                 },

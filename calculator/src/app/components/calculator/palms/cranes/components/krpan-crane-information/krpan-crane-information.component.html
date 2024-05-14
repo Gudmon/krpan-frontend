@@ -1,0 +1,186 @@
+@if(crane){
+    <div class="w-full mx-auto pt-32">
+        <div class="xl:flex xl:flex-wrap mx-10">
+            <div class="basis-1/3 mb-20">
+                <p class="font-extrabold text-xl my-8">{{crane.name}}</p>
+                <p class="leading-7 mr-6">{{crane.description}}</p>
+              
+                <p class="font-bold text-lg my-6">Adatok</p>
+    
+                <app-trailer-data-item text="Széria" [property]="crane.series"></app-trailer-data-item>
+                <app-trailer-data-item text="Teljes kinyúlás" [property]="crane.maxReach" unit="m"></app-trailer-data-item>
+                <div class="flex flex-col sm:flex-row sm:justify-between gap-4 py-1">
+                    <p class="sm:w-1/2">Emelési kapacitás teljes kinyúlásnál 240 Bar-on </p>
+                    @if (crane.liftAtFullReach240Bar === '-'){
+                        <p class="sm:w-1/2">{{crane.liftAtFullReach240Bar}}</p>
+                    } @else {
+                        <p class="sm:w-1/2">{{crane.liftAtFullReach240Bar}} kg</p>
+                    }
+                </div>
+                <hr class="h-0.5 border-t-0 bg-[rgb(0,0,0,.1)] opacity-100 dark:opacity-50" />
+                <div class="flex flex-col sm:flex-row sm:justify-between gap-4 py-1">
+                    <p class="sm:w-1/2">Emelési kapacitás teljes kinyúlásnál 215 Bar-on </p>
+                    @if (crane.liftAtFullReach215Bar === '-'){
+                        <p class="sm:w-1/2">{{crane.liftAtFullReach215Bar}}</p>
+                    } @else {
+                        <p class="sm:w-1/2">{{crane.liftAtFullReach215Bar}} kg</p>
+                    }
+                </div>
+                <hr class="h-0.5 border-t-0 bg-[rgb(0,0,0,.1)] opacity-100 dark:opacity-50" />
+                <div class="flex flex-col sm:flex-row sm:justify-between gap-4 py-1">
+                    <p class="sm:w-1/2">Emelési kapacitás teljes kinyúlásnál 190 Bar-on </p>
+                    @if (crane.liftAtFullReach190Bar === '-'){
+                        <p class="sm:w-1/2">{{crane.liftAtFullReach190Bar}}</p>
+                    } @else {
+                        <p class="sm:w-1/2">{{crane.liftAtFullReach190Bar}} kg</p>
+                    }
+                </div>
+                <hr class="h-0.5 border-t-0 bg-[rgb(0,0,0,.1)] opacity-100 dark:opacity-50" />
+
+                <div class="flex flex-col sm:flex-row sm:justify-between gap-4 py-1">
+                    <p class="sm:w-1/2">Emelési kapacitás 4 méteren 240 Bar-on </p>
+                    @if (crane.liftAtFourMeters240Bar === '-'){
+                        <p class="sm:w-1/2">{{crane.liftAtFourMeters240Bar}}</p>
+                    } @else {
+                        <p class="sm:w-1/2">{{crane.liftAtFourMeters240Bar}} kg</p>
+                    }
+                </div>
+                <hr class="h-0.5 border-t-0 bg-[rgb(0,0,0,.1)] opacity-100 dark:opacity-50" />
+                <div class="flex flex-col sm:flex-row sm:justify-between gap-4 py-1">
+                    <p class="sm:w-1/2">Emelési kapacitás 4 méteren 215 Bar-on </p>
+                    @if (crane.liftAtFourMeters215Bar === '-'){
+                        <p class="sm:w-1/2">{{crane.liftAtFourMeters215Bar}}</p>
+                    } @else {
+                        <p class="sm:w-1/2">{{crane.liftAtFourMeters215Bar}} kg</p>
+                    }
+                </div>
+                <hr class="h-0.5 border-t-0 bg-[rgb(0,0,0,.1)] opacity-100 dark:opacity-50" />
+                <div class="flex flex-col sm:flex-row sm:justify-between gap-4 py-1">
+                    <p class="sm:w-1/2">Emelési kapacitás 4 méteren 190 Bar-on </p>
+                    @if (crane.liftAtFourMeters190Bar === '-'){
+                        <p class="sm:w-1/2">{{crane.liftAtFourMeters190Bar}}</p>
+                    } @else {
+                        <p class="sm:w-1/2">{{crane.liftAtFourMeters190Bar}} kg</p>
+                    }
+                </div>
+                <hr class="h-0.5 border-t-0 bg-[rgb(0,0,0,.1)] opacity-100 dark:opacity-50" />
+
+                <div class="flex flex-col sm:flex-row sm:justify-between gap-4 py-1">
+                    <p class="sm:w-1/2">Bruttó emelési erő 240 Bar-on</p>
+                    @if (crane.brutLiftingTorque240Bar === '-'){
+                        <p class="sm:w-1/2">{{crane.brutLiftingTorque240Bar}}</p>
+                    } @else {
+                        <p class="sm:w-1/2">{{crane.brutLiftingTorque240Bar}} kg</p>
+                    }
+                </div>
+                <hr class="h-0.5 border-t-0 bg-[rgb(0,0,0,.1)] opacity-100 dark:opacity-50" />
+                <div class="flex flex-col sm:flex-row sm:justify-between gap-4 py-1">
+                    <p class="sm:w-1/2">Bruttó emelési erő 215 Bar-on</p>
+                    @if (crane.brutLiftingTorque215Bar === '-'){
+                        <p class="sm:w-1/2">{{crane.brutLiftingTorque215Bar}}</p>
+                    } @else {
+                        <p class="sm:w-1/2">{{crane.brutLiftingTorque215Bar}} kNm</p>
+                    }
+                </div>
+                <hr class="h-0.5 border-t-0 bg-[rgb(0,0,0,.1)] opacity-100 dark:opacity-50" />
+                <div class="flex flex-col sm:flex-row sm:justify-between gap-4 py-1">
+                    <p class="sm:w-1/2">Bruttó emelési erő 190 Bar-on</p>
+                    @if (crane.brutLiftingTorque190Bar === '-'){
+                        <p class="sm:w-1/2">{{crane.brutLiftingTorque190Bar}}</p>
+                    } @else {
+                        <p class="sm:w-1/2">{{crane.brutLiftingTorque190Bar}} kNm</p>
+                    }
+                </div>
+                <hr class="h-0.5 border-t-0 bg-[rgb(0,0,0,.1)] opacity-100 dark:opacity-50" />
+                <div class="flex flex-col sm:flex-row sm:justify-between gap-4 py-1">
+                    <p class="sm:w-1/2">Teleszkóp hossza</p>
+                    @if (crane.telescopeLength === '-'){
+                        <p class="sm:w-1/2">{{crane.telescopeLength}}</p>
+                    } @else {
+                        <p class="sm:w-1/2">{{crane.telescopeLength}} m</p>
+                    }
+                </div>
+                <hr class="h-0.5 border-t-0 bg-[rgb(0,0,0,.1)] opacity-100 dark:opacity-50" />
+                <app-trailer-data-item text="Forgató munkahengerek száma" [property]="crane.slewingCylinder" unit="db"></app-trailer-data-item>
+                <app-trailer-data-item text="Forgatási erő" [property]="crane.slewingTorque" unit="kNm"></app-trailer-data-item>
+                <app-trailer-data-item text="Üzemi nyomás" [property]="crane.workingPressure" unit="bar"></app-trailer-data-item>
+                <app-trailer-data-item text="Rotátor maximum terhelhetősége" [property]="crane.rotatorMaximumLoad" unit="kN"></app-trailer-data-item>
+                <app-trailer-data-item text="Daru súlya támasztó lábak nélkül" [property]="crane.craneWeight" unit="kg"></app-trailer-data-item>
+                <app-trailer-data-item text="Fordulási szög" [property]="crane.pillarSlewingAngle" unit="°"></app-trailer-data-item>
+                <div class="flex flex-col sm:flex-row sm:justify-between gap-4 py-1">
+                    <p class="sm:w-1/2">Ajánlott olajáramlás</p>
+                    @if (crane.recommendedOilFlow === '-'){
+                        <p class="sm:w-1/2">{{crane.recommendedOilFlow}}</p>
+                    } @else {
+                        <p class="sm:w-1/2">{{crane.recommendedOilFlow}} l/perc</p>
+                    }
+                </div>
+                <hr class="h-0.5 border-t-0 bg-[rgb(0,0,0,.1)] opacity-100 dark:opacity-50" />
+    
+                <p class="font-bold text-lg my-6">Gépkapcsolatok</p>
+    
+                <div class="flex flex-col sm:flex-row sm:justify-between gap-4 py-1">
+                    <p class="sm:w-1/2">Ajánlott pótkocsik</p>
+                    <div class="sm:w-1/2 text-[--krpan-color] ">
+                    @for (trailer of getTrailers(); track $index) {
+                        <p class="hover:cursor-pointer hover:opacity-65" (click)="trailerSelectedEmit(trailer.id)">{{trailer.name}}</p>            
+                    }
+                    </div>
+                </div>
+    
+            </div>
+            <div class="basis-2/3 flex flex-col align-middle justify-center">
+                <img (click)="displayBasic = true" src="{{crane.imgUrls[0]}}" alt="Crane Image 1" class="hover:cursor-pointer">    
+                <div class="flex bg-white">
+                    <div class="grid grid-cols-4 gap-2 mt-6">
+                        @for (imageUrl of crane.imgUrls; track $index) {
+                            <p-image [src]="imageUrl" alt='Crane Image'/>
+                        }
+                    </div>
+                    <p-galleria [value]="images" [(visible)]="displayBasic" [responsiveOptions]="responsiveOptions" [containerStyle]="{'max-width': '50%'}" [numVisible]="9"
+                        [circular]="true" [fullScreen]="true" [showItemNavigators]="true" [showThumbnails]="false">
+                        <ng-template  pTemplate="item" let-item>
+                            <img loading="lazy" [src]="item.itemImageSrc" style="width: 100%; display: block;"/>
+                        </ng-template>
+                        <ng-template pTemplate="thumbnail" let-item>
+                            <div class="grid grid-nogutter justify-content-center">
+                                <img loading="lazy" [src]="item.thumbnailImageSrc" style="display: block;"/>
+                            </div>
+                        </ng-template>
+                    </p-galleria>
+                </div>
+                @if (!smallScreen()) {
+                    <div class="grid grid-cols-2 lg:grid-cols-3 gap-2">
+                    @for (videoId of crane.videoIds; track $index) {
+                        <div #youTubePlayer>
+                            <youtube-player
+                                [videoId]="videoId"
+                                suggestedQuality="highres"
+                                [width]="videoWidth"
+                                [height]="videoHeight">
+                            </youtube-player>
+                        </div>
+                    }
+                    </div>
+                }
+            </div>
+        </div>
+        @if (smallScreen()) {
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mx-10">
+                @for (videoId of crane.videoIds; track $index) {
+                    <div  #youTubePlayer>
+                        <youtube-player
+                            [videoId]="videoId"
+                            suggestedQuality="highres"
+                            [width]="videoWidth"
+                            [height]="videoHeight">
+                        </youtube-player>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+    }
+    @else {
+        <p>Nem található daru</p>
+    }
