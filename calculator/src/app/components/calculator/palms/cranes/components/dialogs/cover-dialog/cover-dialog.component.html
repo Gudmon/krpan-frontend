@@ -1,0 +1,13 @@
+<p-dialog class="dialog" header="Header" [(visible)]="coverDialogVisible" [modal]="true" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [draggable]="false" [resizable]="false" (onHide)="closeCoverDialog()">
+    <ng-template pTemplate="header">
+        <div class="inline-flex align-items-center justify-content-center gap-2">
+            <span class="font-bold white-space-nowrap"></span>
+        </div>
+    </ng-template>
+    <p class="mt-12 mb-10 text-3xl font-semibold">{{cover.name}}</p>
+    <p class="mt-6 mb-4 text-lg">A joystick burkolata megvédi daru joystickjait az esőtől és a szennyeződéstől, meghosszabbítva a termék élettartamát.</p>
+    <img loading="lazy" class="mb-20" src="../../../../../../../../assets/PALMS crane-cover-1.png" alt="Cover">  
+    <ng-template pTemplate="footer">
+      <button class="bg-primary-color p-1 mt-2" (click)="closeCoverDialog()"><i class="fa-solid fa-check mr-1"></i>Értem</button>  
+    </ng-template>
+</p-dialog>

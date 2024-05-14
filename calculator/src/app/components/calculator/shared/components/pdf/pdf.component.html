@@ -1,0 +1,109 @@
+<form [formGroup]="formGroup">
+    <div #configElement class="my-10">
+        <div class="w-12/12 flex align-middle justify-center my-12">
+            <button class="py-10 px-20 bg-[--primary-color] text-sm font-bold uppercase rounded shadow hover:opacity-80 outline-none focus:outline-none" (click)="sendPdfAndDownload()">Mentés PDF-ben</button>
+        </div>
+        <div class="flex align-middle justify-center mb-32">
+            <div class="w-11/12">
+            <div class="">
+                <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-2xl rounded-lg bg-gray-300">
+    
+                    <div class="flex-auto p-5 lg:p-10">
+                        <h4 class="text-2xl font-semibold">Kérdése akadt vagy további információra van szüksége?</h4>
+                        <p class="leading-relaxed mt-1 mb-4 text-gray-600">
+                        Lépjen velünk kapcsolatba üzenetben!
+                        </p>
+                        
+                        <!-- NAME -->
+                        <div class="relative w-full mb-3 mt-8">
+                        <div class="flex gap-4">
+                            <label class="block uppercase text-gray-700 text-xs lg:text-lg font-bold mb-2" for="name">Név<span class="text-red-500">*</span></label>
+                            @if (submitted && f['name'].errors) {  
+                            @if (f['name'].errors['required']) {
+                                <p class="block text-red-500 text-xs lg:text-lg mb-2">Kérem adja meg a nevét!</p>
+                            }
+                            }
+                        </div> 
+                        <input
+                            type="text"
+                            name="name"
+                            formControlName="name"
+                            class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                            placeholder="Kérem adja meg a nevét..."
+                            style="transition: all 0.15s ease 0s;"
+                        />                             
+                        </div>
+    
+                        <!-- EMAIL -->
+                        <div class="relative w-full mb-3">
+                        <div class="flex gap-4">
+                            <label class="block uppercase text-gray-700 text-xs lg:text-lg font-bold mb-2" for="email">Email<span class="text-red-500">*</span></label>
+                            @if (submitted && f['email'].errors) {  
+                            @if (f['email'].errors['required']) {
+                                <p class="block text-red-500 text-xs lg:text-lg mb-2">Kérem adja meg az e-mail címét!</p>
+                            }           
+                            @if (blurred && f['email'].errors['pattern']) {
+                                <p class="block text-red-500 text-xs lg:text-lg mb-2">Kérem valós e-mail címet adjon meg!</p>
+                            }                        
+                            }
+                            
+                        </div>
+                        <input
+                            type="email"
+                            name="email"
+                            formControlName="email"
+                            (blur)="onEmailBlur()"
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                            class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                            placeholder="Kérem adja meg az e-mail címét..."
+                            style="transition: all 0.15s ease 0s;"
+                        />
+                        </div>
+    
+                        <!-- MESSAGE -->
+                        <div class="relative w-full mb-3">
+                        <div class="flex gap-4">
+                            <label class="block uppercase text-gray-700 text-xs lg:text-lg font-bold mb-2" for="message">Üzenet<span class="text-red-500">*</span></label>
+                            @if (submitted && f['message'].errors) {  
+                            @if (f['message'].errors['required']) {
+                                <p class="block text-red-500 text-xs lg:text-lg mb-2">Kérem gépeljen az üzenet mezőbe!</p>
+                            }
+                            }
+                        </div>
+                        <textarea
+                            name="message"
+                            formControlName="message"
+                            rows="4"
+                            cols="80"
+                            class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                            placeholder="Kérem fogalmazza meg a kérdését..."
+                        ></textarea>
+                        </div>
+    
+                        <div class="text-center mt-6">
+                        <button
+                        (click)="onSubmit()"
+                            [disabled]="!pdfSaved"
+                            [ngClass]="{'disabled': !pdfSaved}"
+                            class="px-6 py-2 bg-[--primary-color] text-sm font-bold hover:opacity-80 uppercase rounded shadow outline-none focus:outline-none"
+                            type="button"
+                            style="transition: all 0.15s ease 0s;"
+                        >
+                            Küldés
+                        </button>
+                        </div>
+
+                        <div class="text-center mt-6">
+                            <p class="leading-relaxed mt-1 mb-4 text-gray-600">
+                                Sikeres PDF mentés esetén a legutolsó kalkuláció adatait automatikusan csatoljuk az e-mail küldésekor. (csak pdf mentés után aktív)
+                            </p>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</form>
+<p-toast position="top-center" key="tc"></p-toast>

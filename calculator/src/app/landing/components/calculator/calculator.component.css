@@ -1,0 +1,12 @@
+@media (prefers-reduced-motion: no-preference){
+    .image-holder button {
+        transition: transform 1000ms;
+    }
+
+    .image-holder button:hover,
+    .image-holder button:focus-visible {
+        /* transform: translateY(-.5rem);
+        transition: transform 250ms; */
+        opacity: 80%;
+    }
+}

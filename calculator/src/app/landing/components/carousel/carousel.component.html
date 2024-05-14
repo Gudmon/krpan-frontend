@@ -1,0 +1,7 @@
+<div class="">
+    <p-galleria class="image-holder" [value]="images" [numVisible]="5" [autoPlay]="true" [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-height': '100dvh' }">
+        <ng-template class="" pTemplate="item" let-item>
+            <img loading="eager" class="image" [src]="item.itemImageSrc" style="width: 100%; max-height: 100dvh;"/>
+        </ng-template>
+    </p-galleria>
+</div>

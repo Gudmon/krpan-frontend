@@ -1,0 +1,9 @@
+.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+/* .checkBox{
+  background-color: rgb(56, 52, 52);
+} */

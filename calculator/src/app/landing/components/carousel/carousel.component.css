@@ -1,0 +1,18 @@
+.image-holder img {
+    object-fit: cover;
+    object-position: 50% 55%; 
+}
+
+.p-element.p-icon-wrapper.ng-star-inserted {
+    color: var(--primary-color) !important;
+    background-color: rgba(0,0,0,.9)red !important;
+    padding: 1rem;
+    border-radius: 50%;
+} 
+
+button {
+    color: var(--primary-color) !important;
+    background-color: red !important;
+    padding: 1rem;
+    border-radius: 50%;
+}

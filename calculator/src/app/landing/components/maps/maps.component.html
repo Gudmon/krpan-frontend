@@ -1,0 +1,23 @@
+<div class="flex flex-wrap items-center mt-14 lg:mt-30 xl:mt-48">
+    <div class="w-full md:w-5/12 px-4 mr-auto ml-auto">
+      <h3 class="text-3xl mb-2 font-semibold leading-normal">
+         Gyere el és nézd meg raktáron levő gépeinket <span class="text-[#8ac73c] font-bold">a saját szemeddel</span>
+      </h3>
+      <p class="text-lg font-medium leading-relaxed mt-0 mb-4 text-gray-700">
+        Előzetes telefonos egyeztetés után - megtekinthetők <span class="font-bold">Alsónémediben.</span> (Somogyi B. u. 79.)
+      </p>
+    </div>
+    <div class="w-full md:w-7/12 lg:w-7/12 px-4 mr-auto ml-auto">
+      <google-map
+        mapId="ad244940e0ece10e" 
+        height="500px"
+        width="100%"
+        [zoom]="zoom"
+        [center]="center"
+        [options]="options">
+        @for (marker of markerPositions; track $index) {
+          <map-advanced-marker [position]="marker.position" [title]="marker.title"></map-advanced-marker>
+        }
+        </google-map>
+    </div>
+  </div>

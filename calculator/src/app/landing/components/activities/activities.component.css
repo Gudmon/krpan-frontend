@@ -1,0 +1,25 @@
+
+@media (prefers-reduced-motion: no-preference){
+    /* .animated-card {
+        scale: .8;
+        opacity: .7;
+        animation: fade-in linear forwards;
+        animation-timeline: view();
+        animation-range: 400px 650px;
+    }
+
+    @keyframes fade-in {
+        to {scale: 1; opacity: 1;}
+    }
+
+    .image-holder button {
+        transition: transform 1000ms;
+    } */
+
+    .image-holder button:hover,
+    .image-holder button:focus-visible {
+        /* transform: translateY(-.5rem);
+        transition: transform 250ms; */
+        opacity: 80%;
+    }
+}

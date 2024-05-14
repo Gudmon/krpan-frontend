@@ -1,0 +1,17 @@
+<div class="my-10 mx-10">
+    @for (hint of hints; track $index) {
+        <ng-container >
+            <div class="grid grid-cols-12 gap-8 my-6">
+                <div class="col-span-5 justify-self-start sm:col-span-6 sm:justify-self-end">
+                  <p class="text-md lg:text-lg font-bold">{{hint.title}}</p>
+                </div>
+                <div class="col-span-5 justify-self-start mt-1">
+                  <p class="text-sm lg:text-md font-normal">{{hint.description}}</p> 
+                </div>  
+            </div>
+        </ng-container>           
+    }    
+</div>
+
+
+

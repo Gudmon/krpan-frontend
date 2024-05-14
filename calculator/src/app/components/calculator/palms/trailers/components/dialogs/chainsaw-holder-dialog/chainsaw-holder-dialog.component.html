@@ -1,0 +1,17 @@
+<p-dialog class="dialog" header="Header" [(visible)]="chainsawHolderDialogVisible" [modal]="true" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [draggable]="false" [resizable]="false" (onHide)="closeChainsawHolderDialog()">
+    <ng-template pTemplate="header">
+        <div class="inline-flex align-items-center justify-content-center gap-2">
+            <span class="font-bold white-space-nowrap"></span>
+        </div>
+    </ng-template>
+    <div class="mt-12 mb-32">
+        <p class="mb-12 text-3xl font-bold">{{chainsawHolder.name}}</p>
+        <img loading="lazy" src="../../../../assets/PALMS trailer-chainsawholder-1.jpg" alt="ChainsawHolderImage1">
+    </div>
+    <div class="mt-32">
+        <img loading="lazy" src="../../../../assets/PALMS trailer-chainsawholder-2.jpg" alt="ChainsawHolderImage2">
+    </div>   
+    <ng-template pTemplate="footer">
+      <button class="bg-primary-color p-1 mt-2" (click)="closeChainsawHolderDialog()"><i class="fa-solid fa-check mr-1"></i>Értem</button>  
+    </ng-template>
+</p-dialog>

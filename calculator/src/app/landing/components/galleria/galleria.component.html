@@ -1,0 +1,27 @@
+<div class="card mt-44">
+    <div *ngIf="images" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-max mx-auto">
+        <div *ngFor="let image of images; let index = index" class="" key="index">
+            <div class="product-item">
+                <div class="product-item-content">
+                    <img loading="lazy" class="product-image" [src]="image.thumbnailImageSrc" [alt]="image.alt" style="cursor: pointer;" (click)="imageClick(index)" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <p-galleria
+        [value]="images"
+        [(visible)]="displayCustom!"
+        [(activeIndex)]="activeIndex"
+        [responsiveOptions]="responsiveOptions"
+        [containerStyle]="{ 'max-width': '850px' }"
+        [numVisible]="7"
+        [circular]="true"
+        [fullScreen]="true"
+        [showItemNavigators]="true"
+        [showThumbnails]="false"
+    >
+        <ng-template pTemplate="item" let-item>
+            <img loading="lazy" [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+        </ng-template>
+    </p-galleria>
+</div>

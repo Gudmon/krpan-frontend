@@ -1,0 +1,20 @@
+<p-dialog class="dialog" header="Header" [(visible)]="supportLegDialogVisible" [modal]="true" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [draggable]="false" [resizable]="false" (onHide)="closeSupportLegDialog()">
+    <ng-template pTemplate="header">
+        <div class="inline-flex align-items-center justify-content-center gap-2">
+            <span class="font-bold white-space-nowrap"></span>
+        </div>
+    </ng-template>
+    @for (supportLeg of supportLegs; track $index) {   
+        <div class="my-12">
+            <p class="my-12 text-3xl font-bold">
+                {{supportLeg.name}}
+            </p>
+            @if (supportLeg.imgUrl) {
+                <img [src]="supportLeg.imgUrl" alt="SupportLegImage">
+            }
+        </div>
+    }  
+    <ng-template pTemplate="footer">
+      <button class="bg-primary-color p-1 mt-2" (click)="closeSupportLegDialog()"><i class="fa-solid fa-check mr-1"></i>Értem</button>  
+    </ng-template>
+  </p-dialog>

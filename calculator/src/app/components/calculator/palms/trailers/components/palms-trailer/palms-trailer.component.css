@@ -1,0 +1,18 @@
+.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+
+.p-accordion .p-accordion-header {
+  padding: 1rem !important;
+}
+
+.p-accordion .p-accordion-header:not(.p-highlight):not(.p-disabled):hover .p-accordion-header-link {
+  padding: 20rem !important;
+}
+
+.p-accordion-header{
+  padding: 1rem !important;
+}

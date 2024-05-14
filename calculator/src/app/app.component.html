@@ -1,0 +1,7 @@
+
+<div class="bg-gray-300">
+  <div id="container-loading" *ngIf="(loading$ | async) ?? false">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+  <router-outlet></router-outlet>
+</div>

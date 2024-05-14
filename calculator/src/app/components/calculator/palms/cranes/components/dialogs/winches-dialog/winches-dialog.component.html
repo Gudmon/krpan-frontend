@@ -1,0 +1,24 @@
+<p-dialog class="dialog" header="Header" [(visible)]="winchesDialogVisible" [modal]="true" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [draggable]="false" [resizable]="false" (onHide)="closeWinchesDialog()">
+    <ng-template pTemplate="header">
+        <div class="inline-flex align-items-center justify-content-center gap-2">
+            <span class="font-bold white-space-nowrap"></span>
+        </div>
+    </ng-template>
+    <p class="mt-12 mb-10 text-3xl font-semibold">Csörlő előkészítés a főgémen</p>
+    <p class="mt-6 mb-4 text-lg">Gyárilag beépített csörlő rögzítési pontok. Lehetővé teszi a csörlő jövőbeli felszerelését a daru fő gémjére hegesztés, fúrás vagy újrafestés nélkül.</p>
+    <img loading="lazy" class="mb-20" src="../../../../../../../../assets/PALMS crane-winch-1.jpg" alt="Winch">  
+    @for (winch of winches; track $index) {
+        @if (winch.id !== 1) {
+            <div class="mb-10">
+                <p class="mt-12 mb-10 text-3xl font-semibold">
+                    {{winch.name}}
+                </p>   
+            </div>  
+        }
+          
+    }  
+    <img loading="lazy" src="../../../../../../../../assets/PALMS crane-winch-2.jpg" alt="Winch"> 
+    <ng-template pTemplate="footer">
+      <button class="bg-primary-color p-1 mt-2" (click)="closeWinchesDialog()"><i class="fa-solid fa-check mr-1"></i>Értem</button>  
+    </ng-template>
+</p-dialog>

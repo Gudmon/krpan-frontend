@@ -1,0 +1,4 @@
+#video-holder > youtube-player > iframe {
+    display: block;
+    width: 50%;
+  }

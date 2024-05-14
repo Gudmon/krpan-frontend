@@ -1,0 +1,50 @@
+<app-navigation></app-navigation>
+<div #topElement class="grid grid-cols-1 pb-8 gap-6 mx-5 pt-28 md:pt-32 lg:pt-36 md:grid-cols-1 md:mx-20 lg:grid-cols-2 lg:mx-20 xl:grid-cols-2 xl:ml-20">   
+    <div class="grid mx-auto lg:mt-4">
+        <div class="mt-2 mb-4 xl:grid gap-2">
+            <p class="text-lg xl:text-3xl font-extrabold text-[#e30d13]">{{crane.name}}</p>
+        </div>
+        <div class="my-2 xl:grid gap-2">
+            <p class="font-bold">Max kinyúlás / nyitott kanállal</p>
+            <p class="lg:font-medium ml-2">{{crane.reachMax}} / {{crane.reachWithGrabOpen}}</p>
+        </div>
+        <div class="my-2 xl:grid gap-2">
+            <p class="font-bold">Nettó emelő nyomaték</p>
+            <p class="lg:font-medium ml-2">{{crane.liftingTorqueNet}}</p>
+        </div>
+        <div class="my-2 xl:grid gap-2">
+            <p class="font-bold">Emelőképesség 4 m-es markolóval</p>
+            <p class="lg:font-medium ml-2">{{crane.liftingCapacityAtFourMeters}}</p>
+        </div>
+    </div>
+
+    <div class="lg:block card flex justify-content-center bg-transparent">
+        <p-image class="icon-class" [src]="crane.imgUrl" alt="Image" [preview]="true"></p-image>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 gap-2 lg:grid-cols-2 col-span-4 lg:gap-6">
+    @for (dict of getCraneEntries(); track crane){
+        <p class="font-bold mx-20 mt-4 lg:mt-0 lg:mx-0 justify-self-center lg:justify-self-end">{{dict.key}}</p>
+        <p class="justify-self-center mb-4 lg:mb-0 lg:justify-self-start">{{dict.value}}</p>
+    } @empty{
+        <p>no values</p>
+    }
+</div>
+
+<div class="grid grid-cols-1 pb-8 gap-6 mx-5 mt-20 md:grid-cols-1 md:mx-20 lg:grid-cols-1 lg:mx-20 xl:grid-cols-2 xl:ml-20 xl:mt-20">   
+    <div class="grid mx-auto lg:mt-4">
+        <div class="mt-2 mb-4 xl:grid gap-2 content-center">
+            <p class="font-extrabold text-lg sm:text-2xl lg:text-4xl">Nézze meg a katalógusunkat!</p>
+        </div>
+    </div>
+    <div class="grid mx-auto">
+        <div class="">
+            <a href="https://www.clear-globe.com/wp-content/uploads/2021/10/KRPAN_katalog_HU_04-2020_web_compressed-1.pdf" target="_blank">
+                <p-image class="justify-self-center" src=".../../../../../assets/krpan_brochure.png" alt="Image"></p-image>
+              </a>
+        </div>
+    </div>
+</div> 
+
+<app-footer></app-footer>
