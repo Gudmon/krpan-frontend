@@ -19,7 +19,6 @@ declare var cookieconsent: any;
     imports: [RouterOutlet, RouterLink, RouterLinkActive, CommonModule, ProgressSpinnerModule, ProductListComponent, MenubarModule, NavigationComponent, LandingComponent, FooterComponent]
 })
 export class AppComponent implements OnInit {
-  items: MenuItem[] | undefined;
   readonly loading$ = this.loadingService.status$;
 
   private clarityScriptLoaded: boolean = false;
@@ -41,12 +40,12 @@ export class AppComponent implements OnInit {
             "notice_banner_reject_button_hide": false,
             "preferences_center_close_button_hide": false,
             "page_refresh_confirmation_buttons": false,
-            "website_name": "www.palmsmagyarorszag.hu",
+            "website_name": "https://victorious-island-03de76e03.5.azurestaticapps.net/",
             "callbacks": {
                 "notice_banner_loaded": () => {
                 },
                 "i_agree_button_clicked": (consent: any) => {     
-                    //this.loadClarityScript("lxxyj7muce")
+                    //this.loadClarityScript("mcs330ykus")
                 },
                 "i_decline_button_clicked": () => {
                 },
@@ -55,9 +54,9 @@ export class AppComponent implements OnInit {
                 "scripts_all_loaded": () => {
                 },
                 "user_consent_saved": (consent: Consent) => {
-                    // this.removeClarityScript("lxxyj7muce");
+                    // this.removeClarityScript("mcs330ykus");
                     // if(consent.tracking) {
-                    //     this.loadClarityScript("lxxyj7muce");
+                    //     this.loadClarityScript("mcs330ykus");
                     // } 
                 },
                 "scripts_specific_loaded": (level: any) => {
@@ -67,7 +66,7 @@ export class AppComponent implements OnInit {
                         case 'functionality':
                             break;
                         case 'tracking':
-                            this.loadClarityScript("lxxyj7muce");
+                            this.loadClarityScript("mcs330ykus");
                             break;
                         case 'targeting':
                             break;
@@ -112,24 +111,6 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         this.loadScript('https://www.termsfeed.com/public/cookie-consent/4.1.0/cookie-consent.js', this.initialize);
-
-        this.items = [
-            {
-                label: 'Kezdőlap'
-            },
-            
-            {
-                label: 'Kalkulátorok',
-                items: [
-                  {
-                      label: 'Krpan'
-                  },
-                  {
-                      label: 'Palms'
-                  }
-              ]
-            },
-        ];
 
         this.router.events.subscribe((event) => { 
             if (!(event instanceof NavigationEnd)) { 
