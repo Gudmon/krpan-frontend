@@ -1,83 +1,81 @@
-<div class="container mt-14 lg:mt-30 xl:mt-60 xl:mb-60 mx-auto md:px-6">
-  <section class="mb-32">
-    <div
-      class="block rounded-lg bg-slate-200 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] ">
-      <div class="flex flex-wrap items-center">
-        <div class="block w-full shrink-0 grow-0 basis-auto lg:flex lg:w-12/12 xl:w-6/12">
-          <img loading="lazy" src="../../assets/calculator_showcase.png" alt="Trendy Pants and Shoes"
-            class="w-full rounded-t-lg lg:rounded-tr-none lg:rounded-bl-lg" />
+<section class="container my-20 md:my-30 lg:my-40 xl:my-60">
+  <div
+    class="block rounded-lg">
+    <div class="flex flex-wrap items-center">
+      <div class="block w-full shrink-0 grow-0 basis-auto lg:flex lg:w-12/12 xl:w-6/12">
+        <img loading="lazy" src="../../assets/calculator_showcase.png" alt="Trendy Pants and Shoes"
+          class="w-full rounded-t-lg lg:rounded-tr-none lg:rounded-bl-lg" />
+      </div>
+      
+      <div class="w-full shrink-0 grow-0 basis-auto lg:w-4/12 xl:w-4/12 ml-10">
+        <div class="mt-10">
+          <a>
+            <button (click)="navigateToKrpanCalculator()" class="mb-2 rounded bg-krpan-color text-white px-3 pt-6 pb-5 text-sm font-semibold uppercase xl:px-20 hover:opacity-85">Kalkulátor</button>
+          </a>
         </div>
-        
-        <div class="w-full shrink-0 grow-0 basis-auto lg:w-4/12 xl:w-4/12 ml-10">
-          <div class="mt-10">
-            <a>
-              <button (click)="navigateToPalmsCalculator()" class="mb-2 rounded bg-krpan-color text-white px-3 pt-6 pb-5 text-sm font-semibold uppercase xl:px-20 hover:opacity-85">Kalkulátor</button>
-            </a>
-          </div>
-          <ul role="list" class="pt-8 space-y-5 border-gray-200 my-7 dark:border-gray-700">
-            <li class="flex space-x-3">
-    
-              <svg class="flex-shrink-0 w-5 h-5 text-primary-color" fill="currentColor"
-                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd"></path>
-              </svg>
-              <span class="text-sm sm:text-base font-semibold leading-tight">Pótkocsi konfigurálása</span>
-            </li>
-            <li class="flex space-x-3">
-    
-              <svg class="flex-shrink-0 w-5 h-5 text-primary-color" fill="currentColor"
-                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd"></path>
-              </svg>
-              <span class="text-sm sm:text-base font-semibold leading-tight">Daru konfigurálása</span>
-            </li>
-            <li class="flex space-x-3">
-    
-              <svg class="flex-shrink-0 w-5 h-5 text-primary-color" fill="currentColor"
-                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd"></path>
-              </svg>
-              <span class="text-sm sm:text-base font-semibold leading-tight">Pótkocsi és Daru együttes konfigurálása</span>
-            </li>
-            <li class="flex space-x-3">
-    
-              <svg class="flex-shrink-0 w-5 h-5 text-primary-color" fill="currentColor"
-                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd"></path>
-              </svg>
-              <span class="text-sm sm:text-base font-semibold leading-tight">Információ/képek az alkatrészekről</span>
-            </li>
-            <li class="flex space-x-3">
-    
-              <svg class="flex-shrink-0 w-5 h-5 text-primary-color" fill="currentColor"
-                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd"></path>
-              </svg>
-              <span class="text-sm sm:text-base font-semibold leading-tight">Konfiguráció mentése PDF-ben</span>
-            </li>
-            <li class="flex space-x-3">
-    
-              <svg class="flex-shrink-0 w-5 h-5 text-primary-color" fill="currentColor"
-                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd"></path>
-              </svg>
-              <span class="text-sm sm:text-base font-semibold leading-tight">Email küldés a konfiguráció végén</span>
-            </li>
-          </ul>
-        </div>
+        <ul role="list" class="pt-8 space-y-5 border-gray-200 my-7 dark:border-gray-700">
+          <li class="flex space-x-3">
+  
+            <svg class="flex-shrink-0 w-5 h-5 text-primary-color" fill="currentColor"
+              viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-sm sm:text-base font-bold leading-tight">Pótkocsi konfigurálása</span>
+          </li>
+          <li class="flex space-x-3">
+  
+            <svg class="flex-shrink-0 w-5 h-5 text-primary-color" fill="currentColor"
+              viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-sm sm:text-base font-bold leading-tight">Daru konfigurálása</span>
+          </li>
+          <li class="flex space-x-3">
+  
+            <svg class="flex-shrink-0 w-5 h-5 text-primary-color" fill="currentColor"
+              viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-sm sm:text-base font-bold leading-tight">Pótkocsi és Daru együttes konfigurálása</span>
+          </li>
+          <li class="flex space-x-3">
+  
+            <svg class="flex-shrink-0 w-5 h-5 text-primary-color" fill="currentColor"
+              viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-sm sm:text-base font-bold leading-tight">Információ/képek az alkatrészekről</span>
+          </li>
+          <li class="flex space-x-3">
+  
+            <svg class="flex-shrink-0 w-5 h-5 text-primary-color" fill="currentColor"
+              viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-sm sm:text-base font-bold leading-tight">Konfiguráció mentése PDF-ben</span>
+          </li>
+          <li class="flex space-x-3">
+  
+            <svg class="flex-shrink-0 w-5 h-5 text-primary-color" fill="currentColor"
+              viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-sm sm:text-base font-bold leading-tight">Email küldés a konfiguráció végén</span>
+          </li>
+        </ul>
       </div>
     </div>
-  </section>
-</div>
+  </div>
+</section>

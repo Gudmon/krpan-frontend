@@ -14,7 +14,7 @@ import { CardModule } from 'primeng/card';
 export class CalculatorComponent {
   constructor(readonly router: Router){}
 
-  navigateToPalmsCalculator(){
-    this.router.navigate(['calculator/palms']);
+  navigateToKrpanCalculator(){
+    this.router.navigate(['calculator/krpan']);
   }
 }
