@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class CustomerMapFeatureComponent {
   constructor(readonly router: Router){}
 
-  navigateToPalmsCustomerMap(){
+  navigateToKrpanCustomerMap(){
     this.router.navigate(['customer-map']);
   }
 }
