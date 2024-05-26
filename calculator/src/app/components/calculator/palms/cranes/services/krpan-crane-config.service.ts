@@ -8,8 +8,8 @@ import { FrameType } from '../models/frame-type';
   providedIn: 'root'
 })
 export class KrpanCraneConfigService {
-  private url = 'http://localhost:5140';
-  //private url = 'https://calculator-app-api.azurewebsites.net';
+  //private url = 'http://localhost:5140';
+  private url = 'https://calculator-app-api.azurewebsites.net';
 
   constructor(private httpClient: HttpClient) { }
 
