@@ -26,44 +26,38 @@ export class CarouselComponent implements OnInit {
 
     this.images = [
       { 
-        itemImageSrc: '../../../../assets/palms_default.png',
-        thumbnailImageSrc: '../../../../assets/palms_default.png',
+        itemImageSrc: '../../../../assets/krpan_default11.jpg',
+        thumbnailImageSrc: '../../../../assets/krpan_default11.jpg',
         alt: 'Description for Image 1',
         title: 'Title 1'
       },
       { 
-        itemImageSrc: '../../../../assets/palms_default12.png',
-        thumbnailImageSrc: '../../../../assets/palms_default12.png',
-        alt: 'Description for Image 3',
-        title: 'Title 3'
-      },
-      { 
-        itemImageSrc: '../../../../assets/palms_default3.png',
-        thumbnailImageSrc: '../../../../assets/palms_default3.png',
-        alt: 'Description for Image 3',
-        title: 'Title 3'
-      },
-      { 
-        itemImageSrc: '../../../../assets/palms_default6.png',
-        thumbnailImageSrc: '../../../../assets/palms_default6.png',
+        itemImageSrc: '../../../../assets/krpan_default6.jpg',
+        thumbnailImageSrc: '../../../../assets/krpan_default6.jpg',
         alt: 'Description for Image 1',
         title: 'Title 1'
       },
       { 
-        itemImageSrc: '../../../../assets/palms_default7.png',
-        thumbnailImageSrc: '../../../../assets/palms_default7.png',
+        itemImageSrc: '../../../../assets/krpan_default4.jpg',
+        thumbnailImageSrc: '../../../../assetskrpans_default4.jpg',
         alt: 'Description for Image 1',
         title: 'Title 1'
       },
       { 
-        itemImageSrc: '../../../../assets/palms_default8.png',
-        thumbnailImageSrc: '../../../../assets/palms_default.png',
+        itemImageSrc: '../../../../assets/krpan_default7.jpg',
+        thumbnailImageSrc: '../../../../assetskrpans_default7.jpg',
         alt: 'Description for Image 1',
         title: 'Title 1'
       },
       { 
-        itemImageSrc: '../../../../assets/palms_default14.png',
-        thumbnailImageSrc: '../../../../assets/palms_default14.png',
+        itemImageSrc: '../../../../assets/krpan_default9.jpg',
+        thumbnailImageSrc: '../../../../assets/krpan_default9.jpg',
+        alt: 'Description for Image 1',
+        title: 'Title 1'
+      },
+      { 
+        itemImageSrc: '../../../../assets/krpan_default8.jpg',
+        thumbnailImageSrc: '../../../../assets/krpan_default8.jpg',
         alt: 'Description for Image 1',
         title: 'Title 1'
       },

@@ -2,7 +2,7 @@
 <app-krpan-crane-information *ngIf="crane && !fromTrailer" [crane]="crane" (trailerSelected)="navigateToTrailer($event)"></app-krpan-crane-information>
 
 <div *ngIf="!fromTrailer && id" class="w-full h-full flex justify-center items-center mt-16">
-    <button (click)="loadCraneConfigurations(this.id!)" [disabled]="(krpanService.craneSelected$ | async)" [ngClass]="{'disabled': (krpanService.craneSelected$ | async)}" class="m-auto py-10 px-20 rounded-xl mb-2 bg-[--primary-color] active:bg-gray-700 text-base font-bold uppercase shadow hover:opacity-80 outline-none focus:outline-none">Kalkulálás</button>
+    <button (click)="loadCraneConfigurations(this.id!)" [disabled]="(krpanService.craneSelected$ | async)" [ngClass]="{'disabled': (krpanService.craneSelected$ | async)}" class="m-auto py-10 px-20 rounded-xl mb-2 bg-[--primary-color] active:bg-gray-700 text-base font-bold uppercase shadow hover:opacity-70 outline-none focus:outline-none">Kalkulálás</button>
 </div>
 
 <div *ngIf="(krpanService.craneSelected$ | async) && !fromTrailer" class="w-full h-full flex justify-center items-center mt-8 mb-2">

@@ -41,62 +41,62 @@ export class GalleriaComponent implements OnInit {
   ngOnInit() {
       this.images = [
         {
-          itemImageSrc: '../../../../assets/palms_default5.png',
-          thumbnailImageSrc: '../../../../assets/palms_default5_min.png',
+          itemImageSrc: '../../../../assets/krpan_default5.png',
+          thumbnailImageSrc: '../../../../assets/krpan_default5_min.png',
           alt: 'Description for Image 2',
           title: 'Title 2'
         },
         {
-          itemImageSrc: '../../../../assets/palms_default9.png',
-          thumbnailImageSrc: '../../../../assets/palms_default9_min.png',
+          itemImageSrc: '../../../../assetskrpans_default9.png',
+          thumbnailImageSrc: '../../../../assets/krpan_default9_min.png',
           alt: 'Description for Image 3',
           title: 'Title 3'
         },
         {
-          itemImageSrc: '../../../../assets/palms_default10.png',
-          thumbnailImageSrc: '../../../../assets/palms_default10_min.png',
+          itemImageSrc: '../../../../assets/krpan_default10.png',
+          thumbnailImageSrc: '../../../../assets/krpan_default10_min.png',
           alt: 'Description for Image 4',
           title: 'Title 4'
         },
         {
-          itemImageSrc: '../../../../assets/palms_default8.png',
-          thumbnailImageSrc: '../../../../assets/palms_default8_min.png',
+          itemImageSrc: '../../../../assets/krpan_default8.png',
+          thumbnailImageSrc: '../../../../assets/krpan_default8_min.png',
           alt: 'Description for Image 5',
           title: 'Title 5'
         },
         {
-          itemImageSrc: '../../../../assets/palms_default6.png',
-          thumbnailImageSrc: '../../../../assets/palms_default6_min.png',
+          itemImageSrc: '../../../../assets/krpan_default6.png',
+          thumbnailImageSrc: '../../../../assets/krpan_default6_min.png',
           alt: 'Description for Image 5',
           title: 'Title 5'
         },
         {
-          itemImageSrc: '../../../../assets/palms_default7.png',
-          thumbnailImageSrc: '../../../../assets/palms_default7_min.png',
+          itemImageSrc: '../../../../assets/krpan_default7.png',
+          thumbnailImageSrc: '../../../../assets/krpan_default7_min.png',
           alt: 'Description for Image 5',
           title: 'Title 5'
         },
         {
-          itemImageSrc: '../../../../assets/palms_default11.png',
-          thumbnailImageSrc: '../../../../assets/palms_default11_min.png',
+          itemImageSrc: '../../../../assets/krpan_default11.png',
+          thumbnailImageSrc: '../../../../assets/krpan_default11_min.png',
           alt: 'Description for Image 5',
           title: 'Title 5'
         },
         {
-          itemImageSrc: '../../../../assets/palms_default12.png',
-          thumbnailImageSrc: '../../../../assets/palms_default12_min.png',
+          itemImageSrc: '../../../../assets/krpan_default12.png',
+          thumbnailImageSrc: '../../../../assets/krpan_default12_min.png',
           alt: 'Description for Image 5',
           title: 'Title 5'
         },
         {
-          itemImageSrc: '../../../../assets/palms_default13.png',
-          thumbnailImageSrc: '../../../../assets/palms_default13_min.png',
+          itemImageSrc: '../../../../assets/krpan_default13.png',
+          thumbnailImageSrc: '../../../../assets/krpan_default13_min.png',
           alt: 'Description for Image 5',
           title: 'Title 5'
         },
         {
-          itemImageSrc: '../../../../assets/palms_default14.png',
-          thumbnailImageSrc: '../../../../assets/palms_default14_min.png',
+          itemImageSrc: '../../../../assets/krpan_default14.png',
+          thumbnailImageSrc: '../../../../assets/krpan_default14_min.png',
           alt: 'Description for Image 5',
           title: 'Title 5'
         },

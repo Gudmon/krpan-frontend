@@ -18,9 +18,10 @@ import { KrpanService } from '../../../shared/services/krpan.service';
 export class KrpanCranesComponent {
   originalCranes: KrpanCraneOverview[] = []
   cranes: KrpanCraneOverview[] = [];
-  rangeValues: number[] = [4.2, 10.1];
-  min: number = 4.2
-  max: number = 10.1
+  min: number = 6.6
+  max: number = 8.6
+  rangeValues: number[] = [6.6, 8.6];
+  
 
   constructor(
     readonly krpanService: KrpanService,
@@ -51,6 +52,7 @@ export class KrpanCranesComponent {
   filterCranes(event: SliderSlideEndEvent) {
     if (event.values && event.values.length === 2) {
         const minMaxRange = event.values.map(value => parseFloat(value.toString()));
+        
         const min = Math.min(...minMaxRange);
         const max = Math.max(...minMaxRange);
 

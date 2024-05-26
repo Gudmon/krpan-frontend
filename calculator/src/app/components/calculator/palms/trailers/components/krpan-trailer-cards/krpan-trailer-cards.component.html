@@ -1,8 +1,8 @@
 <div #addElement class="grid grid-cols-1 pb-8 gap-8 mx-5 md:grid-cols-2 md:mx-20 lg:grid-cols-3 lg:mx-20 xl:grid-cols-4 xl:mx-14">
     @for (trailer of trailers; track trailer.id){
-        <p-card class="mt-2 lg:mt-10 shadow-xl " >
+        <p-card class="mt-2 lg:mt-10 shadow-xl transition duration-300 ease-in-out hover:scale-105">
             <ng-template pTemplate="header">
-                <img loading="eager" alt="Card" [src]="trailer.imgUrl"/>
+                <img loading="eager" alt="Card" [src]="trailer.imgUrl" ó/>
             </ng-template>
             <div class="flex gap-2">
                 <p class="pb-4 text-base font-extrabold lg:text-xl text-[--krpan-color]">{{trailer.name}}</p>
@@ -15,7 +15,7 @@
             <ng-template pTemplate="footer">
                 <div class="">
                     <button [disabled]="(krpanService.trailerSelected$ | async)" [ngClass]="{'disabled': krpanService.trailerSelected$ | async}" (click)="buttonClickEmit(trailer)"
-                    class="rounded bg-[#8ac73c] text-black font-bold uppercase hover:cursor-pointer hover:opacity-80 px-2 pt-4 pb-3.5 text-xs lg:text-sm lg:px-4 xl:px-12 relative">
+                    class="rounded bg-[#8ac73c] text-black font-bold uppercase hover:cursor-pointer hover:opacity-70 px-2 pt-4 pb-3.5 text-xs lg:text-sm lg:px-4 xl:px-12 relative">
                     Kiválaszt
                     </button>
                 </div>                                 

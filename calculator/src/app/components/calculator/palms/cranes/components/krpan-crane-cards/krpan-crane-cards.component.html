@@ -1,7 +1,7 @@
 @if(cranes){
     <div #addElement class="grid grid-cols-1 pb-8 gap-8 mx-10 md:grid-cols-2 md:mx-20 lg:grid-cols-3 lg:mx-20 xl:grid-cols-4 xl:mx-20">
         @for (crane of cranes; track crane.id){
-            <p-card class="mt-2 lg:mt-10 shadow-xl ">
+            <p-card class="mt-2 lg:mt-10 shadow-xl transition duration-300 ease-in-out hover:scale-105">
                 <ng-template pTemplate="header">
                     <img loading="eager" alt="Card" [src]="crane.imgUrl"/>
                 </ng-template>

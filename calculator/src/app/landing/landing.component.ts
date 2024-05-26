@@ -1,4 +1,4 @@
-import { Component, DestroyRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationComponent } from '../components/navigation/navigation.component';
 import { FooterComponent } from '../components/footer/footer.component';
 import { CarouselComponent } from "./components/carousel/carousel.component";
@@ -8,7 +8,6 @@ import { HighlightsComponent } from "./components/highlights/highlights.componen
 import { GoogleMapsModule } from '@angular/google-maps'
 import { MapsComponent } from "./components/maps/maps.component";
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { environment } from '../../environments/environment';
 import { CatalogComponent } from "./components/catalog/catalog.component";
 import { FeaturesComponent } from "./components/features/features.component";
 import { GalleriaComponent } from "./components/galleria/galleria.component";
