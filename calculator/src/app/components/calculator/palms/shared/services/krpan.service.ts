@@ -10,8 +10,8 @@ import { KrpanTrailerOverview } from '../../trailers/models/krpan-trailer-overvi
   providedIn: 'root'
 })
 export class KrpanService {
-  private url = 'http://localhost:5140';
-  //private url = 'https://calculator-app-api.azurewebsites.net';
+  //private url = 'http://localhost:5140';
+  private url = 'https://calculator-app-api.azurewebsites.net';
 
   public _selectedMachineType = new BehaviorSubject<number | null>(null);
   public selectedMachineType$ = this._selectedMachineType.asObservable();

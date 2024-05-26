@@ -6,8 +6,8 @@ import { map } from 'rxjs/internal/operators/map';
   providedIn: 'root'
 })
 export class EmailService {
-  //private url = 'http://localhost:5140';
-  private url = 'https://calculator-app-api.azurewebsites.net';
+  private url = 'http://localhost:5140';
+  //private url = 'https://calculator-app-api.azurewebsites.net';
   constructor(private httpClient: HttpClient){}
 
   sendEmail(fromEmail: string, subject:string, body: string, name: string, blobName: string){
