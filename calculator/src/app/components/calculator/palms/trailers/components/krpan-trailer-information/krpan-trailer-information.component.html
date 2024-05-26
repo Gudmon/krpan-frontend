@@ -7,26 +7,14 @@
               
                 <p class="font-bold text-lg my-6">Adatok</p>
     
-                <app-trailer-data-item text="Rakfelület mérete" [property]="trailer.loadingAreaCross" unit="m2"></app-trailer-data-item>
-                <app-trailer-data-item text="Rakfelület hossza" [property]="trailer.loadingAreaLength" unit="mm"></app-trailer-data-item>
-                @if (trailer.frameExtensionLength === '-') {
-                    <app-trailer-data-item text="Raktérhosszabbítás" [property]="trailer.frameExtensionLength"></app-trailer-data-item>
-                } @else {
-                    <app-trailer-data-item text="Raktérhosszabbítás" [property]="trailer.frameExtensionLength" unit="m" ></app-trailer-data-item>
-                }
-                <app-trailer-data-item text="Teljes tömeg" [property]="trailer.grossWeight" unit="kg"></app-trailer-data-item>
-                <app-trailer-data-item text="Saját tömeg" [property]="trailer.curbWeight" unit="kg"></app-trailer-data-item>
-                <app-trailer-data-item text="Teljes hossz" [property]="trailer.totalLength" unit="mm"></app-trailer-data-item>
-                <app-trailer-data-item text="Szélesség standard kerekekkel" [property]="trailer.widthWithStandardWheels" unit="mm"></app-trailer-data-item>
-                <app-trailer-data-item text="Standard kerékméret" [property]="trailer.standardWheelSize" unit="mm"></app-trailer-data-item>
-                @if (trailer.frame !== "unibody" && trailer.name !== "PALMS 2D"){
-                    <app-trailer-data-item text="Alváz mérete" [property]="trailer.frame" unit="mm"></app-trailer-data-item>
-                } @else {
-                    <app-trailer-data-item text="Alváz mérete" [property]="trailer.frame"></app-trailer-data-item>
-                }
-                <app-trailer-data-item text="Maximális daruméret bruttó emelési nyomatéka" [property]="trailer.maxCraneSize" unit="kNm"></app-trailer-data-item>
-                <app-trailer-data-item text="Vonórúd kormány munkahenger száma" [property]="trailer.drawbarControlCylinders" unit="db"></app-trailer-data-item>
-                <app-trailer-data-item text="Alváz típusa" [property]="trailer.beamType"></app-trailer-data-item>
+                <app-trailer-data-item text="Terhelhetőség" [property]="trailer.loadCapacity" unit="kg"></app-trailer-data-item>
+                <app-trailer-data-item text="Tartóváz" [property]="trailer.centralBeams" unit="mm"></app-trailer-data-item>
+                <app-trailer-data-item text="Rakodási hossz / kiterjesztéssel" [property]="trailer.loadingLength + ' / ' + trailer.loadingLengthWithExtension" unit="mm"></app-trailer-data-item>
+                <app-trailer-data-item text="Teljes hossz / kiterjesztéssel" [property]="trailer.totalLength + ' / ' + trailer.totalLengthWithExtension" unit="mm"></app-trailer-data-item>
+                <app-trailer-data-item text="Teljes szélesség" [property]="trailer.totalWidth" unit="mm"></app-trailer-data-item>
+                <app-trailer-data-item text="Súly" [property]="trailer.weight" unit="kg"></app-trailer-data-item>
+                <app-trailer-data-item text="Mozgó rúd hengereinek száma" [property]="trailer.frameSteeringCylinders" unit="db"></app-trailer-data-item>
+                <app-trailer-data-item text="Rúd elfordításának szöge" [property]="trailer.drawbarAngle" unit="°"></app-trailer-data-item>
     
                 <p class="font-bold text-lg my-6">Gépkapcsolatok</p>
     

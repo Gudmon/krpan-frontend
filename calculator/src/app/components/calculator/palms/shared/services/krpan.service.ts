@@ -10,8 +10,8 @@ import { KrpanTrailerOverview } from '../../trailers/models/krpan-trailer-overvi
   providedIn: 'root'
 })
 export class KrpanService {
-  //private url = 'http://localhost:5140';
-  private url = 'https://calculator-app-api.azurewebsites.net';
+  private url = 'http://localhost:5140';
+  //private url = 'https://calculator-app-api.azurewebsites.net';
 
   public _selectedMachineType = new BehaviorSubject<number | null>(null);
   public selectedMachineType$ = this._selectedMachineType.asObservable();
@@ -103,11 +103,7 @@ export class KrpanService {
     return this.httpClient.get<KrpanTrailerOverview[]>(`${this.url}/Krpan/trailers`).pipe(
         map((trailerOvewViews: KrpanTrailerOverview[]) => {
             for (const trailerOvewView of trailerOvewViews) {
-              
-              if(trailerOvewView.id === 12 || trailerOvewView.id === 13) trailerOvewView.imgUrl = `../../../../../assets/Krpan 10U-1.svg`;
-              else if(trailerOvewView.id === 14 || trailerOvewView.id === 15 || trailerOvewView.id === 16) trailerOvewView.imgUrl = `../../../../../assets/Krpan 12U-1.svg`;
-              else if(trailerOvewView.id === 17 || trailerOvewView.id === 18 || trailerOvewView.id === 19) trailerOvewView.imgUrl = `../../../../../assets/Krpan 15U-1.svg`;
-              else trailerOvewView.imgUrl = `../../../../../assets/${trailerOvewView.name}-1.svg`;
+               trailerOvewView.imgUrl = `../../../../../assets/${trailerOvewView.name}-1.jpg`;
             }  
             return trailerOvewViews;
         })
@@ -120,14 +116,10 @@ export class KrpanService {
     return this.httpClient.get<KrpanTrailer>(`${this.url}/Krpan/trailers/${id}`).pipe(
       map((trailer: KrpanTrailer) => {
         trailer.videoIds = this.getVideosByKey(trailer.name)
-        if(trailer.id === 12 || trailer.id === 13) trailer.imgUrls = [`../../../../../assets/Krpan 10U-1.svg`, `../../../../../assets/Krpan 10U-2.jpg`];
-        else if(trailer.id === 14 || trailer.id === 15 || trailer.id === 16) trailer.imgUrls = [`../../../../../assets/Krpan 12U-1.svg`, `../../../../../assets/Krpan 12U-2.jpg`];
-        else if(trailer.id === 17 || trailer.id === 18 || trailer.id === 19) trailer.imgUrls = [`../../../../../assets/Krpan 15U-1.svg`, `../../../../../assets/Krpan 15U-2.jpg`];
-        else {
-          trailer.imgUrls = [`../../../../../assets/${trailer.name}-1.svg`, `../../../../../assets/${trailer.name}-2.jpg`]
-        }
-        for (const crane of trailer.crane){
-          crane.imgUrl = `../../../../../assets/${crane.name}-1.svg`
+        trailer.imgUrls = [`../../../../../assets/${trailer.name}-1.jpg`, `../../../../../assets/${trailer.name}-2.jpg`]
+       
+        for (const crane of trailer.krpanCrane){
+          crane.imgUrl = `../../../../../assets/${crane.name}-1.png`
         }
         //this._selectedTrailer.next(trailer);
         
@@ -141,7 +133,7 @@ export class KrpanService {
     return this.httpClient.get<KrpanCraneOverview[]>(`${this.url}/Krpan/cranes`).pipe(
       map((craneOverViews: KrpanCraneOverview[]) => {
         for (const craneOverView of craneOverViews) {
-          craneOverView.imgUrl = `../../../../../assets/${craneOverView.name}-1.svg`;
+          craneOverView.imgUrl = `../../../../../assets/${craneOverView.name}-1.png`;
         }
         return craneOverViews;
       })
@@ -155,14 +147,9 @@ export class KrpanService {
       map((crane: KrpanCrane) => {
         crane.videoIds = this.getVideosByKey(crane.name)
         //this._selectedCrane.next(crane);
-        crane.imgUrls = [`../../../../../assets/${crane.name}-1.svg`, `../../../../../assets/${crane.name}-2.jpg`]
-        for (const trailer of crane.trailer){
-          if(trailer.id === 12 || trailer.id === 13) trailer.imgUrl = `../../../../../assets/Krpan 10U-1.svg`;
-          else if(trailer.id === 14 || trailer.id === 15 || trailer.id === 16) trailer.imgUrl = `../../../../../assets/Krpan 12U-1.svg`;
-          else if(trailer.id === 17 || trailer.id === 18 || trailer.id === 19) trailer.imgUrl = `../../../../../assets/Krpan 15U-1.svg`;
-          else {
-            trailer.imgUrl = `../../../../../assets/${trailer.name}-1.svg`;
-          }
+        crane.imgUrls = [`../../../../../assets/${crane.name}-1.png`, `../../../../../assets/${crane.name}-2.png`]
+        for (const trailer of crane.krpanTrailer){
+            trailer.imgUrl = `../../../../../assets/${trailer.name}-1.jpg`;
         }
         return crane;
       })
@@ -176,32 +163,9 @@ export class KrpanService {
   setVideos(){
     // trailers
     this.videos.set("Krpan 6S", ["5-tqIrDOU0I", "OUXj3T4seD0"]);
-    this.videos.set("Krpan 8SX", ["VEvGOG-aFyM"]);
-    this.videos.set("Krpan 8D", ["cdz1OF0USqI"]);
-    this.videos.set("Krpan 8DWD", ["cdz1OF0USqI"]);
-    this.videos.set("Krpan 9SC", ["4ZeFp4Yofak"]);
-    this.videos.set("Krpan 10D", ["0u8VqxRevL4"]);
-    this.videos.set("Krpan 10DWD", ["0u8VqxRevL4"]);
-    this.videos.set("Krpan 12U", ["akmzrXf3EnU"]);
-    this.videos.set("Krpan 12UWD", ["akmzrXf3EnU"]);
-    this.videos.set("Krpan 12UAWD", ["akmzrXf3EnU"]);
-    this.videos.set("Krpan 15U", ["cH3t306elVs"]);
-    this.videos.set("Krpan 15UWD", ["cH3t306elVs"]);
-    this.videos.set("Krpan 15UAWD", ["cH3t306elVs"]);
 
     // cranes
     this.videos.set("Krpan 2.42", ["fEDDjo_K3E8"]);
-    this.videos.set("Krpan 2.54", ["fEDDjo_K3E8", "OUXj3T4seD0"]);
-    this.videos.set("Krpan 3.63", ["z9VS2BuQwvM"]);
-    this.videos.set("Krpan 3.67", ["z9VS2BuQwvM"]);
-    this.videos.set("Krpan 4.71", ["NYLCfmf-Nfc"]);
-    this.videos.set("Krpan 5.72", ["-f0tPn8V78g"]);
-    this.videos.set("Krpan 5.85", ["-f0tPn8V78g"]);
-    this.videos.set("Krpan 5.87Z", ["pLvH1NAPEzI"]);
-    this.videos.set("Krpan 7.75", ["z55HswaDwSA"]);
-    this.videos.set("Krpan 7.86", ["z55HswaDwSA"]);
-    this.videos.set("Krpan 7.94", ["z55HswaDwSA"]);
-    this.videos.set("Krpan X100", ["x9GnpJnvNVU"]);
   }
 
   deleteTrailer(){

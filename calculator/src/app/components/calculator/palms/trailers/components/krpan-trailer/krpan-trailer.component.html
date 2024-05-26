@@ -263,7 +263,7 @@
         </div>
 
         
-        <app-krpan-crane-cards *ngIf="trailer && trailer.crane && trailerSelected && (krpanService.trailerSelected$ | async) && !fromCrane" [cranes]="trailer.crane" (buttonClickEmitter)="selectCrane($event)"></app-krpan-crane-cards>
+        <app-krpan-crane-cards *ngIf="trailer && trailer.krpanCrane && trailerSelected && (krpanService.trailerSelected$ | async) && !fromCrane" [cranes]="trailer.krpanCrane" (buttonClickEmitter)="selectCrane($event)"></app-krpan-crane-cards>
     </ng-container>
 </form>   
 

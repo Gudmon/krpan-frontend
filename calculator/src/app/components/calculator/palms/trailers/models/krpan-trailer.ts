@@ -6,19 +6,17 @@ export interface KrpanTrailer {
     name: string;
     description: string;
     price: string;
-    beamType: string;
-    loadingAreaCross: string;
-    loadingAreaLength: string;
-    frame: string;
-    frameExtensionLength: string;
-    grossWeight: string;
-    curbWeight: string;
-    totalLength: string;
-    widthWithStandardWheels: string;
-    standardWheelSize: string;
-    maxCraneSize: string;
-    drawbarControlCylinders: string;
-    crane: KrpanCraneOverview[];
+    loadCapacity: string;
+    centralBeams: string;
+    loadingLength: string;
+    loadingLengthWithExtension: string;
+    totalLength: string,
+    totalLengthWithExtension: string,
+    totalWidth: string,
+    weight: string;
+    frameSteeringCylinders: string;
+    drawbarAngle: string;
+    krpanCrane: KrpanCraneOverview[];
     selectedCrane?: KrpanCrane;
     imgUrls: string[];
     imgUrl: string;

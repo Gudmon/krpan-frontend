@@ -2,11 +2,9 @@ export interface KrpanCraneOverview {
     id: number;
     name: string;
     maxReach: string;
-    brutLiftingTorque215Bar: string;
-    brutLiftingTorque190Bar: string;
-    telescopeLength: string;
-    slewingCylinder: string;
-    slewingTorque: string;
+    maxReachWithGrabOpen: string;
+    netLiftingTorque: string;
+    liftCapacityAtFourMeters: string;
     imgUrl: string;  
     price: string;
 }

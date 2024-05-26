@@ -7,9 +7,8 @@
               
                 <p class="font-bold text-lg my-6">Adatok</p>
     
-                <app-trailer-data-item text="Széria" [property]="crane.series"></app-trailer-data-item>
                 <app-trailer-data-item text="Teljes kinyúlás" [property]="crane.maxReach" unit="m"></app-trailer-data-item>
-                <div class="flex flex-col sm:flex-row sm:justify-between gap-4 py-1">
+                <!-- <div class="flex flex-col sm:flex-row sm:justify-between gap-4 py-1">
                     <p class="sm:w-1/2">Emelési kapacitás teljes kinyúlásnál 240 Bar-on </p>
                     @if (crane.liftAtFullReach240Bar === '-'){
                         <p class="sm:w-1/2">{{crane.liftAtFullReach240Bar}}</p>
@@ -114,7 +113,7 @@
                     } @else {
                         <p class="sm:w-1/2">{{crane.recommendedOilFlow}} l/perc</p>
                     }
-                </div>
+                </div> -->
                 <hr class="h-0.5 border-t-0 bg-[rgb(0,0,0,.1)] opacity-100 dark:opacity-50" />
     
                 <p class="font-bold text-lg my-6">Gépkapcsolatok</p>

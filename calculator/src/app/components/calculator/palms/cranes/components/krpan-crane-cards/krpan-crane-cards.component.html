@@ -9,12 +9,9 @@
                     <p class="pb-4 text-base font-extrabold lg:text-xl text-[--krpan-color]">{{crane.name}}</p>
                     <p-tag *ngIf="crane.id === 13" class="" [style]="{ 'background': 'var(--primary-color)'}" value="Újdonság"></p-tag>
                 </div>
-                <p class="block text-xs lg:text-base">Maximális kinyúlás: <span class="font-bold">{{crane.maxReach}}</span> m</p>
-                <p class="block text-xs lg:text-base">Bruttó emelési erő 215 bar-nál: <span class="font-bold">{{crane.brutLiftingTorque215Bar}}</span> kNm</p>
-                <p class="block text-xs lg:text-base">Bruttó emelési erő 190 bar-nál: <span class="font-bold">{{crane.brutLiftingTorque190Bar}}</span> kNm</p>
-                <p class="block text-xs lg:text-base">Teleszkóp hossza: <span class="font-bold">{{crane.telescopeLength}}</span> m</p>
-                <p class="block text-xs lg:text-base">Forgató munkahengerek száma: <span class="font-bold">{{crane.slewingCylinder}}</span> db</p>
-                <p class="block text-xs lg:text-base">Forgatási erő: <span class="font-bold">{{crane.slewingTorque}}</span> kNm</p>
+                <p class="block text-xs lg:text-base">Maximális kinyúlás / nyitott kanállal: <span class="font-bold">{{crane.maxReach + ' / ' + crane.maxReachWithGrabOpen}}</span> m</p>
+                <p class="block text-xs lg:text-base">Nettó Emelő nyomaték : <span class="font-bold">{{crane.netLiftingTorque}}</span> kNm</p>
+                <p class="block text-xs lg:text-base">Terhelhetőség 4m-en: <span class="font-bold">{{crane.liftCapacityAtFourMeters}}</span> kg</p>
                 <ng-template pTemplate="footer">
                     <div class="">
                         <button [disabled]="(krpanService.craneSelected$ | async)" [ngClass]="{'disabled': krpanService.craneSelected$ | async}"  (click)="buttonClickEmit(crane)"
