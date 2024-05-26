@@ -1,30 +1,31 @@
-@if(cranes){
-    <div #addElement class="grid grid-cols-1 pb-8 gap-8 mx-10 md:grid-cols-2 md:mx-20 lg:grid-cols-3 lg:mx-20 xl:grid-cols-4 xl:mx-20">
-        @for (crane of cranes; track crane.id){
-            <p-card class="mt-2 lg:mt-10 shadow-xl transition duration-300 ease-in-out hover:scale-105">
-                <ng-template pTemplate="header">
-                    <img loading="eager" alt="Card" [src]="crane.imgUrl"/>
-                </ng-template>
-                <div class="flex gap-2">
-                    <p class="pb-4 text-base font-extrabold lg:text-xl text-[--krpan-color]">{{crane.name}}</p>
-                    <p-tag *ngIf="crane.id === 13" class="" [style]="{ 'background': 'var(--primary-color)'}" value="Újdonság"></p-tag>
+<div #addElement class="grid grid-cols-1 pb-8 gap-8 mx-5 md:grid-cols-2 md:mx-20 lg:grid-cols-3 lg:mx-20 xl:grid-cols-4 xl:mx-14">
+    @for (crane of cranes; track crane.id){
+        <p-card class="mt-2 lg:mt-10 shadow-xl transition duration-300 ease-in-out hover:scale-105">
+            <ng-template pTemplate="header">
+                <div class="image">
+
+                    <img loading="eager" alt="Card" [src]="crane.imgUrl" class="block"/>
                 </div>
-                <p class="block text-xs lg:text-base">Maximális kinyúlás / nyitott kanállal: <span class="font-bold">{{crane.maxReach + ' / ' + crane.maxReachWithGrabOpen}}</span> m</p>
-                <p class="block text-xs lg:text-base">Nettó Emelő nyomaték : <span class="font-bold">{{crane.netLiftingTorque}}</span> kNm</p>
-                <p class="block text-xs lg:text-base">Terhelhetőség 4m-en: <span class="font-bold">{{crane.liftCapacityAtFourMeters}}</span> kg</p>
-                <ng-template pTemplate="footer">
-                    <div class="">
-                        <button [disabled]="(krpanService.craneSelected$ | async)" [ngClass]="{'disabled': krpanService.craneSelected$ | async}"  (click)="buttonClickEmit(crane)"
-                        class="rounded bg-[--primary-color] text-black font-bold uppercase hover:cursor-pointer hover:opacity-80 px-2 pt-4 pb-3.5 text-xs lg:text-sm lg:px-4 xl:px-12 relative">
-                        Kiválaszt
-                        </button>
-    
-                    </div>                                 
-                </ng-template>
-            </p-card>
-        } 
-        @empty {
-            <p>Nem található daru</p>
-        }
-    </div>
-}
+            </ng-template>
+            <div class="flex gap-2">
+                <p class="pb-4 text-base font-extrabold lg:text-xl text-[--krpan-color]">{{crane.name}}</p>
+                <p-tag *ngIf="crane.id === 13" class="" [style]="{ 'background': 'var(--primary-color)'}" value="Újdonság"></p-tag>
+            </div>
+            <p class="block text-xs lg:text-base">Maximális kinyúlás / nyitott kanállal: <span class="font-bold">{{crane.maxReach + ' / ' + crane.maxReachWithGrabOpen}}</span> m</p>
+            <p class="block text-xs lg:text-base">Nettó Emelő nyomaték : <span class="font-bold">{{crane.netLiftingTorque}}</span> kNm</p>
+            <p class="block text-xs lg:text-base">Terhelhetőség 4m-en: <span class="font-bold">{{crane.liftCapacityAtFourMeters}}</span> kg</p>
+            <ng-template pTemplate="footer">
+                <div class="">
+                    <button [disabled]="(krpanService.craneSelected$ | async)" [ngClass]="{'disabled': krpanService.craneSelected$ | async}"  (click)="buttonClickEmit(crane)"
+                    class="rounded bg-[--primary-color] text-black font-bold uppercase hover:cursor-pointer hover:opacity-80 px-2 pt-4 pb-3.5 text-xs lg:text-sm lg:px-4 xl:px-12 relative">
+                    Kiválaszt
+                    </button>
+                </div>                                 
+            </ng-template>
+        </p-card>
+    } 
+    @empty {
+        <p>Nem található daru</p>
+    }
+</div>
+
