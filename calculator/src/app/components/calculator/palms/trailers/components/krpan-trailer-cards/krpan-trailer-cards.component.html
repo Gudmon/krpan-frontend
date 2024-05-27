@@ -10,8 +10,8 @@
                 <p-tag *ngIf="trailer.id === 22" class="" [style]="{ 'background': 'var(--primary-color)'}" value="Újdonság"></p-tag>
             </div>
             <p class="block text-xs lg:text-base">Terhelhetőség: <span class="font-bold">{{trailer.loadCapacity}}</span> kg</p>
-            <p class="block text-xs lg:text-base">Teljes hossz: <span class="font-bold">{{trailer.loadingLength}}</span></p>
-            <p class="block text-xs lg:text-base">Súly: <span class="font-bold">{{trailer.weight}}</span> m2</p>
+            <p class="block text-xs lg:text-base">Teljes hossz: <span class="font-bold">{{trailer.loadingLength}}</span> mm</p>
+            <p class="block text-xs lg:text-base">Súly: <span class="font-bold">{{trailer.weight}}</span> kg</p>
             <ng-template pTemplate="footer">
                 <div class="">
                     <button [disabled]="(krpanService.trailerSelected$ | async)" [ngClass]="{'disabled': krpanService.trailerSelected$ | async}" (click)="buttonClickEmit(trailer)"

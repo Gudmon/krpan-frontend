@@ -7,114 +7,18 @@
               
                 <p class="font-bold text-lg my-6">Adatok</p>
     
-                <app-trailer-data-item text="Teljes kinyúlás" [property]="crane.maxReach" unit="m"></app-trailer-data-item>
-                <!-- <div class="flex flex-col sm:flex-row sm:justify-between gap-4 py-1">
-                    <p class="sm:w-1/2">Emelési kapacitás teljes kinyúlásnál 240 Bar-on </p>
-                    @if (crane.liftAtFullReach240Bar === '-'){
-                        <p class="sm:w-1/2">{{crane.liftAtFullReach240Bar}}</p>
-                    } @else {
-                        <p class="sm:w-1/2">{{crane.liftAtFullReach240Bar}} kg</p>
-                    }
-                </div>
-                <hr class="h-0.5 border-t-0 bg-[rgb(0,0,0,.1)] opacity-100 dark:opacity-50" />
-                <div class="flex flex-col sm:flex-row sm:justify-between gap-4 py-1">
-                    <p class="sm:w-1/2">Emelési kapacitás teljes kinyúlásnál 215 Bar-on </p>
-                    @if (crane.liftAtFullReach215Bar === '-'){
-                        <p class="sm:w-1/2">{{crane.liftAtFullReach215Bar}}</p>
-                    } @else {
-                        <p class="sm:w-1/2">{{crane.liftAtFullReach215Bar}} kg</p>
-                    }
-                </div>
-                <hr class="h-0.5 border-t-0 bg-[rgb(0,0,0,.1)] opacity-100 dark:opacity-50" />
-                <div class="flex flex-col sm:flex-row sm:justify-between gap-4 py-1">
-                    <p class="sm:w-1/2">Emelési kapacitás teljes kinyúlásnál 190 Bar-on </p>
-                    @if (crane.liftAtFullReach190Bar === '-'){
-                        <p class="sm:w-1/2">{{crane.liftAtFullReach190Bar}}</p>
-                    } @else {
-                        <p class="sm:w-1/2">{{crane.liftAtFullReach190Bar}} kg</p>
-                    }
-                </div>
-                <hr class="h-0.5 border-t-0 bg-[rgb(0,0,0,.1)] opacity-100 dark:opacity-50" />
-
-                <div class="flex flex-col sm:flex-row sm:justify-between gap-4 py-1">
-                    <p class="sm:w-1/2">Emelési kapacitás 4 méteren 240 Bar-on </p>
-                    @if (crane.liftAtFourMeters240Bar === '-'){
-                        <p class="sm:w-1/2">{{crane.liftAtFourMeters240Bar}}</p>
-                    } @else {
-                        <p class="sm:w-1/2">{{crane.liftAtFourMeters240Bar}} kg</p>
-                    }
-                </div>
-                <hr class="h-0.5 border-t-0 bg-[rgb(0,0,0,.1)] opacity-100 dark:opacity-50" />
-                <div class="flex flex-col sm:flex-row sm:justify-between gap-4 py-1">
-                    <p class="sm:w-1/2">Emelési kapacitás 4 méteren 215 Bar-on </p>
-                    @if (crane.liftAtFourMeters215Bar === '-'){
-                        <p class="sm:w-1/2">{{crane.liftAtFourMeters215Bar}}</p>
-                    } @else {
-                        <p class="sm:w-1/2">{{crane.liftAtFourMeters215Bar}} kg</p>
-                    }
-                </div>
-                <hr class="h-0.5 border-t-0 bg-[rgb(0,0,0,.1)] opacity-100 dark:opacity-50" />
-                <div class="flex flex-col sm:flex-row sm:justify-between gap-4 py-1">
-                    <p class="sm:w-1/2">Emelési kapacitás 4 méteren 190 Bar-on </p>
-                    @if (crane.liftAtFourMeters190Bar === '-'){
-                        <p class="sm:w-1/2">{{crane.liftAtFourMeters190Bar}}</p>
-                    } @else {
-                        <p class="sm:w-1/2">{{crane.liftAtFourMeters190Bar}} kg</p>
-                    }
-                </div>
-                <hr class="h-0.5 border-t-0 bg-[rgb(0,0,0,.1)] opacity-100 dark:opacity-50" />
-
-                <div class="flex flex-col sm:flex-row sm:justify-between gap-4 py-1">
-                    <p class="sm:w-1/2">Bruttó emelési erő 240 Bar-on</p>
-                    @if (crane.brutLiftingTorque240Bar === '-'){
-                        <p class="sm:w-1/2">{{crane.brutLiftingTorque240Bar}}</p>
-                    } @else {
-                        <p class="sm:w-1/2">{{crane.brutLiftingTorque240Bar}} kg</p>
-                    }
-                </div>
-                <hr class="h-0.5 border-t-0 bg-[rgb(0,0,0,.1)] opacity-100 dark:opacity-50" />
-                <div class="flex flex-col sm:flex-row sm:justify-between gap-4 py-1">
-                    <p class="sm:w-1/2">Bruttó emelési erő 215 Bar-on</p>
-                    @if (crane.brutLiftingTorque215Bar === '-'){
-                        <p class="sm:w-1/2">{{crane.brutLiftingTorque215Bar}}</p>
-                    } @else {
-                        <p class="sm:w-1/2">{{crane.brutLiftingTorque215Bar}} kNm</p>
-                    }
-                </div>
-                <hr class="h-0.5 border-t-0 bg-[rgb(0,0,0,.1)] opacity-100 dark:opacity-50" />
-                <div class="flex flex-col sm:flex-row sm:justify-between gap-4 py-1">
-                    <p class="sm:w-1/2">Bruttó emelési erő 190 Bar-on</p>
-                    @if (crane.brutLiftingTorque190Bar === '-'){
-                        <p class="sm:w-1/2">{{crane.brutLiftingTorque190Bar}}</p>
-                    } @else {
-                        <p class="sm:w-1/2">{{crane.brutLiftingTorque190Bar}} kNm</p>
-                    }
-                </div>
-                <hr class="h-0.5 border-t-0 bg-[rgb(0,0,0,.1)] opacity-100 dark:opacity-50" />
-                <div class="flex flex-col sm:flex-row sm:justify-between gap-4 py-1">
-                    <p class="sm:w-1/2">Teleszkóp hossza</p>
-                    @if (crane.telescopeLength === '-'){
-                        <p class="sm:w-1/2">{{crane.telescopeLength}}</p>
-                    } @else {
-                        <p class="sm:w-1/2">{{crane.telescopeLength}} m</p>
-                    }
-                </div>
-                <hr class="h-0.5 border-t-0 bg-[rgb(0,0,0,.1)] opacity-100 dark:opacity-50" />
-                <app-trailer-data-item text="Forgató munkahengerek száma" [property]="crane.slewingCylinder" unit="db"></app-trailer-data-item>
-                <app-trailer-data-item text="Forgatási erő" [property]="crane.slewingTorque" unit="kNm"></app-trailer-data-item>
-                <app-trailer-data-item text="Üzemi nyomás" [property]="crane.workingPressure" unit="bar"></app-trailer-data-item>
-                <app-trailer-data-item text="Rotátor maximum terhelhetősége" [property]="crane.rotatorMaximumLoad" unit="kN"></app-trailer-data-item>
-                <app-trailer-data-item text="Daru súlya támasztó lábak nélkül" [property]="crane.craneWeight" unit="kg"></app-trailer-data-item>
-                <app-trailer-data-item text="Fordulási szög" [property]="crane.pillarSlewingAngle" unit="°"></app-trailer-data-item>
-                <div class="flex flex-col sm:flex-row sm:justify-between gap-4 py-1">
-                    <p class="sm:w-1/2">Ajánlott olajáramlás</p>
-                    @if (crane.recommendedOilFlow === '-'){
-                        <p class="sm:w-1/2">{{crane.recommendedOilFlow}}</p>
-                    } @else {
-                        <p class="sm:w-1/2">{{crane.recommendedOilFlow}} l/perc</p>
-                    }
-                </div> -->
-                <hr class="h-0.5 border-t-0 bg-[rgb(0,0,0,.1)] opacity-100 dark:opacity-50" />
+                <app-trailer-data-item text="Teljes kinyúlás / nyitott kanállal" [property]="crane.maxReach + ' / ' + crane.maxReachWithGrabOpen" unit="m"></app-trailer-data-item>
+                <app-trailer-data-item text="Bruttó emelő nyomaték" [property]="crane.brutLiftingTorque" unit="kNm"></app-trailer-data-item>
+                <app-trailer-data-item text="Nettó emelő nyomaték" [property]="crane.netLiftingTorque" unit="kNm"></app-trailer-data-item>
+                <app-trailer-data-item text="Terhelhetőség 4 m-en" [property]="crane.liftCapacityAtFourMeters" unit="kg"></app-trailer-data-item>
+                <app-trailer-data-item text="Emelőteljesítmény maximális kinyúlás esetén" [property]="crane.liftCapacityAtMaxReach" unit="kg"></app-trailer-data-item>
+                <app-trailer-data-item text="Súly" [property]="crane.weight" unit="kg"></app-trailer-data-item>
+                <app-trailer-data-item text="Forgatónyomaték" [property]="crane.slewTorque" unit="kNm"></app-trailer-data-item>
+                <app-trailer-data-item text="Daru forgásszöge" [property]="crane.slewingAngle" unit="°"></app-trailer-data-item>
+                <app-trailer-data-item text="Üzemi nyomás" [property]="crane.systemPressure" unit="bar"></app-trailer-data-item>
+                <app-trailer-data-item text="Olajmennyiség a tartályban" [property]="crane.oilQuantityInTank" unit="l"></app-trailer-data-item>
+                <app-trailer-data-item text="Forgató hengerek száma" [property]="crane.slewCylinders" unit="db"></app-trailer-data-item>
+                <app-trailer-data-item text="Teleszkóp fokozatainak száma" [property]="crane.telescopicStages" unit="db"></app-trailer-data-item>
     
                 <p class="font-bold text-lg my-6">Gépkapcsolatok</p>
     

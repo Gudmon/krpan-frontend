@@ -116,7 +116,7 @@ export class KrpanService {
     return this.httpClient.get<KrpanTrailer>(`${this.url}/Krpan/trailers/${id}`).pipe(
       map((trailer: KrpanTrailer) => {
         trailer.videoIds = this.getVideosByKey(trailer.name)
-        trailer.imgUrls = [`../../../../../assets/${trailer.name}-1.jpg`, `../../../../../assets/${trailer.name}-2.jpg`]
+        trailer.imgUrls = [`../../../../../assets/${trailer.name}-1.jpg`]
        
         for (const crane of trailer.krpanCrane){
           crane.imgUrl = `../../../../../assets/${crane.name}-1.jpg`
@@ -147,7 +147,7 @@ export class KrpanService {
       map((crane: KrpanCrane) => {
         crane.videoIds = this.getVideosByKey(crane.name)
         //this._selectedCrane.next(crane);
-        crane.imgUrls = [`../../../../../assets/${crane.name}-1.png`, `../../../../../assets/${crane.name}-2.png`]
+        crane.imgUrls = [`../../../../../assets/${crane.name}-1.jpg`]
         for (const trailer of crane.krpanTrailer){
             trailer.imgUrl = `../../../../../assets/${trailer.name}-1.jpg`;
         }

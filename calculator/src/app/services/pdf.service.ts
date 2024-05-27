@@ -11,8 +11,8 @@ import { PdfModel } from '../components/calculator/shared/components/pdf/pdf.com
   providedIn: 'root'
 })
 export class PdfService {
-  private url = 'http://localhost:5140';
-  //private url = 'https://calculator-app-api.azurewebsites.net';
+  //private url = 'http://localhost:5140';
+  private url = 'https://calculator-app-api.azurewebsites.net';
 
   constructor(
     private httpClient: HttpClient,
