@@ -27,14 +27,14 @@ constructor(){
                 label: 'Kalkulátor',
                 routerLink: '/calculator/krpan'
             },
-            {
-                label: 'Ügyféltérkép',
-                routerLink: '/customer-map'
-            },
-            {
-                label: 'Olvasmányok',
-                routerLink: '/useful-reading'
-            },
+            // {
+            //     label: 'Ügyféltérkép',
+            //     routerLink: '/customer-map'
+            // },
+            // {
+            //     label: 'Olvasmányok',
+            //     routerLink: '/useful-reading'
+            // },
         ];
     }
 }

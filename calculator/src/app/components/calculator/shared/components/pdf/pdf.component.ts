@@ -92,7 +92,7 @@ export class PdfComponent implements OnInit{
           }
         : undefined;   
       object.TrailerName = this.krpanService._selectedTrailer.value?.name;
-      object.Stanchion = this.krpanService.selectedStanchion();
+      object.Tyre = this.krpanService.selectedTyre();
       object.Brake = this.krpanService.selectedBrake();
       object.Propulsion = this.krpanService.selectedPropulsion();
       object.Drawbar = this.krpanService.selectedDrawbar();
@@ -111,7 +111,6 @@ export class PdfComponent implements OnInit{
       object.FrameExtension = this.krpanService.selectedFrameExtension();
       object.TrailerLight = this.krpanService.selectedTrailerLight();
       object.SupportLeg = this.krpanService.selectedSupportLeg();
-      object.Tyre = this.krpanService.selectedTyre();
       object.TrailerShipping = this.krpanService.selectedTrailerShipping();
       object.MOT = this.krpanService.selectedMOT();
       const stanchionExtension = this.krpanService.selectedStanchionExtension();
@@ -185,17 +184,6 @@ export class PdfComponent implements OnInit{
       ).add(() => this.loadingService.disableLoader());
   }
 
-  sendPdf(){
-    const object: PdfModel = {
-      Stanchion: this.krpanService.selectedStanchion(),
-      Brake: this.krpanService.selectedBrake()
-    }
-    this.pdfService.sendPdf(object).subscribe((resp) => {
-      this.pdfService.pdfId.set(resp.id);
-    });
-    
-  }
-
   sendEmail(){
     const subject = `Sikeres kalkuláció - ${this.pdfService.pdfId()}`;
     
@@ -225,7 +213,6 @@ export class PdfComponent implements OnInit{
 
 interface PdfTrailerModel {
   TrailerName?: string | undefined,
-  Stanchion?: ConfigurationItem | undefined,
   Brake?: ConfigurationItem | undefined,
   Propulsion?: ConfigurationItem | undefined,
   Drawbar?: ConfigurationItem | undefined,

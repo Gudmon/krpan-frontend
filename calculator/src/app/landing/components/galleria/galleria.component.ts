@@ -43,61 +43,61 @@ export class GalleriaComponent implements OnInit {
         {
           itemImageSrc: '../../../../assets/krpan_default5.png',
           thumbnailImageSrc: '../../../../assets/krpan_default5_min.png',
-          alt: 'Description for Image 2',
+          alt: 'Image 2',
           title: 'Title 2'
         },
         {
           itemImageSrc: '../../../../assetskrpans_default9.png',
           thumbnailImageSrc: '../../../../assets/krpan_default9_min.png',
-          alt: 'Description for Image 3',
+          alt: 'Image 3',
           title: 'Title 3'
         },
         {
           itemImageSrc: '../../../../assets/krpan_default10.png',
           thumbnailImageSrc: '../../../../assets/krpan_default10_min.png',
-          alt: 'Description for Image 4',
+          alt: 'Image 4',
           title: 'Title 4'
         },
         {
           itemImageSrc: '../../../../assets/krpan_default8.png',
           thumbnailImageSrc: '../../../../assets/krpan_default8_min.png',
-          alt: 'Description for Image 5',
+          alt: 'Image 5',
           title: 'Title 5'
         },
         {
           itemImageSrc: '../../../../assets/krpan_default6.png',
           thumbnailImageSrc: '../../../../assets/krpan_default6_min.png',
-          alt: 'Description for Image 5',
+          alt: 'Image 6',
           title: 'Title 5'
         },
         {
           itemImageSrc: '../../../../assets/krpan_default7.png',
           thumbnailImageSrc: '../../../../assets/krpan_default7_min.png',
-          alt: 'Description for Image 5',
+          alt: 'Image 7',
           title: 'Title 5'
         },
         {
           itemImageSrc: '../../../../assets/krpan_default11.png',
           thumbnailImageSrc: '../../../../assets/krpan_default11_min.png',
-          alt: 'Description for Image 5',
+          alt: 'Image 8',
           title: 'Title 5'
         },
         {
           itemImageSrc: '../../../../assets/krpan_default12.png',
           thumbnailImageSrc: '../../../../assets/krpan_default12_min.png',
-          alt: 'Description for Image 5',
+          alt: 'Image 9',
           title: 'Title 5'
         },
         {
           itemImageSrc: '../../../../assets/krpan_default13.png',
           thumbnailImageSrc: '../../../../assets/krpan_default13_min.png',
-          alt: 'Description for Image 5',
+          alt: 'Image 10',
           title: 'Title 5'
         },
         {
           itemImageSrc: '../../../../assets/krpan_default14.png',
           thumbnailImageSrc: '../../../../assets/krpan_default14_min.png',
-          alt: 'Description for Image 5',
+          alt: 'Image 11',
           title: 'Title 5'
         },
       ];

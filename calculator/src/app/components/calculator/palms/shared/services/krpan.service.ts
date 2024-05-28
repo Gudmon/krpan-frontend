@@ -72,7 +72,7 @@ export class KrpanService {
   public selectedCraneShipping = signal<ConfigurationItem | undefined>(undefined);
 
   // TRAILERS
-  public selectedStanchion = signal<ConfigurationItem | undefined>(undefined);
+  public selectedTyre = signal<ConfigurationItem | undefined>(undefined);
   public selectedBrake = signal<ConfigurationItem | undefined>(undefined);
   public selectedPropulsion = signal<ConfigurationItem | undefined>(undefined);
   public selectedDrawbar = signal<ConfigurationItem | undefined>(undefined);
@@ -82,7 +82,6 @@ export class KrpanService {
   public selectedTrailerOilCooler = signal<ConfigurationItem | undefined>(undefined);
   public selectedSupportLeg = signal<ConfigurationItem | undefined>(undefined);
   public selectedTrailerLight = signal<ConfigurationItem | undefined>(undefined);
-  public selectedTyre = signal<ConfigurationItem | undefined>(undefined);
   public selectedBolsterLock = signal<ConfigurationItem | undefined>(undefined);
   public selectedBBox = signal<ConfigurationItem | undefined>(undefined);
   public selectedWoodSorter = signal<ConfigurationItem | undefined>(undefined);
@@ -169,7 +168,7 @@ export class KrpanService {
   }
 
   deleteTrailer(){
-    this.selectedStanchion.set(undefined);
+    this.selectedTyre.set(undefined);
     this.selectedBrake.set(undefined);
     this.selectedPropulsion.set(undefined);
     this.selectedDrawbar.set(undefined);
@@ -179,7 +178,6 @@ export class KrpanService {
     this.selectedTrailerOilCooler.set(undefined);
     this.selectedSupportLeg.set(undefined);
     this.selectedTrailerLight.set(undefined);
-    this.selectedTyre.set(undefined);
     this.selectedBolsterLock.set(undefined);
     this.selectedBBox.set(undefined);
     this.selectedWoodControl.set(undefined);

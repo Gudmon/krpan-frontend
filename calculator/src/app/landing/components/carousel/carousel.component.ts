@@ -28,37 +28,37 @@ export class CarouselComponent implements OnInit {
       { 
         itemImageSrc: '../../../../assets/krpan_default11.jpg',
         thumbnailImageSrc: '../../../../assets/krpan_default11.jpg',
-        alt: 'Description for Image 1',
+        alt: 'Image 1',
         title: 'Title 1'
       },
       { 
         itemImageSrc: '../../../../assets/krpan_default6.jpg',
         thumbnailImageSrc: '../../../../assets/krpan_default6.jpg',
-        alt: 'Description for Image 1',
+        alt: 'Image 2',
         title: 'Title 1'
       },
       { 
         itemImageSrc: '../../../../assets/krpan_default4.jpg',
         thumbnailImageSrc: '../../../../assetskrpans_default4.jpg',
-        alt: 'Description for Image 1',
+        alt: 'Image 3',
         title: 'Title 1'
       },
       { 
         itemImageSrc: '../../../../assets/krpan_default7.jpg',
         thumbnailImageSrc: '../../../../assetskrpans_default7.jpg',
-        alt: 'Description for Image 1',
+        alt: 'Image 4',
         title: 'Title 1'
       },
       { 
         itemImageSrc: '../../../../assets/krpan_default9.jpg',
         thumbnailImageSrc: '../../../../assets/krpan_default9.jpg',
-        alt: 'Description for Image 1',
+        alt: 'Image 5',
         title: 'Title 1'
       },
       { 
         itemImageSrc: '../../../../assets/krpan_default8.jpg',
         thumbnailImageSrc: '../../../../assets/krpan_default8.jpg',
-        alt: 'Description for Image 1',
+        alt: 'Image 6',
         title: 'Title 1'
       },
     ];

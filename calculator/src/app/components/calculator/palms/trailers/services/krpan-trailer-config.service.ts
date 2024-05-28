@@ -12,8 +12,8 @@ export class KrpanTrailerConfigService {
   
   constructor(private httpClient: HttpClient) { }
 
-  getStanchions(id: number): Observable<ConfigurationItem[]>{
-    return this.httpClient.get<ConfigurationItem[]>(`${this.url}/KrpanTrailerConfig/trailers/${id}/stanchions`).pipe(
+  getTyres(id: number): Observable<ConfigurationItem[]>{
+    return this.httpClient.get<ConfigurationItem[]>(`${this.url}/KrpanTrailerConfig/trailers/${id}/tyres`).pipe(
       map((stanchions: ConfigurationItem[]) => {
         for (const stanchion of stanchions){
           stanchion.namePrice = stanchion.name + " " + stanchion.price + "€"
@@ -28,11 +28,6 @@ export class KrpanTrailerConfigService {
       map((brakes: ConfigurationItem[]) => {
         for (const brake of brakes){
           brake.namePrice = brake.name + " " + brake.price + "€"
-          if(brake.code === "B1") brake.imgUrl = `../../../../assets/PALMS trailer-brake-1.jpg`
-          if(brake.code === "B2") brake.imgUrl = `../../../../assets/PALMS trailer-brake-2.jpg`
-          if(brake.code === "B3") brake.imgUrl = `../../../../assets/PALMS trailer-brake-3.jpg`
-          if(brake.code === "B4") brake.imgUrl = `../../../../assets/PALMS trailer-brake-4.jpg`
-          
         }    
         return brakes;
       })
@@ -246,21 +241,6 @@ export class KrpanTrailerConfigService {
           }
         }
         return lights;
-      })
-    );
-  }
-
-  getTyres(id: number): Observable<ConfigurationItem[]>{
-    return this.httpClient.get<ConfigurationItem[]>(`${this.url}/KrpanTrailerConfig/trailers/${id}/tyres`).pipe(
-      map((tyres: ConfigurationItem[]) => {
-        for (const tyre of tyres){
-          if (tyre.price.toString() === '0'){
-            tyre.namePrice = tyre.name
-          } else {
-            tyre.namePrice = tyre.name + " " + tyre.price + "€";
-          }
-        }
-        return tyres;
       })
     );
   }
