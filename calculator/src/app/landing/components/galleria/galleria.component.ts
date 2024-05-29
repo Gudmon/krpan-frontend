@@ -41,63 +41,51 @@ export class GalleriaComponent implements OnInit {
   ngOnInit() {
       this.images = [
         {
-          itemImageSrc: '../../../../assets/krpan_default5.png',
-          thumbnailImageSrc: '../../../../assets/krpan_default5_min.png',
+          itemImageSrc: '../../../../assets/krpan_default.jpg',
+          thumbnailImageSrc: '../../../../assets/krpan_default_min.jpg',
           alt: 'Image 2',
           title: 'Title 2'
         },
         {
-          itemImageSrc: '../../../../assetskrpans_default9.png',
-          thumbnailImageSrc: '../../../../assets/krpan_default9_min.png',
+          itemImageSrc: '../../../../assets/krpan_default3.jpg',
+          thumbnailImageSrc: '../../../../assets/krpan_default3_min.jpg',
           alt: 'Image 3',
           title: 'Title 3'
         },
         {
-          itemImageSrc: '../../../../assets/krpan_default10.png',
-          thumbnailImageSrc: '../../../../assets/krpan_default10_min.png',
+          itemImageSrc: '../../../../assets/krpan_default12.jpg',
+          thumbnailImageSrc: '../../../../assets/krpan_default12_min.jpg',
           alt: 'Image 4',
           title: 'Title 4'
         },
         {
-          itemImageSrc: '../../../../assets/krpan_default8.png',
-          thumbnailImageSrc: '../../../../assets/krpan_default8_min.png',
+          itemImageSrc: '../../../../assets/krpan_default10.jpg',
+          thumbnailImageSrc: '../../../../assets/krpan_default10_min.jpg',
           alt: 'Image 5',
           title: 'Title 5'
         },
         {
-          itemImageSrc: '../../../../assets/krpan_default6.png',
-          thumbnailImageSrc: '../../../../assets/krpan_default6_min.png',
+          itemImageSrc: '../../../../assets/krpan_default13.jpg',
+          thumbnailImageSrc: '../../../../assets/krpan_default13_min.jpg',
           alt: 'Image 6',
           title: 'Title 5'
         },
         {
-          itemImageSrc: '../../../../assets/krpan_default7.png',
-          thumbnailImageSrc: '../../../../assets/krpan_default7_min.png',
+          itemImageSrc: '../../../../assets/krpan_default14.jpg',
+          thumbnailImageSrc: '../../../../assets/krpan_default14_min.jpg',
           alt: 'Image 7',
           title: 'Title 5'
         },
         {
-          itemImageSrc: '../../../../assets/krpan_default11.png',
-          thumbnailImageSrc: '../../../../assets/krpan_default11_min.png',
+          itemImageSrc: '../../../../assets/krpan_default15.jpg',
+          thumbnailImageSrc: '../../../../assets/krpan_default15_min.jpg',
           alt: 'Image 8',
           title: 'Title 5'
         },
         {
-          itemImageSrc: '../../../../assets/krpan_default12.png',
-          thumbnailImageSrc: '../../../../assets/krpan_default12_min.png',
+          itemImageSrc: '../../../../assets/krpan_default16.jpg',
+          thumbnailImageSrc: '../../../../assets/krpan_default16_min.jpg',
           alt: 'Image 9',
-          title: 'Title 5'
-        },
-        {
-          itemImageSrc: '../../../../assets/krpan_default13.png',
-          thumbnailImageSrc: '../../../../assets/krpan_default13_min.png',
-          alt: 'Image 10',
-          title: 'Title 5'
-        },
-        {
-          itemImageSrc: '../../../../assets/krpan_default14.png',
-          thumbnailImageSrc: '../../../../assets/krpan_default14_min.png',
-          alt: 'Image 11',
           title: 'Title 5'
         },
       ];

@@ -18,12 +18,12 @@ export const routes: Routes = [
     {path: 'calculator/krpan/trailers/:id', component: KrpanTrailerPageComponent},
     {path: 'calculator/krpan/cranes/:id', component: KrpanCranePageComponent},
     {path: 'customer-map', component: CustomerMapComponent},
-    {path: 'useful-reading', component: UsefulReadingComponent},
-    {path: 'useful-reading/choose-trailer', component: ChooseTrailerComponent},
-    {path: 'useful-reading/choose-crane', component: ChooseCraneComponent},
-    {path: 'useful-reading/choose-support-leg', component: ChooseSupportLegComponent},
-    {path: 'useful-reading/choose-grapple', component: ChooseGrappleComponent},
-    {path: 'useful-reading/important', component: ImportantComponent},
+    // {path: 'useful-reading', component: UsefulReadingComponent},
+    // {path: 'useful-reading/choose-trailer', component: ChooseTrailerComponent},
+    // {path: 'useful-reading/choose-crane', component: ChooseCraneComponent},
+    // {path: 'useful-reading/choose-support-leg', component: ChooseSupportLegComponent},
+    // {path: 'useful-reading/choose-grapple', component: ChooseGrappleComponent},
+    // {path: 'useful-reading/important', component: ImportantComponent},
     {path: 'not-found', component: NotFoundComponent },
     {path: '**', redirectTo: '/not-found' } 
 ];
