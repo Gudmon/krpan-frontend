@@ -74,6 +74,26 @@ export class KrpanService {
   // TRAILERS
   public selectedTyre = signal<ConfigurationItem | undefined>(undefined);
   public selectedBrake = signal<ConfigurationItem | undefined>(undefined);
+  public selectedHandBrake = signal<ConfigurationItem | undefined>(undefined);
+  public selectedExtraStanchion = signal<ConfigurationItem | undefined>(undefined);
+  public selectedExtraForwarderStanchion = signal<ConfigurationItem | undefined>(undefined);
+  public selectedTopConnection = signal<ConfigurationItem | undefined>(undefined);
+  public selectedClutch = signal<ConfigurationItem | undefined>(undefined);
+  public selectedDrawHead = signal<ConfigurationItem | undefined>(undefined);
+  public selectedDrawBar = signal<ConfigurationItem | undefined>(undefined);
+  public selectedCardanShaft = signal<ConfigurationItem | undefined>(undefined);
+  public selectedBBox = signal<ConfigurationItem | undefined>(undefined);
+  public selectedBaleTransportPlatform = signal<ConfigurationItem | undefined>(undefined);
+  public selectedCargoSpaceExtension = signal<ConfigurationItem | undefined>(undefined);
+  public selectedAxeHolder = signal<ConfigurationItem | undefined>(undefined);
+  public selectedChainsawHolder = signal<ConfigurationItem | undefined>(undefined);
+  public selectedFuelTankHolder = signal<ConfigurationItem | undefined>(undefined);
+  public selectedToolBox = signal<ConfigurationItem | undefined>(undefined);
+  public selectedPlato = signal<ConfigurationItem | undefined>(undefined);
+  public selectedExtension = signal<ConfigurationItem | undefined>(undefined);
+  public selectedHydraulicSupportLeg = signal<ConfigurationItem | undefined>(undefined);
+  public selectedGrappleLocation = signal<ConfigurationItem | undefined>(undefined);
+
   public selectedPropulsion = signal<ConfigurationItem | undefined>(undefined);
   public selectedDrawbar = signal<ConfigurationItem | undefined>(undefined);
   public selectedPlatform = signal<ConfigurationItem | undefined>(undefined);
@@ -83,10 +103,7 @@ export class KrpanService {
   public selectedSupportLeg = signal<ConfigurationItem | undefined>(undefined);
   public selectedTrailerLight = signal<ConfigurationItem | undefined>(undefined);
   public selectedBolsterLock = signal<ConfigurationItem | undefined>(undefined);
-  public selectedBBox = signal<ConfigurationItem | undefined>(undefined);
   public selectedWoodSorter = signal<ConfigurationItem | undefined>(undefined);
-  public selectedHandBrake = signal<ConfigurationItem | undefined>(undefined);
-  public selectedChainsawHolder = signal<ConfigurationItem | undefined>(undefined);
   public selectedUnderrunProtection = signal<ConfigurationItem | undefined>(undefined);
   public selectedBunkAdapter = signal<ConfigurationItem | undefined>(undefined);
   public selectedBunkExtension = signal<ConfigurationItem | undefined>(undefined);
@@ -170,6 +187,26 @@ export class KrpanService {
   deleteTrailer(){
     this.selectedTyre.set(undefined);
     this.selectedBrake.set(undefined);
+    this.selectedHandBrake.set(undefined);
+    this.selectedExtraStanchion.set(undefined);
+    this.selectedExtraForwarderStanchion.set(undefined);
+    this.selectedTopConnection.set(undefined);
+    this.selectedClutch.set(undefined);
+    this.selectedDrawHead.set(undefined);
+    this.selectedDrawbar.set(undefined);
+    this.selectedCardanShaft.set(undefined);
+    this.selectedBBox.set(undefined);
+    this.selectedBaleTransportPlatform.set(undefined);
+    this.selectedCargoSpaceExtension.set(undefined);
+    this.selectedAxeHolder.set(undefined);
+    this.selectedChainsawHolder.set(undefined);
+    this.selectedFuelTankHolder.set(undefined);
+    this.selectedToolBox.set(undefined);
+    this.selectedPlatform.set(undefined);
+    this.selectedExtension.set(undefined);
+    this.selectedHydraulicSupportLeg.set(undefined);
+    this.selectedGrappleLocation.set(undefined);
+
     this.selectedPropulsion.set(undefined);
     this.selectedDrawbar.set(undefined);
     this.selectedPlatform.set(undefined);
@@ -180,9 +217,7 @@ export class KrpanService {
     this.selectedTrailerLight.set(undefined);
     this.selectedBolsterLock.set(undefined);
     this.selectedBBox.set(undefined);
-    this.selectedWoodControl.set(undefined);
-    this.selectedHandBrake.set(undefined);
-    this.selectedChainsawHolder.set(undefined);
+    this.selectedWoodControl.set(undefined);;
     this.selectedUnderrunProtection.set(undefined);
     this.selectedBunkAdapter.set(undefined);
     this.selectedBunkExtension.set(undefined);

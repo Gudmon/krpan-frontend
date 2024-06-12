@@ -22,8 +22,6 @@
                 <div *ngIf="trailerSelected && tyres"  class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
                         <span>Kerekek</span>
-                        <button (click)="toggleDialog('tyres', true)"><i class="fa-solid fa-circle-info"></i></button> 
-                        <app-tyres-dialog [tyres]="tyres" [tyresDialogVisible]="showTyresDialog" (dialogVisible)="toggleDialog('tyres', false)"></app-tyres-dialog>                                
                     </div>
                     <p-listbox optionDisabled="disabledOption" (onChange)="handleTyreChange($event)" formControlName="selectedTyre" [options]="tyres" optionLabel="namePrice"></p-listbox>                   
                 </div>
@@ -31,26 +29,32 @@
                 <div *ngIf="trailerSelected && brakes.length > 0" class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
                         <span>Fék</span>
-                        <button (click)="toggleDialog('brakes', true)"><i class="fa-solid fa-circle-info"></i></button>                
-                        <app-brakes-dialog [brakes]="brakes" [brakesDialogVisible]="showBrakesDialog" (dialogVisible)="toggleDialog('brakes', false)"></app-brakes-dialog>
                     </div>
                     <p-listbox (onChange)="handleBrakeChange($event)" formControlName="selectedBrake" [options]="brakes" optionLabel="namePrice"></p-listbox>                   
                 </div>
 
-                <div *ngIf="trailerSelected && propulsions.length > 0" class="justify-content-center my-4 py-4">
+                <div *ngIf="trailerSelected && handBrake" class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
-                        <span>Hajtás</span>
-                        <button (click)="toggleDialog('propulsions', true)"><i class="fa-solid fa-circle-info"></i></button>  
-                        <app-propulsions-dialog [propulsions]="propulsions" [propulsionsDialogVisible]="showPropulsionsDialog" (dialogVisible)="toggleDialog('propulsions', false)"></app-propulsions-dialog>
+                        <p-checkbox (onChange)="onHandBrakeChange($event)" [value]="handBrake" formControlName="selectedHandBrake" inputId="HandBrakeSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="HandBrakeSelected">{{handBrake.namePrice}}</label>
                     </div>
-                    <p-listbox optionDisabled="disabledOption" (onChange)="handlePropulsionChange($event)" formControlName="selectedPropulsion" [options]="propulsions" optionLabel="namePrice"></p-listbox>                   
+                </div>
+
+                <!-- extra stanch
+                extra forw stanch
+                top conn
+                clucthes -->
+
+                <div *ngIf="trailerSelected && drawHead" class="justify-content-center my-4 py-4">
+                    <div class="flex gap-2">
+                        <p-checkbox (onChange)="onDrawHeadChange($event)" [value]="drawHead" formControlName="selectedDrawHead" inputId="DrawHeadSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="DrawHeadSelected">{{drawHead.namePrice}}</label>
+                    </div>
                 </div>
 
                 <div *ngIf="trailerSelected && drawbars.length > 0" class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
                         <span>Vonórúd</span>
-                        <button (click)="toggleDialog('drawbars', true)"><i class="fa-solid fa-circle-info"></i></button>  
-                        <app-drawbar-dialog [drawbars]="drawbars" [drawbarsDialogVisible]="showDrawbarsDialog" (dialogVisible)="toggleDialog('drawbars', false)"></app-drawbar-dialog>                            
                     </div>
                     <p-listbox optionDisabled="disabledOption" (onChange)="handleDrawbarChange($event)" formControlName="selectedDrawbar" [options]="drawbars" optionLabel="namePrice"></p-listbox>                   
                 </div>

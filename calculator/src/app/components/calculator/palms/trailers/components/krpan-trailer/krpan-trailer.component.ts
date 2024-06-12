@@ -104,6 +104,27 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
 
   tyres: ConfigurationItem[] = [];
   brakes: ConfigurationItem[] = [];
+  handBrake: ConfigurationItem | undefined = undefined;
+  extraStanchion: ConfigurationItem | undefined = undefined;
+  extraForwarderStanchion: ConfigurationItem | undefined = undefined;
+  topConnection: ConfigurationItem | undefined = undefined;
+  clucthes: ConfigurationItem[] = [];
+  drawHead: ConfigurationItem | undefined = undefined;
+  drawBars: ConfigurationItem[] = [];
+  cardanShaft: ConfigurationItem | undefined = undefined;
+  bBox: ConfigurationItem | undefined = undefined;
+  baleTransportPlatform: ConfigurationItem | undefined = undefined;
+  cargoSpaceExtension: ConfigurationItem | undefined = undefined;
+  axeHolder: ConfigurationItem | undefined = undefined;
+  chainsawHolder: ConfigurationItem | undefined = undefined;
+  fuelTankHolder: ConfigurationItem | undefined = undefined;
+  toolBox: ConfigurationItem | undefined = undefined;
+  plato: ConfigurationItem | undefined = undefined;
+  extension: ConfigurationItem | undefined = undefined;
+  hydraulicSupportLeg: ConfigurationItem | undefined = undefined;
+  grappleLocation: ConfigurationItem | undefined = undefined;
+
+
   propulsions: ConfigurationItem[] = [];
   drawbars: ConfigurationItem[] = [];
   platforms: ConfigurationItem[] = [];
@@ -113,8 +134,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   bolsterLock: ConfigurationItem | undefined = undefined;
   bbox: ConfigurationItem | undefined = undefined;
   woodSorter: ConfigurationItem | undefined = undefined;
-  handBrake: ConfigurationItem | undefined = undefined;
-  chainsawHolder: ConfigurationItem | undefined = undefined;
   underrunProtection: ConfigurationItem | undefined = undefined;
   supportLegs: ConfigurationItem[] = [];
   lights: ConfigurationItem[] = [];
@@ -123,13 +142,32 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   frameExtension: ConfigurationItem | undefined = undefined;
   trailerShipping: ConfigurationItem | undefined = undefined;
   MOT: ConfigurationItem | undefined = undefined;
-  stanchionExtension: ConfigurationItem | undefined = undefined;
   hydroPack: ConfigurationItem | undefined = undefined;
 
   selectedConfigurationItems: ConfigurationItem[] = [];
 
   originalTyrePrice = 0;
   originalBrakePrice = 0;
+  originalHandBrakePrice = 0;
+  originalExtraStanchionPrice = 0;
+  originalExtraForwarderStanchionPrice = 0;
+  originalTopConnectionPrice = 0;
+  originalClutchPrice = 0;
+  originalDrawHeadPrice = 0;
+  originalDrawBarPrice = 0;
+  originalCardanShaftPrice = 0;
+  originalBboxPrice = 0;
+  originalBaleTransportPlatformPrice = 0;
+  originalCargoSpaceExtensionPrice = 0;
+  originalAxeHolderPrice = 0;
+  originalChainsawHolderPrice = 0;
+  originalFuelTankHolderPrice = 0;
+  originalToolBoxPrice = 0;
+  originalPlatoPrice = 0;
+  originalExtensionPrice = 0;
+  originalHydraulicSupportLegPrice = 0;
+  originalGrappleLocationPrice = 0;
+
   originalPropulsionPrice = 0;
   originalDrawbarPrice = 0;
   originalPlatformPrice = 0;
@@ -137,10 +175,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   originalOilTankPrice = 0;
   originalTrailerOilCoolerPrice = 0;
   originalBolsterLockPrice = 0;
-  originalBboxPrice = 0;
   originalWoodSorterPrice = 0;
-  originalHandBrakePrice = 0;
-  originalChainsawHolderPrice = 0;
   originalUnderrunProtectionPrice = 0;
   originalSupportLegPrice = 0;
   originalLightPrice = 0;
@@ -169,6 +204,26 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
 
   originalTyre: ConfigurationItem | undefined = undefined;
   originalBrake: ConfigurationItem | undefined = undefined;
+  originalHandBrake: ConfigurationItem | undefined = undefined;
+  originalExtraStanchion: ConfigurationItem | undefined = undefined;
+  originalExtraForwarderStanchion: ConfigurationItem | undefined = undefined;
+  originalTopConnection: ConfigurationItem | undefined = undefined;
+  originalClutch: ConfigurationItem | undefined = undefined;
+  originalDrawHead: ConfigurationItem | undefined = undefined;
+  originalDrawBar: ConfigurationItem | undefined = undefined;
+  originalCardanShaft: ConfigurationItem | undefined = undefined;
+  originalBBox: ConfigurationItem | undefined = undefined;
+  originalBaleTransportPlatform: ConfigurationItem | undefined = undefined;
+  originalCargoSpaceExtension: ConfigurationItem | undefined = undefined;
+  originalAxeHolder: ConfigurationItem | undefined = undefined;
+  originalChainsawHolder: ConfigurationItem | undefined = undefined;
+  originalFuelTankHolder: ConfigurationItem | undefined = undefined;
+  originalToolBox: ConfigurationItem | undefined = undefined;
+  originalPlato: ConfigurationItem | undefined = undefined;
+  originalExtension: ConfigurationItem | undefined = undefined;
+  originalHydraulicSupportLeg: ConfigurationItem | undefined = undefined;
+  originalGrappleLocation: ConfigurationItem | undefined = undefined;
+
   originalPropulsion: ConfigurationItem | undefined = undefined;
   originalDrawbar: ConfigurationItem | undefined = undefined;
   originalPlatform: ConfigurationItem | undefined = undefined;
@@ -179,8 +234,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   originalBbox: ConfigurationItem | undefined = undefined;
   originalWoodSorter: ConfigurationItem | undefined = undefined;
   woodSorterArrayElements: any[] | undefined = [];
-  originalHandBrake: ConfigurationItem | undefined = undefined;
-  originalChainsawHolder: ConfigurationItem | undefined = undefined;
   originalUnderrunProtection: ConfigurationItem | undefined = undefined;
   originalSupportLeg: ConfigurationItem | undefined = undefined;
   originalLight: ConfigurationItem | undefined = undefined;
@@ -191,13 +244,32 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   originalFrameExtension: ConfigurationItem | undefined = undefined;
   originalShipping: ConfigurationItem | undefined = undefined;
   originalMOT: ConfigurationItem | undefined = undefined;
-  stanchionExtensionArrayElements: any[] | undefined = [];
   originalHydroPack: ConfigurationItem | undefined = undefined;
 
   trailerFormGroup: FormGroup = new FormGroup({
     selectedTrailer: new FormControl<string>(''),
     selectedTyre: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedBrake: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedHandBrake: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedExtraStanchion: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedExtraForwarderStanchion: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedTopConnection: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedClutch: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedDrawHead: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedDrawBar: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedCardanShaft: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedBBox: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedBaleTransportPlatform: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedCargoSpaceExtension: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedAxeHolder: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedChainsawHolder: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedFuelTankHolder: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedToolBox: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedPlato: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedExtension: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedHydraulicSupportLeg: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedGrappleLocation: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    
     selectedPropulsion: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedDrawbar: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedPlatform: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
@@ -207,8 +279,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
     selectedBolsterLock: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedBbox: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedWoodSorter: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
-    selectedHandBrake: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
-    selectedChainsawHolder: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedUnderrunProtection: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedSupportLeg: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedLight: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
@@ -226,6 +296,26 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
       selectedTrailer: [this.trailer.name],
       selectedTyre: [this.tyres[0]],
       selectedBrake: [this.brakes[0]],
+      selectedHandBrake: null,
+      selectedExtraStanchion: null,
+      selectedExtraForwarderStanchion: null,
+      selectedTopConnection: null,
+      selectedClutch: null,
+      selectedDrawHead: null,
+      selectedDrawBar: null,
+      selectedCardanShaft: null,
+      selectedBBox: null,
+      selectedBaleTransportPlatform: null,
+      selectedCargoSpaceExtension: null,
+      selectedAxeHolder: null,
+      selectedChainsawHolder: null,
+      selectedFuelTankHolder: null,
+      selectedToolBox: null,
+      selectedPlato: null,
+      selectedExtension: null,
+      selectedHydraulicSupportLeg: null,
+      selectedGrappleLocation: null,
+
       selectedPropulsion: null,
       selectedDrawbar: null,
       selectedPlatform: null,
@@ -235,8 +325,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
       selectedBolsterLock: null,
       selectedBbox: null,
       selectedWoodSorter: null,
-      selectedHandBrake: null,
-      selectedChainsawHolder: null,
       selectedUnderrunProtection: null,
       selectedSupportLeg: null,
       selectedLight: null,
@@ -323,10 +411,37 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
       this.loadingService.enableLoader();;
       const tyres$ = this.krpanTrailerConfigService.getTyres(id);
       const brakes$ = this.krpanTrailerConfigService.getBrakes(id);
+      const handBrake$ = this.krpanTrailerConfigService.getHandBrake(id);
+      const extraStanchion$ = this.krpanTrailerConfigService.getExtraStanchion(id);
+      const extraForwarderStanchion$ = this.krpanTrailerConfigService.getExtraForwarderStanchion(id);
+      const topConnection$ = this.krpanTrailerConfigService.getTopConnection(id);
+      const clutches$ = this.krpanTrailerConfigService.getClutches(id);
+      const drawHead$ = this.krpanTrailerConfigService.getDrawHead(id);
+      const drawBars$ = this.krpanTrailerConfigService.getDrawbars(id);
+      const cardanShaft$ = this.krpanTrailerConfigService.getCardanShaft(id);
+      const bBox$ = this.krpanTrailerConfigService.getBBox(id);
+      const baleTransportPlatform$ = this.krpanTrailerConfigService.getBaleTransportPlatform(id);
+      const cargoSpaceExtension$ = this.krpanTrailerConfigService.getCargoSpaceExtension(id);
+      const axeHolder$ = this.krpanTrailerConfigService.getAxeHolder(id);
+      const chainsawHolder$ = this.krpanTrailerConfigService.getChainsawHolder(id);
+      const fuelTankHolder$ = this.krpanTrailerConfigService.getFuelTankHolder(id);
+      const toolBox$ = this.krpanTrailerConfigService.getToolBox(id);
+      const plato$ = this.krpanTrailerConfigService.getPlato(id);
+      const extension$ = this.krpanTrailerConfigService.getExtension(id);
+      const hydraulicSupportLeg$ = this.krpanTrailerConfigService.getHydraulicSupportLeg(id);
+      const grappleLocation$ = this.krpanTrailerConfigService.getGrappleLocation(id);
       
-      const request = forkJoin([tyres$, brakes$]);
+      const request = forkJoin([tyres$, brakes$, handBrake$, extraStanchion$, extraForwarderStanchion$,
+        topConnection$, clutches$, drawHead$, drawBars$, cardanShaft$, bBox$, baleTransportPlatform$,
+        cargoSpaceExtension$, axeHolder$, chainsawHolder$, fuelTankHolder$, toolBox$,
+        plato$, extension$, hydraulicSupportLeg$, grappleLocation$
+      ]);
      
-      request.subscribe(([tyres, brakes]) => {
+      request.subscribe(([tyres, brakes, handBrake, extraStanchion, extraForwarderStanchion,
+        topConnection, clutches, drawHead, drawBars, cardanShaft, bBox, baleTransportPlatform,
+        cargoSpaceExtension, axeHolder, chainsawHolder, fuelTankHolder, toolBox,
+        plato, extension, hydraulicSupportLeg, grappleLocation
+      ]) => {
         
         if (tyres.length > 0){
           this.tyres = tyres;
@@ -336,6 +451,82 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
         if (brakes.length > 0){
           this.brakes = brakes;
           this.krpanService.selectedBrake.set(brakes[0])
+        }
+
+        if (handBrake){
+          this.handBrake = handBrake;
+        }
+
+        if (extraStanchion){
+          this.extraStanchion = extraStanchion;
+        }
+
+        if (extraForwarderStanchion){
+          this.extraForwarderStanchion = extraForwarderStanchion;
+        }
+
+        if (topConnection){
+          this.topConnection = topConnection;
+        }
+
+        if (clutches.length > 0){
+          this.clucthes = clutches;
+        }
+
+        if (drawHead){
+          this.drawHead = drawHead;
+        }
+
+        if (drawBars.length > 0){
+          this.drawbars = drawBars;
+        }
+
+        if (cardanShaft){
+          this.cardanShaft = cardanShaft;
+        }
+
+        if (bBox){
+          this.bBox = bBox;
+        }
+
+        if (baleTransportPlatform){
+          this.baleTransportPlatform = baleTransportPlatform;
+        }
+
+        if (cargoSpaceExtension){
+          this.cargoSpaceExtension = cargoSpaceExtension;
+        }
+
+        if (axeHolder){
+          this.axeHolder = axeHolder;
+        }
+
+        if (chainsawHolder){
+          this.chainsawHolder = chainsawHolder;
+        }
+
+        if (fuelTankHolder){
+          this.fuelTankHolder = fuelTankHolder;
+        }
+
+        if (toolBox){
+          this.toolBox = toolBox;
+        }
+
+        if (plato){
+          this.plato = plato;
+        }
+
+        if (extension){
+          this.extension = extension;
+        }
+
+        if (hydraulicSupportLeg){
+          this.hydraulicSupportLeg = hydraulicSupportLeg;
+        }
+
+        if (grappleLocation){
+          this.grappleLocation = grappleLocation;
         }
 
         this.krpanService._trailerPrice.set(Number(this.trailer.price));
@@ -398,6 +589,335 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
     } else {
       this.originalBrake = undefined;
       this.krpanService.selectedBrake.set(undefined)
+    }
+  }
+
+  onHandBrakeChange(event: CheckboxChangeEvent){
+    if (event.checked.length > 0) {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) + Number(event.checked[0].price);
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalHandBrakePrice = Number(event.checked[0].price);
+      this.originalHandBrake = event.checked[0];
+      this.krpanService.selectedHandBrake.set(event.checked[0]);
+    } else {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) - this.originalHandBrakePrice;
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalHandBrake = undefined;
+      this.krpanService.selectedHandBrake.set(undefined);
+    }
+  }
+
+  onExtraStanchionChange(event: CheckboxChangeEvent){
+    if (event.checked.length > 0) {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) + Number(event.checked[0].price);
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalExtraStanchionPrice = Number(event.checked[0].price);
+      this.originalExtraStanchion = event.checked[0];
+      this.krpanService.selectedExtraStanchion.set(event.checked[0]);
+    } else {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) - this.originalExtraStanchionPrice;
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalExtraStanchion = undefined;
+      this.krpanService.selectedExtraStanchion.set(undefined);
+    }
+  }
+
+  onExtraForwarderStanchionChange(event: CheckboxChangeEvent){
+    if (event.checked.length > 0) {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) + Number(event.checked[0].price);
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalExtraForwarderStanchionPrice = Number(event.checked[0].price);
+      this.originalExtraForwarderStanchion = event.checked[0];
+      this.krpanService.selectedExtraForwarderStanchion.set(event.checked[0]);
+    } else {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) - this.originalExtraForwarderStanchionPrice;
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalExtraForwarderStanchion = undefined;
+      this.krpanService.selectedExtraForwarderStanchion.set(undefined);
+    }
+  }
+
+  onTopConnectionChange(event: CheckboxChangeEvent){
+    if (event.checked.length > 0) {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) + Number(event.checked[0].price);
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalTopConnectionPrice = Number(event.checked[0].price);
+      this.originalTopConnection = event.checked[0];
+      this.krpanService.selectedTopConnection.set(event.checked[0]);
+    } else {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) - this.originalTopConnectionPrice;
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalTopConnection = undefined;
+      this.krpanService.selectedTopConnection.set(undefined);
+    }
+  }
+
+  handleClutchChange(event: ListboxChangeEvent) {
+    const previousValue = this.originalClutchPrice;
+    this.originalClutchPrice = event.value ? event.value.price : 0;
+    const nextValue = this.originalClutchPrice;
+    const current = this.krpanService._trailerPrice();
+  
+    if (previousValue !== nextValue) {
+      const newPrice = current - previousValue + Number(nextValue);
+      this.krpanService._trailerPrice.set(newPrice);
+    }
+
+    if (event.value){
+      this.originalClutch = event.value;
+      this.krpanService.selectedClutch.set(event.value);
+    } else {
+      this.originalClutch = undefined;
+      this.krpanService.selectedClutch.set(undefined);
+    }
+  }
+
+  onDrawHeadChange(event: CheckboxChangeEvent){
+    if (event.checked.length > 0) {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) + Number(event.checked[0].price);
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalDrawHeadPrice = Number(event.checked[0].price);
+      this.originalDrawHead = event.checked[0];
+      this.krpanService.selectedDrawHead.set(event.checked[0]);
+    } else {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) - this.originalDrawHeadPrice;
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalDrawHead = undefined;
+      this.krpanService.selectedDrawHead.set(undefined);
+    }
+  }
+
+  handleDrawbarChange(event: ListboxChangeEvent) {
+    const previousValue = this.originalDrawBarPrice;
+    this.originalDrawBarPrice = event.value ? event.value.price : 0;
+    const nextValue = this.originalDrawBarPrice;
+    const current = this.krpanService._trailerPrice();
+  
+    if (previousValue !== nextValue) {
+      const newPrice = current - previousValue + Number(nextValue);
+      this.krpanService._trailerPrice.set(newPrice);
+    }
+
+    if (event.value){
+      this.originalDrawBar = event.value;
+      this.krpanService.selectedDrawbar.set(event.value);
+    } else {
+      this.originalDrawBar = undefined;
+      this.krpanService.selectedDrawbar.set(undefined);
+    }
+  }
+
+  onCardanShaftChange(event: CheckboxChangeEvent){
+    if (event.checked.length > 0) {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) + Number(event.checked[0].price);
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalCardanShaftPrice = Number(event.checked[0].price);
+      this.originalCardanShaft = event.checked[0];
+      this.krpanService.selectedCardanShaft.set(event.checked[0]);
+    } else {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) - this.originalCardanShaftPrice;
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalCardanShaft = undefined;
+      this.krpanService.selectedCardanShaft.set(undefined);
+    }
+  }
+
+  onBBoxChange(event: CheckboxChangeEvent){
+    if (event.checked.length > 0) {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) + Number(event.checked[0].price);
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalBboxPrice = Number(event.checked[0].price);
+      this.originalBbox = event.checked[0];
+      this.krpanService.selectedBBox.set(event.checked[0]);
+    } else {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) - this.originalBboxPrice;
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalBbox = undefined;
+      this.krpanService.selectedBBox.set(undefined);
+    }
+  }
+
+  onBaleTransportPlatformChange(event: CheckboxChangeEvent){
+    if (event.checked.length > 0) {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) + Number(event.checked[0].price);
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalBaleTransportPlatformPrice = Number(event.checked[0].price);
+      this.originalBaleTransportPlatform = event.checked[0];
+      this.krpanService.selectedBaleTransportPlatform.set(event.checked[0]);
+    } else {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) - this.originalBaleTransportPlatformPrice;
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalBaleTransportPlatform = undefined;
+      this.krpanService.selectedBaleTransportPlatform.set(undefined);
+    }
+  }
+
+  onCargoSpaceExtensionChange(event: CheckboxChangeEvent){
+    if (event.checked.length > 0) {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) + Number(event.checked[0].price);
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalCargoSpaceExtensionPrice = Number(event.checked[0].price);
+      this.originalCargoSpaceExtension = event.checked[0];
+      this.krpanService.selectedCargoSpaceExtension.set(event.checked[0]);
+    } else {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) - this.originalCargoSpaceExtensionPrice;
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalCargoSpaceExtension = undefined;
+      this.krpanService.selectedCargoSpaceExtension.set(undefined);
+    }
+  }
+
+  onAxeHolderChange(event: CheckboxChangeEvent){
+    if (event.checked.length > 0) {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) + Number(event.checked[0].price);
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalAxeHolderPrice = Number(event.checked[0].price);
+      this.originalAxeHolder = event.checked[0];
+      this.krpanService.selectedAxeHolder.set(event.checked[0]);
+    } else {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) - this.originalAxeHolderPrice;
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalAxeHolder = undefined;
+      this.krpanService.selectedAxeHolder.set(undefined);
+    }
+  }
+
+  onChainsawHolderChange(event: CheckboxChangeEvent){
+    if (event.checked.length > 0) {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) + Number(event.checked[0].price);
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalChainsawHolderPrice = Number(event.checked[0].price);
+      this.originalChainsawHolder = event.checked[0];
+      this.krpanService.selectedChainsawHolder.set(event.checked[0]);
+    } else {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) - this.originalChainsawHolderPrice;
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalChainsawHolder = undefined;
+      this.krpanService.selectedChainsawHolder.set(undefined);
+    }
+  }
+
+  onFuelTankHolderChange(event: CheckboxChangeEvent){
+    if (event.checked.length > 0) {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) + Number(event.checked[0].price);
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalFuelTankHolderPrice = Number(event.checked[0].price);
+      this.originalFuelTankHolder = event.checked[0];
+      this.krpanService.selectedFuelTankHolder.set(event.checked[0]);
+    } else {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) - this.originalFuelTankHolderPrice;
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalFuelTankHolder = undefined;
+      this.krpanService.selectedFuelTankHolder.set(undefined);
+    }
+  }
+
+  onToolBoxChange(event: CheckboxChangeEvent){
+    if (event.checked.length > 0) {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) + Number(event.checked[0].price);
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalToolBoxPrice = Number(event.checked[0].price);
+      this.originalToolBox = event.checked[0];
+      this.krpanService.selectedToolBox.set(event.checked[0]);
+    } else {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) - this.originalToolBoxPrice;
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalToolBox = undefined;
+      this.krpanService.selectedToolBox.set(undefined);
+    }
+  }
+
+  onPlatoChange(event: CheckboxChangeEvent){
+    if (event.checked.length > 0) {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) + Number(event.checked[0].price);
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalPlatoPrice = Number(event.checked[0].price);
+      this.originalPlato = event.checked[0];
+      this.krpanService.selectedPlato.set(event.checked[0]);
+    } else {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) - this.originalPlatoPrice;
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalPlato = undefined;
+      this.krpanService.selectedPlato.set(undefined);
+    }
+  }
+
+  onExtensionChange(event: CheckboxChangeEvent){
+    if (event.checked.length > 0) {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) + Number(event.checked[0].price);
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalExtensionPrice = Number(event.checked[0].price);
+      this.originalExtension = event.checked[0];
+      this.krpanService.selectedExtension.set(event.checked[0]);
+    } else {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) - this.originalExtensionPrice;
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalExtension = undefined;
+      this.krpanService.selectedExtension.set(undefined);
+    }
+  }
+
+  onHydraulicSupportLegChange(event: CheckboxChangeEvent){
+    if (event.checked.length > 0) {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) + Number(event.checked[0].price);
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalHydraulicSupportLegPrice = Number(event.checked[0].price);
+      this.originalHydraulicSupportLeg = event.checked[0];
+      this.krpanService.selectedHydraulicSupportLeg.set(event.checked[0]);
+    } else {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) - this.originalHydraulicSupportLegPrice;
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalHydraulicSupportLeg = undefined;
+      this.krpanService.selectedHydraulicSupportLeg.set(undefined);
+    }
+  }
+
+  onGrappleLocationChange(event: CheckboxChangeEvent){
+    if (event.checked.length > 0) {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) + Number(event.checked[0].price);
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalGrappleLocationPrice = Number(event.checked[0].price);
+      this.originalGrappleLocation = event.checked[0];
+      this.krpanService.selectedGrappleLocation.set(event.checked[0]);
+    } else {
+      const current = this.krpanService._trailerPrice();
+      const newPrice = Number(current) - this.originalGrappleLocationPrice;
+      this.krpanService._trailerPrice.set(newPrice);
+      this.originalGrappleLocation = undefined;
+      this.krpanService.selectedGrappleLocation.set(undefined);
     }
   }
 
@@ -465,53 +985,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   updateTyresToEnabled(): ConfigurationItem[] {
     return this.tyres.map((tyre) => ({
       ...tyre,
-      disabledOption: false
-    }));
-  }
-
-  handleDrawbarChange(event: ListboxChangeEvent) {
-    const previousValue =  this.originalDrawbarPrice;
-    this.originalDrawbarPrice = event.value ? event.value.price : 0;
-    const nextValue = this.originalDrawbarPrice;
-    const current = this.krpanService._trailerPrice();
-  
-    if (previousValue !== nextValue) {
-      const newPrice = current - previousValue + Number(nextValue);
-      this.krpanService._trailerPrice.set(newPrice);
-    }
-
-    let updatedOilPumps: ConfigurationItem[] = [];
-
-
-    if (event.value){
-      this.originalDrawbar = event.value;
-      this.krpanService.selectedDrawbar.set(event.value)
-      
-      if (event.value.code === "C6") {
-        updatedOilPumps = this.updateOilPumpsForDrawbars();
-      } else {
-        updatedOilPumps = this.updateOilPumpsTypesToEnabled();
-      }
-
-    } else {
-      this.originalDrawbar = undefined;
-      this.krpanService.selectedDrawbar.set(undefined)
-      updatedOilPumps = this.updateOilPumpsTypesToEnabled();
-    }
-
-    this.oilPumps = updatedOilPumps;
-  }
-
-  updateOilPumpsForDrawbars(): ConfigurationItem[] {
-    return this.oilPumps.map((oilPump) => ({
-      ...oilPump,
-      disabledOption: oilPump.code !== "P1" && oilPump.code !== "P2"
-    }));
-  }
-
-  updateOilPumpsTypesToEnabled(): ConfigurationItem[] {
-    return this.oilPumps.map((oilPump) => ({
-      ...oilPump,
       disabledOption: false
     }));
   }
@@ -691,24 +1164,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
     }
   }
 
-  onBBoxChange(event: CheckboxChangeEvent){
-    if (event.checked.length > 0) {
-      const current = this.krpanService._trailerPrice(); 
-      const newPrice = Number(current) + Number(event.checked[0].price);   
-      this.krpanService._trailerPrice.set(newPrice);
-      this.originalBboxPrice = Number(event.checked[0].price);
-      this.originalBbox = event.checked[0];
-      this.krpanService.selectedBBox.set(event.checked[0]);
-    } else {
-      const current = this.krpanService._trailerPrice();
-      const newPrice = Number(current) - this.originalBboxPrice;
-      this.krpanService._trailerPrice.set(newPrice);
-      this.originalBbox = undefined;
-      this.krpanService.selectedBBox.set(undefined);
-    }
-  }
-
-
   onWoodSorterNumberChange(event: DropdownChangeEvent){
     this.woodSorterNumberSelected = true;
     const number = Number(event.value.number);
@@ -724,40 +1179,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
       this.krpanService._trailerPrice.update(value => value + previousTotalPrice + (Number(this.initialWoodSorterPrice) * Number(this.initialWoodSorterNumber)));
     }
     this.previousWoodSorterNumber = number;
-  }
-
-  onHandBrakeChange(event: CheckboxChangeEvent){
-    if (event.checked.length > 0) {
-      const current = this.krpanService._trailerPrice();
-      const newPrice = Number(current) + Number(event.checked[0].price);
-      this.krpanService._trailerPrice.set(newPrice);
-      this.originalHandBrakePrice = Number(event.checked[0].price);
-      this.originalHandBrake = event.checked[0];
-      this.krpanService.selectedHandBrake.set(event.checked[0]);
-    } else {
-      const current = this.krpanService._trailerPrice();
-      const newPrice = Number(current) - this.originalHandBrakePrice;
-      this.krpanService._trailerPrice.set(newPrice);
-      this.originalHandBrake = undefined;
-      this.krpanService.selectedHandBrake.set(undefined);
-    }
-  }
-
-  onChainsawHolderChange(event: CheckboxChangeEvent) {
-    if (event.checked.length > 0) {
-      const current = this.krpanService._trailerPrice();
-      const newPrice = Number(current) + Number(event.checked[0].price);
-      this.krpanService._trailerPrice.set(newPrice);
-      this.originalChainsawHolderPrice = Number(event.checked[0].price);
-      this.originalChainsawHolder = event.checked[0];
-      this.krpanService.selectedChainsawHolder.set(event.checked[0]);
-    } else {
-      const current = this.krpanService._trailerPrice();
-      const newPrice = Number(current) - this.originalChainsawHolderPrice;
-      this.krpanService._trailerPrice.set(newPrice);
-      this.originalChainsawHolder = undefined;
-      this.krpanService.selectedChainsawHolder.set(undefined);
-    }
   }
 
   onUnderrunProtectionChange(event: CheckboxChangeEvent){
