@@ -47,13 +47,14 @@ import { KrpanCraneComponent } from '../../../cranes/components/krpan-crane/krpa
 import { KrpanCraneCardsComponent } from '../../../cranes/components/krpan-crane-cards/krpan-crane-cards.component';
 import { KrpanTrailerCardsComponent } from '../krpan-trailer-cards/krpan-trailer-cards.component';
 import { KrpanService } from '../../../shared/services/krpan.service';
+import { KrpanTrailerEquipmentComponent } from '../krpan-trailer-equipment/krpan-trailer-equipment.component';
 
 @Component({
     selector: 'app-krpan-trailer',
     standalone: true,
     templateUrl: './krpan-trailer.component.html',
     styleUrl: './krpan-trailer.component.css',
-    imports: [NavigationComponent, CardModule, FooterComponent, RadioButtonModule, KrpanCraneCardsComponent, TrailerDataItemComponent, AccordionModule, DividerModule, DropdownModule, InputSwitchModule, GalleriaModule, FormsModule, ReactiveFormsModule, ButtonModule, ImageModule, ListboxModule, FormatPricePipe, BrakesDialogComponent, DrawbarDialogComponent, PlatormDialogComponent, OilPumpDialogComponent, OilTankDialogComponent, CheckboxModule, OilTankCoolerDialogComponent, BolsterLockDialogComponent, BboxDialogComponent, WoodsorterDialogComponent, ChainsawHolderDialogComponent, UnderrunProtectionDialogComponent, SupportLegDialogComponent, TrailerLightDialogComponent, TyresDialogComponent, KrpanTrailerCalculatorHintsComponent, AccessoryItemComponent, KrpanTrailerInformationComponent, KrpanTrailerCardsComponent, KrpanCraneComponent, PropulsionsDialogComponent, BunkAdapterDialogComponent, BunkExtensionDialogComponent, FrameExtensionDialogComponent]
+    imports: [NavigationComponent, CardModule, FooterComponent, RadioButtonModule, KrpanCraneCardsComponent, KrpanTrailerEquipmentComponent,TrailerDataItemComponent, AccordionModule, DividerModule, DropdownModule, InputSwitchModule, GalleriaModule, FormsModule, ReactiveFormsModule, ButtonModule, ImageModule, ListboxModule, FormatPricePipe, BrakesDialogComponent, DrawbarDialogComponent, PlatormDialogComponent, OilPumpDialogComponent, OilTankDialogComponent, CheckboxModule, OilTankCoolerDialogComponent, BolsterLockDialogComponent, BboxDialogComponent, WoodsorterDialogComponent, ChainsawHolderDialogComponent, UnderrunProtectionDialogComponent, SupportLegDialogComponent, TrailerLightDialogComponent, TyresDialogComponent, KrpanTrailerCalculatorHintsComponent, AccessoryItemComponent, KrpanTrailerInformationComponent, KrpanTrailerCardsComponent, KrpanCraneComponent, PropulsionsDialogComponent, BunkAdapterDialogComponent, BunkExtensionDialogComponent, FrameExtensionDialogComponent]
 })
 export class KrpanTrailerComponent implements OnInit, OnDestroy{
   @Input() trailer!: KrpanTrailer
@@ -70,6 +71,11 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   bunkExtensionNumberSelected: boolean = false;
   stanchionExtensionChecked: boolean = false;
   stanchionExtensionNumberSelected: boolean = false;
+
+  extraStanchionChecked: boolean = false;
+  extraStanchionNumberSelected: boolean = false;
+  extraForwarderStanchionChecked: boolean = false;
+  extraForwarderStanchionNumberSelected: boolean = false;
   
   @ViewChild('oilCoolerCheckBox') oilCoolerCheckBox!: Checkbox;
   @ViewChild('woodSorterCheckBox') woodSorterCheckBox!: Checkbox;
@@ -80,6 +86,11 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   @ViewChild('bunkExtensionDropdown') bunkExtensionDropdown!: Dropdown;
   @ViewChild('stanchionExtensionCheckBox') stanchionExtensionCheckBox!: Checkbox;
   @ViewChild('stanchionExtensionDropdown') stanchionExtensionDropdown!: Dropdown;
+
+  @ViewChild('extraStanchionCheckBox') extraStanchionCheckBox!: Checkbox;
+  @ViewChild('extraStanchionDropdown') extraStanchionDropdown!: Dropdown;
+  @ViewChild('extraForwarderStanchionCheckBox') extraForwarderStanchionCheckBox!: Checkbox;
+  @ViewChild('extraForwarderStanchionDropdown') extraForwarderStanchionDropdown!: Dropdown;
   
   showBrakesDialog: boolean = false;
   showPropulsionsDialog: boolean = false;
@@ -184,6 +195,14 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   originalFrameExtensionPrice = 0;
   originalHydroPackPrice = 0;
 
+  initialExtraStanchionPrice = 0;
+  initialExtraStanchionNumber = 0;
+  previousExtraStanchionNumber = 0;
+
+  initialExtraForwarderStanchionPrice = 0;
+  initialExtraForwarderStanchionNumber = 0;
+  previousExtraForwarderStanchionNumber = 0;
+
   initialWoodSorterPrice = 0;
   initialWoodSorterNumber = 0;
   previousWoodSorterNumber = 0;
@@ -206,7 +225,9 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   originalBrake: ConfigurationItem | undefined = undefined;
   originalHandBrake: ConfigurationItem | undefined = undefined;
   originalExtraStanchion: ConfigurationItem | undefined = undefined;
+  extraStanchionArrayElements: any[] | undefined = [];
   originalExtraForwarderStanchion: ConfigurationItem | undefined = undefined;
+  extraForwarderStanchionArrayElements: any[] | undefined = [];
   originalTopConnection: ConfigurationItem | undefined = undefined;
   originalClutch: ConfigurationItem | undefined = undefined;
   originalDrawHead: ConfigurationItem | undefined = undefined;
@@ -459,10 +480,12 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
 
         if (extraStanchion){
           this.extraStanchion = extraStanchion;
+          this.initialExtraStanchionPrice = Number(extraStanchion.price);
         }
 
         if (extraForwarderStanchion){
           this.extraForwarderStanchion = extraForwarderStanchion;
+          this.initialExtraForwarderStanchionPrice = Number(extraForwarderStanchion.price);
         }
 
         if (topConnection){
@@ -611,36 +634,106 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
 
   onExtraStanchionChange(event: CheckboxChangeEvent){
     if (event.checked.length > 0) {
-      const current = this.krpanService._trailerPrice();
-      const newPrice = Number(current) + Number(event.checked[0].price);
-      this.krpanService._trailerPrice.set(newPrice);
-      this.originalExtraStanchionPrice = Number(event.checked[0].price);
-      this.originalExtraStanchion = event.checked[0];
-      this.krpanService.selectedExtraStanchion.set(event.checked[0]);
+        this.originalExtraStanchionPrice = Number(event.checked[0].price);
+        this.extraStanchionChecked = true;
+        this.originalExtraStanchion = event.checked[0];
+        
+        this.krpanService.selectedExtraStanchion.set(event.checked[0]);
+        setTimeout(() => {
+          if(this.extraStanchionArrayElements?.length === 0){
+            const maxNumber = Number(3);
+
+            this.extraStanchionArrayElements = [];
+            for (let i = 1; i <= maxNumber; i++) {
+              this.extraStanchionArrayElements.push({number: i});
+              if (this.originalExtraStanchion){
+                this.originalExtraStanchion.name = this.originalExtraStanchion?.name.replace(/\s\d+ db$/, '');
+                this.originalExtraStanchion.price = 0;
+                this.krpanService._trailerPrice.update(value => Number(value) + (Number(545)* Number(this.initialExtraStanchionNumber)));
+              }
+            }
+          }
+        }, 100);
     } else {
-      const current = this.krpanService._trailerPrice();
-      const newPrice = Number(current) - this.originalExtraStanchionPrice;
-      this.krpanService._trailerPrice.set(newPrice);
-      this.originalExtraStanchion = undefined;
-      this.krpanService.selectedExtraStanchion.set(undefined);
+        setTimeout(() => {
+          this.krpanService._trailerPrice.update(value => value - (Number(545)* Number(this.initialExtraStanchionNumber)));
+          this.extraStanchionChecked = false;
+          this.initialExtraStanchionNumber = 0;
+          this.previousExtraStanchionNumber = 0;
+          this.originalExtraStanchion = undefined;
+          this.extraStanchionArrayElements = []
+          this.krpanService.selectedExtraStanchion.set(undefined);
+          }, 50);
     }
+  }
+
+  onExtraStanchionNumberChange(event: DropdownChangeEvent){
+    this.extraStanchionNumberSelected = true;
+    const number = Number(event.value.number);
+    this.initialExtraStanchionNumber = number;
+    const previousTotalPrice = Number(this.previousExtraStanchionNumber) * Number(this.initialExtraStanchionPrice);
+
+    if (this.originalExtraStanchion) {
+        this.originalExtraStanchion.name = this.originalExtraStanchion.name.replace(/\s\d+ db$/, '') + " " + this.initialExtraStanchionNumber + " db";
+        this.originalExtraStanchion.price = this.initialExtraStanchionPrice * this.initialExtraStanchionNumber;
+
+        this.krpanService._trailerPrice.update(value => value - previousTotalPrice + (Number(this.initialExtraStanchionPrice) * Number(this.initialExtraStanchionNumber)));
+    } else {
+      this.krpanService._trailerPrice.update(value => value + previousTotalPrice + (Number(this.initialExtraStanchionPrice) * Number(this.initialExtraStanchionNumber)));
+    }
+    this.previousExtraStanchionNumber = number;
   }
 
   onExtraForwarderStanchionChange(event: CheckboxChangeEvent){
     if (event.checked.length > 0) {
-      const current = this.krpanService._trailerPrice();
-      const newPrice = Number(current) + Number(event.checked[0].price);
-      this.krpanService._trailerPrice.set(newPrice);
-      this.originalExtraForwarderStanchionPrice = Number(event.checked[0].price);
-      this.originalExtraForwarderStanchion = event.checked[0];
-      this.krpanService.selectedExtraForwarderStanchion.set(event.checked[0]);
+        this.originalExtraForwarderStanchionPrice = Number(event.checked[0].price);
+        this.extraForwarderStanchionChecked = true;
+        this.originalExtraForwarderStanchion = event.checked[0];
+        
+        this.krpanService.selectedExtraForwarderStanchion.set(event.checked[0]);
+        setTimeout(() => {
+          if(this.extraForwarderStanchionArrayElements?.length === 0){
+            const maxNumber = Number(3);
+
+            this.extraForwarderStanchionArrayElements = [];
+            for (let i = 1; i <= maxNumber; i++) {
+              this.extraForwarderStanchionArrayElements.push({number: i});
+              if (this.originalExtraForwarderStanchion){
+                this.originalExtraForwarderStanchion.name = this.originalExtraForwarderStanchion?.name.replace(/\s\d+ db$/, '');
+                this.originalExtraForwarderStanchion.price = 0;
+                this.krpanService._trailerPrice.update(value => Number(value) + (Number(1025)* Number(this.initialExtraForwarderStanchionNumber)));
+              }
+            }
+          }
+        }, 100);
     } else {
-      const current = this.krpanService._trailerPrice();
-      const newPrice = Number(current) - this.originalExtraForwarderStanchionPrice;
-      this.krpanService._trailerPrice.set(newPrice);
-      this.originalExtraForwarderStanchion = undefined;
-      this.krpanService.selectedExtraForwarderStanchion.set(undefined);
+        setTimeout(() => {
+          this.krpanService._trailerPrice.update(value => value - (Number(1025)* Number(this.initialExtraForwarderStanchionNumber)));
+          this.extraForwarderStanchionChecked = false;
+          this.initialExtraForwarderStanchionNumber = 0;
+          this.previousExtraForwarderStanchionNumber = 0;
+          this.originalExtraForwarderStanchion = undefined;
+          this.extraForwarderStanchionArrayElements = []
+          this.krpanService.selectedExtraForwarderStanchion.set(undefined);
+          }, 50);
     }
+  }
+
+  onExtraForwarderStanchionNumberChange(event: DropdownChangeEvent){
+    this.extraForwarderStanchionNumberSelected = true;
+    const number = Number(event.value.number);
+    this.initialExtraForwarderStanchionNumber = number;
+    const previousTotalPrice = Number(this.previousExtraForwarderStanchionNumber) * Number(this.initialExtraForwarderStanchionPrice);
+
+    if (this.originalExtraForwarderStanchion) {
+        this.originalExtraForwarderStanchion.name = this.originalExtraForwarderStanchion.name.replace(/\s\d+ db$/, '') + " " + this.initialExtraForwarderStanchionNumber + " db";
+        this.originalExtraForwarderStanchion.price = this.initialExtraForwarderStanchionPrice * this.initialExtraForwarderStanchionNumber;
+
+        this.krpanService._trailerPrice.update(value => value - previousTotalPrice + (Number(this.initialExtraForwarderStanchionPrice) * Number(this.initialExtraForwarderStanchionNumber)));
+    } else {
+      this.krpanService._trailerPrice.update(value => value + previousTotalPrice + (Number(this.initialExtraForwarderStanchionPrice) * Number(this.initialExtraForwarderStanchionNumber)));
+    }
+    this.previousExtraForwarderStanchionNumber = number;
   }
 
   onTopConnectionChange(event: CheckboxChangeEvent){

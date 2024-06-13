@@ -1,0 +1,114 @@
+<ng-container class="bg-slate-200">
+    <div #configElement class="flex align-middle justify-center my-10">
+        <div class="w-11/12">
+            <div class="col-span-5 justify-self-start sm:col-span-6 sm:justify-self-start my-4">
+                <div>
+                    <p class="text-md lg:text-lg font-bold">Széria felszereltség:</p>
+                    
+                    @if(trailer.name.includes('DF')){
+                        <div class="ml-2">
+                            <p class="text-md lg:text-lg my-2">gumi 400/60-15,5; 14 rétegű</p>
+                            <p class="text-md lg:text-lg my-2">hidraulikus fék 4 keréken</p>
+                            <p class="text-md lg:text-lg my-2">lámpa</p>
+                            <p class="text-md lg:text-lg my-2">kézifék</p>
+                            <p class="text-md lg:text-lg my-2">ékek</p>
+                            <p class="text-md lg:text-lg my-2">vonórúd kormányzás + 40 ̊</p>
+                            <p class="text-md lg:text-lg my-2">kitámasztó láb</p>
+                        </div>
+                    } @else{
+                        <div class="ml-2">
+                            <p class="text-md lg:text-lg my-2">gumi 400/60-15,5; 18 rétegű</p>
+                            <p class="text-md lg:text-lg my-2">hidraulikus fék 4 keréken</p>
+                            <p class="text-md lg:text-lg my-2">rakfelület hosszabbítás</p>
+                            <p class="text-md lg:text-lg my-2">hidraulikusan állítható futómű</p>
+                            <p class="text-md lg:text-lg my-2">lámpa</p>
+                            <p class="text-md lg:text-lg my-2">ékek</p>
+                            <p class="text-md lg:text-lg my-2">vonórúd kormányzás + 40 ̊</p>
+                            <p class="text-md lg:text-lg my-2">kitámasztó láb</p>
+                            <p class="text-md lg:text-lg my-2">kézifék</p>
+                            <p class="text-md lg:text-lg my-2">csákány és fejsze tartó</p>
+                            <p class="text-md lg:text-lg my-2">motorfűrész tartó</p>
+                            <p class="text-md lg:text-lg my-2">üzemanyagtartály tartó</p>
+                            <p class="text-md lg:text-lg my-2">szerszámosláda</p>
+                        </div>
+                    }
+                </div>
+            </div>
+           <div class="col-span-5 justify-self-start sm:col-span-6 sm:justify-self-start my-4">
+            <div >
+                <p class="text-md lg:text-lg font-bold">Opciós felszereltség:</p> 
+
+                @if(trailer.name.includes('DF')){
+                    @if(trailer.id === 1 || trailer.id === 2 || trailer.id === 3){
+                        <div class="ml-2">
+                            <p class="text-md lg:text-lg my-2">gumi 480/45-17; 14 rétegű</p>
+                            <p class="text-md lg:text-lg my-2">pneumatikus fék 4 keréken, kombinált fék 4 keréken</p>
+                            <p class="text-md lg:text-lg my-2">rakfelület hosszabbítás</p>
+                            <p class="text-md lg:text-lg my-2">extra pár rakonca</p>
+                            <p class="text-md lg:text-lg my-2">biomasszás vályú</p>
+                            <p class="text-md lg:text-lg my-2">platform bálaszállításhoz</p>
+                            <p class="text-md lg:text-lg my-2">Walterscheid WWE 2480-SSDF25-910 kardántengely</p>
+                            <p class="text-md lg:text-lg my-2">csákány és fejsze tartó</p>
+                            <p class="text-md lg:text-lg my-2">motorfűrész tartó</p>
+                            <p class="text-md lg:text-lg my-2">üzemanyagtartály tartó</p>
+                            <p class="text-md lg:text-lg my-2">szerszámosláda</p>
+                        </div>
+                    } @else if(trailer.id === 4 || trailer.id === 5) {
+                        <div class="ml-2">
+                            <p class="text-md lg:text-lg my-2">gumi 500/50-17; 18 rétegű, 550/45-22,5; 20 rétegű, 400/55-22,5; 20 rétegű</p>
+                            <p class="text-md lg:text-lg my-2">pneumatikus fék 4 keréken, kombinált fék 4 keréken</p>
+                            <p class="text-md lg:text-lg my-2">2 kerék vagy 4 kerék meghajtás (BB4 vagy BB5) olajhűtővel</p>
+                            <p class="text-md lg:text-lg my-2">rakfelület hosszabbítás</p>
+                            <p class="text-md lg:text-lg my-2">extra pár rakonca</p>
+                            <p class="text-md lg:text-lg my-2">extra pár forwarder típusú rakonca</p>
+                            <p class="text-md lg:text-lg my-2">biomasszás vályú<p>
+                            <p class="text-md lg:text-lg my-2">platform bálaszállításhoz</p>
+                            <p class="text-md lg:text-lg my-2">Walterscheid WWE 2480-SDF25-910 kardántengely</p>
+                            <p class="text-md lg:text-lg my-2">csákány és fejsze tartó</p>
+                            <p class="text-md lg:text-lg my-2">motorfűrész tartó</p>
+                            <p class="text-md lg:text-lg my-2">üzemanyagtartály tartó</p>
+                            <p class="text-md lg:text-lg my-2">szerszámosláda</p>
+                        </div>
+                    }
+                } @else{
+                    @if(trailer.id === 6){
+                        <div class="ml-2">
+                            <p class="text-md lg:text-lg my-2">gumi 480/45-17; 14 rétegű, 500/50-17; 18 rétegű</p>
+                            <p class="text-md lg:text-lg my-2">pneumatikus fék 4 keréken, kombinált fék 4 keréken</p>
+                            <p class="text-md lg:text-lg my-2">2 kerék meghajtás (BB4)</p>
+                            <p class="text-md lg:text-lg my-2">extra pár rakonca</p>
+                            <p class="text-md lg:text-lg my-2">biomasszás vályú<p>
+                            <p class="text-md lg:text-lg my-2">platform bálaszállításhoz</p>
+                            <p class="text-md lg:text-lg my-2">Walterscheid WWE 2480-SDF25-910 kardántengely</p>
+                        </div>
+                    } @else if(trailer.id === 7){
+                        <div class="ml-2">
+                            <p class="text-md lg:text-lg my-2">gumi 500/50-17; 18 régetű, 550/45-22,5; 20 rétegű, 400/55-22,5; 20 rétegű</p>
+                            <p class="text-md lg:text-lg my-2">pneumatikus fék 4 keréken, kombinált fék 4 keréken</p>
+                            <p class="text-md lg:text-lg my-2">2 kerék meghajtás vagy 4 kerék meghajtás BB4 vagy BB5 (olajhűtővel)</p>
+                            <p class="text-md lg:text-lg my-2">extra pár rakonca</p>
+                            <p class="text-md lg:text-lg my-2">extra pár forwarder típusú rakonca</p>
+                            <p class="text-md lg:text-lg my-2">biomasszás vályú<p>
+                            <p class="text-md lg:text-lg my-2">platform bálaszállításhoz</p>
+                            <p class="text-md lg:text-lg my-2">Walterscheid WWE 2480-SDF25-910 kardántengely</p>
+                        </div>
+                    } @else {
+                        <div class="ml-2">
+                            <p class="text-md lg:text-lg my-2">gumi 500/50-17; 18 régetű, 550/45-22,5; 20 rétegű, 400/55-22,5; 20 rétegű</p>
+                            <p class="text-md lg:text-lg my-2">pneumatikus fék 4 keréken, kombinált fék 4 keréken</p>
+                            <p class="text-md lg:text-lg my-2">2 kerék meghajtás vagy 4 kerék meghajtás BB4 vagy BB5 (olajhűtővel)</p>
+                            <p class="text-md lg:text-lg my-2">extra pár rakonca</p>
+                            <p class="text-md lg:text-lg my-2">extra pár forwarder típusú rakonca</p>
+                            <p class="text-md lg:text-lg my-2">biomasszás vályú<p>
+                            <p class="text-md lg:text-lg my-2">platform bálaszállításhoz</p>
+                            <p class="text-md lg:text-lg my-2">Walterscheid WWE 2480-SDF25-910 kardántengely</p>
+                        </div>
+                    }
+                }
+            </div> 
+           </div>
+            
+        </div>
+    </div>
+ </ng-container>
+

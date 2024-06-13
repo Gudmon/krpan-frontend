@@ -13,6 +13,9 @@
 <div *ngIf="(krpanService.trailerSelected$ | async) && !fromCrane" class="mx-auto">
     <app-krpan-trailer-calculator-hints *ngIf="hintsChecked"></app-krpan-trailer-calculator-hints>
 </div>
+<div *ngIf="(krpanService.trailerSelected$ | async) && !fromCrane" class="mx-auto">
+    <app-krpan-trailer-equipment *ngIf="hintsChecked" [trailer]="trailer"></app-krpan-trailer-equipment>
+</div>
 
 <form [formGroup]="trailerFormGroup">
     <ng-container *ngIf="(krpanService.trailerSelected$ | async)" class="bg-slate-200">
@@ -40,10 +43,39 @@
                     </div>
                 </div>
 
-                <!-- extra stanch
-                extra forw stanch
-                top conn
-                clucthes -->
+                <div *ngIf="trailerSelected && extraStanchion" class="justify-content-center my-4 py-4">
+                    <div class="flex gap-2">
+                        <p-checkbox #extraStanchionCheckBox (onChange)="onExtraStanchionChange($event)" [value]="extraStanchion" formControlName="selectedExtraStanchion" inputId="ExtraStanchionSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer pt-2" for="ExtraStanchionSelected">{{extraStanchion.namePrice}}</label>
+                    </div>
+                </div>
+                <div *ngIf="trailerSelected && extraStanchion" class="justify-content-center">
+                    <p-dropdown *ngIf="extraStanchionChecked" [disabled]="!extraStanchionChecked" #extraStanchionDropdown (onChange)="onExtraStanchionNumberChange($event)" [options]="extraStanchionArrayElements" optionLabel="number" placeholder="Válasszon egy számot..."></p-dropdown>
+                </div>
+
+                <div *ngIf="trailerSelected && extraForwarderStanchion" class="justify-content-center my-4 py-4">
+                    <div class="flex gap-2">
+                        <p-checkbox #extraForwarderStanchionCheckBox (onChange)="onExtraForwarderStanchionChange($event)" [value]="extraForwarderStanchion" formControlName="selectedExtraForwarderStanchion" inputId="ExtraForwarderStanchionSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer pt-2" for="ExtraForwarderStanchionSelected">{{extraForwarderStanchion.namePrice}}</label>
+                    </div>
+                </div>
+                <div *ngIf="trailerSelected && extraForwarderStanchion" class="justify-content-center">
+                    <p-dropdown *ngIf="extraForwarderStanchionChecked" [disabled]="!extraForwarderStanchionChecked" #extraForwarderStanchionDropdown (onChange)="onExtraForwarderStanchionNumberChange($event)" [options]="extraForwarderStanchionArrayElements" optionLabel="number" placeholder="Válasszon egy számot..."></p-dropdown>
+                </div>
+
+                <div *ngIf="trailerSelected && topConnection" class="justify-content-center my-4 py-4">
+                    <div class="flex gap-2">
+                        <p-checkbox (onChange)="onTopConnectionChange($event)" [value]="topConnection" formControlName="selectedTopConnection" inputId="TopConnectionSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="TopConnectionSelected">{{topConnection.namePrice}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="trailerSelected && clucthes.length > 0" class="justify-content-center my-4 py-4">
+                    <div class="flex gap-2">
+                        <span>Tengelykapcsoló</span>
+                    </div>
+                    <p-listbox optionDisabled="disabledOption" (onChange)="handleClutchChange($event)" formControlName="selectedClutch" [options]="clucthes" optionLabel="namePrice"></p-listbox>                   
+                </div>
 
                 <div *ngIf="trailerSelected && drawHead" class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
@@ -59,135 +91,91 @@
                     <p-listbox optionDisabled="disabledOption" (onChange)="handleDrawbarChange($event)" formControlName="selectedDrawbar" [options]="drawbars" optionLabel="namePrice"></p-listbox>                   
                 </div>
 
-                <div *ngIf="trailerSelected && platforms.length > 0" class="justify-content-center my-4 py-4">
+                <div *ngIf="trailerSelected && cardanShaft" class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
-                        <span>Platform</span>
-                        <button (click)="toggleDialog('platforms', true)"><i class="fa-solid fa-circle-info"></i></button>  
-                        <app-platorm-dialog [platforms]="platforms" [platformDialogVisible]="showPlatformsDialog" (dialogVisible)="toggleDialog('platforms', false)"></app-platorm-dialog>
-                    </div>
-                    <p-listbox (onChange)="handlePlatformChange($event)" formControlName="selectedPlatform" [options]="platforms" optionLabel="namePrice"></p-listbox>                   
-                </div>
-
-                <div *ngIf="trailerSelected && hydroPack" class="justify-content-center my-4 py-4">
-                    <div class="mb-4">
-                        <!-- <button (click)="toggleDialog('hydroPack', true)"><i class="fa-solid fa-circle-info"></i></button> 
-                        <app-chainsaw-holder-dialog [chainsawHolder]="chainsawHolder" [chainsawHolderDialogVisible]="showChainsawHolderDialog" (dialogVisible)="toggleDialog('chainsawHolder', false)"></app-chainsaw-holder-dialog>             -->
-                    </div>
-                    <div class="flex gap-2">
-                        <p-checkbox (onChange)="onHydroPackChange($event)" [value]="hydroPack" formControlName="selectedHydroPack" inputId="HydroPackSelected"></p-checkbox>
-                        <label class="hover:cursor-pointer" for="HydroPackSelected">{{hydroPack.namePrice}}</label>
+                        <p-checkbox (onChange)="onCardanShaftChange($event)" [value]="cardanShaft" formControlName="selectedCardanShaft" inputId="CardanShaftSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="CardanShaftSelected">{{cardanShaft.namePrice}}</label>
                     </div>
                 </div>
 
-                <div *ngIf="trailerSelected && oilPumps.length > 0" class="justify-content-center my-4 py-4">
+                <div *ngIf="trailerSelected && bBox" class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
-                        <span>Olajszivattyú</span>
-                        <button (click)="toggleDialog('oilPumps', true)"><i class="fa-solid fa-circle-info"></i></button>  
-                        <app-oil-pump-dialog [oilPumps]="oilPumps" [oilPumpsDialogVisible]="showOilPumpsDialog" (dialogVisible)="toggleDialog('oilPumps', false)"></app-oil-pump-dialog>
-                    </div>
-                    <p-listbox optionDisabled="disabledOption" (onChange)="handleOilPumpChange($event)" formControlName="selectedOilPump" [options]="oilPumps" optionLabel="namePrice"></p-listbox>                   
-                </div>
-
-                <div *ngIf="trailerSelected && oilTanks.length > 0" class="justify-content-center my-4 py-4">
-                    <div class="flex gap-2">
-                        <span>Olajtank</span>
-                        <button (click)="toggleDialog('oilTanks', true)"><i class="fa-solid fa-circle-info"></i></button>   
-                        <app-oil-tank-dialog [oilTanks]="oilTanks" [oilTanksDialogVisible]="showOilTanksDialog" (dialogVisible)="toggleDialog('oilTanks', false)"></app-oil-tank-dialog>          
-                    </div>
-                    <p-listbox (onChange)="handleOilTankChange($event)" formControlName="selectedOilTank" [options]="oilTanks" optionLabel="namePrice"></p-listbox>                   
-                </div>
-
-                <div *ngIf="trailerSelected && trailerOilCooler" class="justify-content-center my-4 py-4">
-                    <div class="mb-4">
-                        <button (click)="toggleDialog('trailerOilCooler', true)"><i class="fa-solid fa-circle-info"></i></button> 
-                        <app-oil-tank-cooler-dialog [trailerOilCoolerDialogVisible]="showTrailerOilCoolerDialog" (dialogVisible)="toggleDialog('trailerOilCooler', false)"></app-oil-tank-cooler-dialog>            
-                    </div>
-                    <div class="flex gap-2">
-                        <p-checkbox #oilCoolerCoolerCheckBox (onChange)="onOilCoolerChange($event)" [value]="trailerOilCooler" formControlName="selectedTrailerOilCooler" inputId="trailerOilCoolerSelected"></p-checkbox>
-                        <label class="hover:cursor-pointer" for="trailerOilCoolerSelected">{{trailerOilCooler.namePrice}}</label>
+                        <p-checkbox (onChange)="onBBoxChange($event)" [value]="bBox" formControlName="selectedBBox" inputId="BBoxSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="BBoxSelected">{{bBox.namePrice}}</label>
                     </div>
                 </div>
 
-                <div *ngIf="trailerSelected && bolsterLock" class="justify-content-center my-4 py-4">
-                    <div class="mb-4">
-                        <button (click)="toggleDialog('bolsterLock', true)"><i class="fa-solid fa-circle-info"></i></button> 
-                        <app-bolster-lock-dialog [bolsterLocksDialogVisible]="showBolsterLockDialog" (dialogVisible)="toggleDialog('bolsterLock', false)"></app-bolster-lock-dialog>            
-                    </div>
+                <div *ngIf="trailerSelected && baleTransportPlatform" class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
-                        <p-checkbox #bolsterLocksCheckBox (onChange)="onBolsterLockChange($event)" [value]="bolsterLock" formControlName="selectedBolsterLock" inputId="bolsterLockSelected"></p-checkbox>
-                        <label class="hover:cursor-pointer" for="bolsterLockSelected">{{bolsterLock.namePrice}}</label>
+                        <p-checkbox (onChange)="onBaleTransportPlatformChange($event)" [value]="baleTransportPlatform" formControlName="selectedBaleTransportPlatform" inputId="BaleTransportPlatformSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="BaleTransportPlatformSelected">{{baleTransportPlatform.namePrice}}</label>
                     </div>
                 </div>
 
-                <div *ngIf="trailerSelected && bbox" class="justify-content-center my-4 py-4">
-                    <div class="mb-4">
-                        <button (click)="toggleDialog('bbox', true)"><i class="fa-solid fa-circle-info"></i></button> 
-                        <app-bbox-dialog [bBox]="bbox" [bBoxDialogVisible]="showBboxDialog" (dialogVisible)="toggleDialog('bbox', false)"></app-bbox-dialog>            
-                    </div>
+                <div *ngIf="trailerSelected && cargoSpaceExtension" class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
-                        <p-checkbox #bboxCheckBox (onChange)="onBBoxChange($event)" [value]="bbox" formControlName="selectedBbox" inputId="BboxSelected"></p-checkbox>
-                        <label class="hover:cursor-pointer" for="BboxSelected">{{bbox.namePrice}}</label>
+                        <p-checkbox (onChange)="onCargoSpaceExtensionChange($event)" [value]="cargoSpaceExtension" formControlName="selectedCargoSpaceExtension" inputId="CargoSpaceExtensionSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="CargoSpaceExtensionSelected">{{cargoSpaceExtension.namePrice}}</label>
                     </div>
                 </div>
 
-                <div *ngIf="trailerSelected && supportLegs.length > 0"  class="justify-content-center my-4 py-4">
+                <div *ngIf="trailerSelected && axeHolder" class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
-                        <span>Kitámasztó láb</span>
-                        <button (click)="toggleDialog('supportLeg', true)"><i class="fa-solid fa-circle-info"></i></button> 
-                        <app-support-leg-dialog [supportLegs]="supportLegs" [supportLegDialogVisible]="showSupportLegDialog" (dialogVisible)="toggleDialog('supportLeg', false)"></app-support-leg-dialog>                                   
-                    </div>
-                    <p-listbox (onChange)="handleSupportLegChange($event)" formControlName="selectedSupportLeg" [options]="supportLegs" optionLabel="namePrice"></p-listbox>                   
-                </div>
-
-                <div *ngIf="trailerSelected && handBrake" class="justify-content-center my-6 py-4 mt-12">
-                    <div class="flex gap-2">
-                        <p-checkbox #handBrakeCheckBox (onChange)="onHandBrakeChange($event)" [value]="handBrake" formControlName="selectedHandBrake" inputId="HandBrakeSelected"></p-checkbox>
-                        <label class="hover:cursor-pointer" for="HandBrakeSelected">{{handBrake.namePrice}}</label>
+                        <p-checkbox (onChange)="onAxeHolderChange($event)" [value]="axeHolder" formControlName="selectedAxeHolder" inputId="AxeHolderSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="AxeHolderSelected">{{axeHolder.namePrice}}</label>
                     </div>
                 </div>
 
                 <div *ngIf="trailerSelected && chainsawHolder" class="justify-content-center my-4 py-4">
-                    <div class="mb-4">
-                        <button (click)="toggleDialog('chainsawHolder', true)"><i class="fa-solid fa-circle-info"></i></button> 
-                        <app-chainsaw-holder-dialog [chainsawHolder]="chainsawHolder" [chainsawHolderDialogVisible]="showChainsawHolderDialog" (dialogVisible)="toggleDialog('chainsawHolder', false)"></app-chainsaw-holder-dialog>            
-                    </div>
                     <div class="flex gap-2">
-                        <p-checkbox #chainsawHolderCheckBox (onChange)="onChainsawHolderChange($event)" [value]="chainsawHolder" formControlName="selectedChainsawHolder" inputId="ChainsawHolderSelected"></p-checkbox>
+                        <p-checkbox (onChange)="onChainsawHolderChange($event)" [value]="chainsawHolder" formControlName="selectedChainsawHolder" inputId="ChainsawHolderSelected"></p-checkbox>
                         <label class="hover:cursor-pointer" for="ChainsawHolderSelected">{{chainsawHolder.namePrice}}</label>
                     </div>
                 </div>
 
-                <div *ngIf="trailerSelected && frameExtension" class="justify-content-center my-4 py-4">
-                    <div class="mb-4">
-                        <button (click)="toggleDialog('frameExtension', true)"><i class="fa-solid fa-circle-info"></i></button> 
-                        <app-frame-extension-dialog [frameExtension]="frameExtension" [frameExtensionDialogVisible]="showFrameExtensionDialog" (dialogVisible)="toggleDialog('frameExtension', false)"></app-frame-extension-dialog>            
-                    </div>
+                <div *ngIf="trailerSelected && fuelTankHolder" class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
-                        <p-checkbox #frameExtensionCheckBox (onChange)="onFrameExtensionChange($event)" [value]="frameExtension" formControlName="selectedFrameExtension" inputId="FrameExtensionSelected"></p-checkbox>
-                        <label class="hover:cursor-pointer" for="FrameExtensionSelected">{{frameExtension.namePrice}}</label>
+                        <p-checkbox (onChange)="onFuelTankHolderChange($event)" [value]="fuelTankHolder" formControlName="selectedFuelTankHolder" inputId="FuelTankHolderSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="FuelTankHolderSelected">{{fuelTankHolder.namePrice}}</label>
                     </div>
                 </div>
 
-                <div *ngIf="trailerSelected && underrunProtection" class="justify-content-center my-4 py-4">
-                    <div class="mb-4">
-                        <button (click)="toggleDialog('underrunProtection', true)"><i class="fa-solid fa-circle-info"></i></button> 
-                        <app-underrun-protection-dialog [underrunProtection]="underrunProtection" [underrunProtectionDialogVisible]="showUnderrunProtectionDialog" (dialogVisible)="toggleDialog('underrunProtection', false)"></app-underrun-protection-dialog>            
-                    </div>
+                <div *ngIf="trailerSelected && toolBox" class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
-                        <p-checkbox #underrunProtectionCheckBox (onChange)="onUnderrunProtectionChange($event)" [value]="underrunProtection" formControlName="selectedUnderrunProtection" inputId="UnderrunProtectionSelected"></p-checkbox>
-                        <label class="hover:cursor-pointer" for="UnderrunProtectionSelected">{{underrunProtection.namePrice}}</label>
+                        <p-checkbox (onChange)="onToolBoxChange($event)" [value]="toolBox" formControlName="selectedToolBox" inputId="ToolBoxSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="ToolBoxSelected">{{toolBox.namePrice}}</label>
                     </div>
                 </div>
 
-                <div *ngIf="trailerSelected && lights.length > 0"  class="justify-content-center my-4 py-4">
+                <div *ngIf="trailerSelected && plato" class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
-                        <span>Lámpák</span>
-                        <button (click)="toggleDialog('lights', true)"><i class="fa-solid fa-circle-info"></i></button> 
-                        <app-trailer-light-dialog [lights]="lights" [lightsDialogVisible]="showLightsDialog" (dialogVisible)="toggleDialog('lights', false)"></app-trailer-light-dialog>                              
+                        <p-checkbox (onChange)="onPlatoChange($event)" [value]="plato" formControlName="selectedPlato" inputId="PlatoSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="PlatoSelected">{{plato.namePrice}}</label>
                     </div>
-                    <p-listbox (onChange)="handleLightChange($event)" formControlName="selectedLight" [options]="lights" optionLabel="namePrice"></p-listbox>                   
                 </div>
 
+                <div *ngIf="trailerSelected && extension" class="justify-content-center my-4 py-4">
+                    <div class="flex gap-2">
+                        <p-checkbox (onChange)="onExtensionChange($event)" [value]="extension" formControlName="selectedExtension" inputId="ExtensionSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="ExtensionSelected">{{extension.namePrice}}</label>
+                    </div>
+                </div>
+
+                <!-- TODO: DATA UNDER DISCUSSION -->
+                <div *ngIf="trailerSelected && hydraulicSupportLeg" class="justify-content-center my-4 py-4">
+                    <div class="flex gap-2">
+                        <p-checkbox (onChange)="onHydraulicSupportLegChange($event)" [value]="hydraulicSupportLeg" formControlName="selectedHydraulicSupportLeg" inputId="HydraulicSupportLegSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="HydraulicSupportLegSelected">{{hydraulicSupportLeg.namePrice}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="trailerSelected && grappleLocation" class="justify-content-center my-4 py-4">
+                    <div class="flex gap-2">
+                        <p-checkbox (onChange)="onGrappleLocationChange($event)" [value]="grappleLocation" formControlName="selectedGrappleLocation" inputId="GrappleLocationgSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" for="GrappleLocationSelected">{{grappleLocation.namePrice}}</label>
+                    </div>
+                </div>
+                
                 <div *ngIf="trailerSelected && trailerShipping" class="justify-content-center my-4 py-4">
                     <div class="flex">
                         <p-radioButton id="trailerShipping" [value]="trailerShipping" formControlName="selectedShipping"></p-radioButton>
