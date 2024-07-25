@@ -7,7 +7,7 @@ import { DividerModule } from 'primeng/divider';
 import { GalleriaModule } from 'primeng/galleria';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { ListboxChangeEvent, ListboxModule } from 'primeng/listbox';
+import { Listbox, ListboxChangeEvent, ListboxModule } from 'primeng/listbox';
 import { ImageModule } from 'primeng/image';
 import { ConfigurationItem } from '../../../../../../models/configuration-item';
 import { KrpanTrailerConfigService } from '../../services/krpan-trailer-config.service';
@@ -91,7 +91,15 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   @ViewChild('extraStanchionDropdown') extraStanchionDropdown!: Dropdown;
   @ViewChild('extraForwarderStanchionCheckBox') extraForwarderStanchionCheckBox!: Checkbox;
   @ViewChild('extraForwarderStanchionDropdown') extraForwarderStanchionDropdown!: Dropdown;
-  
+  @ViewChild('selectedTyreListBox') selectedTyreListBox!: Listbox;
+  @ViewChild('selectedBrakeListBox') selectedBrakeListBox!: Listbox;
+
+  bb4Ids = [1,3];
+  bb4CompatibleTyreIds = [1,2,4];
+  bb4CompatibleBrakeIds = [1,3,4];
+  bb5Ids = [2,4];
+  bb5CompatibleTyreIds = [5,6];
+
   showBrakesDialog: boolean = false;
   showPropulsionsDialog: boolean = false;
   showDrawbarsDialog: boolean = false;
@@ -113,6 +121,8 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   showFrameExtensionDialog: boolean = false;
   showHydroPackDialog: boolean = false;
 
+  propulsions: ConfigurationItem[] = [];
+  adjustableDrive:ConfigurationItem | undefined = undefined;
   tyres: ConfigurationItem[] = [];
   brakes: ConfigurationItem[] = [];
   handBrake: ConfigurationItem | undefined = undefined;
@@ -136,7 +146,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   grappleLocation: ConfigurationItem | undefined = undefined;
 
 
-  propulsions: ConfigurationItem[] = [];
   drawbars: ConfigurationItem[] = [];
   platforms: ConfigurationItem[] = [];
   oilPumps: ConfigurationItem[] = [];
@@ -157,6 +166,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
 
   selectedConfigurationItems: ConfigurationItem[] = [];
 
+  originalPropulsionPrice = 0;
   originalTyrePrice = 0;
   originalBrakePrice = 0;
   originalHandBrakePrice = 0;
@@ -179,7 +189,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   originalHydraulicSupportLegPrice = 0;
   originalGrappleLocationPrice = 0;
 
-  originalPropulsionPrice = 0;
   originalDrawbarPrice = 0;
   originalPlatformPrice = 0;
   originalOilPumpPrice = 0;
@@ -221,6 +230,8 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
 
   initialTrailerPrice = 0;
 
+  originalPropulsion: ConfigurationItem | undefined = undefined;
+  originalAdjustableDrive: ConfigurationItem | undefined = undefined;
   originalTyre: ConfigurationItem | undefined = undefined;
   originalBrake: ConfigurationItem | undefined = undefined;
   originalHandBrake: ConfigurationItem | undefined = undefined;
@@ -245,7 +256,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   originalHydraulicSupportLeg: ConfigurationItem | undefined = undefined;
   originalGrappleLocation: ConfigurationItem | undefined = undefined;
 
-  originalPropulsion: ConfigurationItem | undefined = undefined;
+ 
   originalDrawbar: ConfigurationItem | undefined = undefined;
   originalPlatform: ConfigurationItem | undefined = undefined;
   originalOilPump: ConfigurationItem | undefined = undefined;
@@ -269,6 +280,8 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
 
   trailerFormGroup: FormGroup = new FormGroup({
     selectedTrailer: new FormControl<string>(''),
+    selectedPropulsion: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedAdjustableDrive: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedTyre: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedBrake: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedHandBrake: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
@@ -291,7 +304,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
     selectedHydraulicSupportLeg: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedGrappleLocation: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     
-    selectedPropulsion: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    
     selectedDrawbar: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedPlatform: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedOilPump: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
@@ -314,6 +327,8 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   private initializeFormGroup(): void {
     
     this.trailerFormGroup = this.fb.group({
+      selectedPropulsion: null,
+      selectedAdjustableDrive: null,
       selectedTrailer: [this.trailer.name],
       selectedTyre: [this.tyres[0]],
       selectedBrake: [this.brakes[0]],
@@ -337,7 +352,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
       selectedHydraulicSupportLeg: null,
       selectedGrappleLocation: null,
 
-      selectedPropulsion: null,
+      
       selectedDrawbar: null,
       selectedPlatform: null,
       selectedOilPump: null,
@@ -429,7 +444,9 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
 
   loadTrailerConfigurations(id: number){ 
     if(id){
-      this.loadingService.enableLoader();;
+      this.loadingService.enableLoader();
+      const propulsion$ = this.krpanTrailerConfigService.getPropulsions(id);
+      const adjustableDrive$ = this.krpanTrailerConfigService.getAdjustableDrive(id);
       const tyres$ = this.krpanTrailerConfigService.getTyres(id);
       const brakes$ = this.krpanTrailerConfigService.getBrakes(id);
       const handBrake$ = this.krpanTrailerConfigService.getHandBrake(id);
@@ -452,18 +469,25 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
       const hydraulicSupportLeg$ = this.krpanTrailerConfigService.getHydraulicSupportLeg(id);
       const grappleLocation$ = this.krpanTrailerConfigService.getGrappleLocation(id);
       
-      const request = forkJoin([tyres$, brakes$, handBrake$, extraStanchion$, extraForwarderStanchion$,
+      const request = forkJoin([propulsion$, adjustableDrive$, tyres$, brakes$, handBrake$, extraStanchion$, extraForwarderStanchion$,
         topConnection$, clutches$, drawHead$, drawBars$, cardanShaft$, bBox$, baleTransportPlatform$,
         cargoSpaceExtension$, axeHolder$, chainsawHolder$, fuelTankHolder$, toolBox$,
         plato$, extension$, hydraulicSupportLeg$, grappleLocation$
       ]);
      
-      request.subscribe(([tyres, brakes, handBrake, extraStanchion, extraForwarderStanchion,
+      request.subscribe(([propulsions, adjustableDrive, tyres, brakes, handBrake, extraStanchion, extraForwarderStanchion,
         topConnection, clutches, drawHead, drawBars, cardanShaft, bBox, baleTransportPlatform,
         cargoSpaceExtension, axeHolder, chainsawHolder, fuelTankHolder, toolBox,
         plato, extension, hydraulicSupportLeg, grappleLocation
       ]) => {
-        
+        if (propulsions.length > 0){
+          this.propulsions = propulsions;
+        }
+
+        if (adjustableDrive){
+          this.adjustableDrive = adjustableDrive;
+        }
+
         if (tyres.length > 0){
           this.tyres = tyres;
           this.krpanService.selectedTyre.set(tyres[0])
@@ -471,6 +495,8 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
 
         if (brakes.length > 0){
           this.brakes = brakes;
+          console.log(this.brakes);
+          
           this.krpanService.selectedBrake.set(brakes[0])
         }
 
@@ -563,9 +589,133 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
     })};
   }
 
+  handlePropulsionChange(event: ListboxChangeEvent) {
+    const previousValue = this.originalPropulsionPrice
+    this.originalPropulsionPrice = event.value ? event.value.price : 0;
+    const nextValue = this.originalPropulsionPrice;
+    const current = this.krpanService._trailerPrice();
+  
+    if (previousValue !== nextValue) {
+      const newPrice = current - previousValue + Number(nextValue);
+      this.krpanService._trailerPrice.set(newPrice);
+    }
+
+    let updatedTyres: ConfigurationItem[] = [];
+    let updatedBrakes: ConfigurationItem[] = [];
+
+    if (event.value){
+      this.originalPropulsion = event.value;
+      this.krpanService.selectedPropulsion.set(event.value)
+      
+      //BB4
+      if (this.bb4Ids.includes(event.value.id)) {
+        updatedTyres = this.updateTyresForBB4Propulsion();
+        updatedBrakes = this.updateBrakesForPropulsion();
+        this.checkIfTyreInList(this.bb4CompatibleTyreIds);
+        this.checkIfBrakeInList(this.bb4CompatibleBrakeIds);
+      }
+      //BB5
+      else if (this.bb5Ids.includes(event.value.id)) {
+        updatedTyres = this.updateTyresForBB5Propulsion();
+        updatedBrakes = this.updateBrakesToEnabled();
+        this.checkIfTyreInList(this.bb5CompatibleTyreIds);
+        
+      } else {
+        updatedTyres = this.updateTyresToEnabled();
+        updatedBrakes = this.updateBrakesToEnabled();
+      }
+      
+    } else {
+      this.originalPropulsion = undefined;
+      this.krpanService.selectedPropulsion.set(undefined);
+      updatedTyres = this.updateTyresToEnabled();
+      updatedBrakes = this.updateBrakesToEnabled();
+    }
+
+    this.tyres = updatedTyres;
+    this.brakes = updatedBrakes;
+  }
+
+  checkIfTyreInList(ids: number[]){
+    if(ids.includes(this.trailerFormGroup.get('selectedTyre')?.value?.id)){
+      setTimeout(() => {
+        this.selectedTyreListBox.updateModel(this.tyres.find((tyre) => tyre.id === this.trailerFormGroup.get('selectedTyre')?.value.id));
+      }, 100);
+    } else {
+      const selectedTyre = this.trailerFormGroup.get('selectedTyre');
+      if (selectedTyre?.value?.price !== undefined) {
+        
+        this.krpanService._trailerPrice.update((trailerPrice) =>
+          trailerPrice - Number(selectedTyre.value.price)
+        );
+      }
+      this.krpanService.selectedTyre.set(undefined);
+      this.trailerFormGroup.controls['selectedTyre'].setValue(undefined);
+      this.originalTyrePrice = 0;
+    }
+  }
+
+  updateTyresForBB4Propulsion(): ConfigurationItem[] {
+    return this.tyres.map((tyre) => ({
+      ...tyre,
+      disabledOption: !this.bb4CompatibleTyreIds.includes(tyre.id)
+    }));
+  }
+
+  updateTyresForBB5Propulsion(): ConfigurationItem[] {
+    return this.tyres.map((tyre) => ({
+      ...tyre,
+      disabledOption: !this.bb5CompatibleTyreIds.includes(tyre.id)
+    }));
+  }
+
+  updateTyresToEnabled(): ConfigurationItem[] {
+    return this.tyres.map((tyre) => ({
+      ...tyre,
+      disabledOption: false
+    }));
+  }
+
+  checkIfBrakeInList(ids: number[]){
+    if(ids.includes(this.trailerFormGroup.get('selectedBrake')?.value?.id)){
+      setTimeout(() => {
+        this.selectedBrakeListBox.updateModel(this.brakes.find((brake) => brake.id === this.trailerFormGroup.get('selectedBrake')?.value.id));
+      }, 100);
+    } else {
+      const selectedBrake = this.trailerFormGroup.get('selectedBrake');
+      if (selectedBrake?.value?.price !== undefined) {
+        
+        this.krpanService._trailerPrice.update((trailerPrice) =>
+          trailerPrice - Number(selectedBrake.value.price)
+        );
+      }
+      this.krpanService.selectedBrake.set(undefined);
+      this.trailerFormGroup.controls['selectedBrake'].setValue(undefined);
+      this.originalBrakePrice = 0;
+    }
+  }
+
+  updateBrakesForPropulsion(): ConfigurationItem[] {
+    return this.brakes.map((brake) => ({
+      ...brake,
+      disabledOption: brake.id === 2
+    }));
+  }
+
+  updateBrakesToEnabled(): ConfigurationItem[] {
+    return this.brakes.map((brake) => ({
+      ...brake,
+      disabledOption: false
+    }));
+  }
+
   handleTyreChange(event: ListboxChangeEvent) {
+    console.log('tyre change runs');
+    
     const previousValue = this.originalTyrePrice;
     this.originalTyrePrice = event.value ? event.value.price : 0;
+    console.log(this.originalTyrePrice);
+    
     const nextValue = this.originalTyrePrice;
     const current = this.krpanService._trailerPrice();
   
@@ -580,19 +730,34 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
       this.originalTyre = event.value;
       this.krpanService.selectedTyre.set(event.value)
 
-      if (event.value.code !== "WH3.6" && event.value.code !== "WH5.6" &&
-      event.value.code !== "WH8.8" && event.value.code !== "WH6.8" && event.value.code !== "WH7.8") {  
-        updatedPropulsions = this.updatePropulsionsForTyre();
-      } else {
-        updatedPropulsions = this.updatePropulsionsToEnabled();
-      }
+      // if (event.value.code !== "WH3.6" && event.value.code !== "WH5.6" &&
+      // event.value.code !== "WH8.8" && event.value.code !== "WH6.8" && event.value.code !== "WH7.8") {  
+      //   updatedPropulsions = this.updatePropulsionsForTyre();
+      // } else {
+      //   updatedPropulsions = this.updatePropulsionsToEnabled();
+      // }
     } else {
       this.originalTyre = undefined;
       this.krpanService.selectedTyre.set(undefined);
-      updatedPropulsions = this.updatePropulsionsToEnabled();
+      //updatedPropulsions = this.updatePropulsionsToEnabled();
     }
 
-    this.propulsions = updatedPropulsions;
+    //this.propulsions = updatedPropulsions;
+  }
+
+  updatePropulsionsForTyre(): ConfigurationItem[] {
+    return this.propulsions.map((propulsion) => ({
+      ...propulsion,
+      disabledOption: propulsion.id === 1 || propulsion.id === 2 
+      || propulsion.id === 5 || propulsion.id === 6
+    }));
+  }
+
+  updatePropulsionsToEnabled(): ConfigurationItem[] {
+    return this.propulsions.map((propulsion) => ({
+      ...propulsion,
+      disabledOption: false
+    }));
   }
 
   handleBrakeChange(event: ListboxChangeEvent) {
@@ -1014,74 +1179,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
     }
   }
 
-  handlePropulsionChange(event: ListboxChangeEvent) {
-    const previousValue = this.originalPropulsionPrice
-    this.originalPropulsionPrice = event.value ? event.value.price : 0;
-    const nextValue = this.originalPropulsionPrice;
-    const current = this.krpanService._trailerPrice();
-  
-    if (previousValue !== nextValue) {
-      const newPrice = current - previousValue + Number(nextValue);
-      this.krpanService._trailerPrice.set(newPrice);
-    }
-
-    let updatedTyres: ConfigurationItem[] = [];
-
-    if (event.value){
-      this.originalPropulsion = event.value;
-      this.krpanService.selectedPropulsion.set(event.value)
-
-      //ROBSON
-      if (event.value.id === 1 || event.value.id === 2 ||
-        event.value.id === 5 || event.value.id === 6){
-        
-        updatedTyres = this.updateTyresForRobsonPropulsion();
-      } else {
-        updatedTyres = this.updateTyresToEnabled();
-      }
-
-      //BB 250
-      if (event.value.id === 3 || event.value.id === 4){
-        
-        updatedTyres = this.updateTyresForBB250Propulsion();
-      } else {
-        updatedTyres = this.updateTyresToEnabled();
-      }
-      
-    } else {
-      this.originalPropulsion = undefined;
-      this.krpanService.selectedPropulsion.set(undefined);
-      updatedTyres = this.updateTyresToEnabled();
-    }
-
-    this.tyres = updatedTyres;
-  }
-
-  updateTyresForRobsonPropulsion(): ConfigurationItem[] {
-    return this.tyres.map((tyre) => ({
-      ...tyre,
-      disabledOption: tyre.code !== "WH3.6" 
-      && tyre.code !== "WH5.6" 
-      && tyre.code !== "WH8.8"
-      && tyre.code !== "WH6.8"
-      && tyre.code !== "WH7.8"
-    }));
-  }
-
-  updateTyresForBB250Propulsion(): ConfigurationItem[] {
-    return this.tyres.map((tyre) => ({
-      ...tyre,
-      disabledOption: tyre.code === "WH4.8" || tyre.code === "WH3.8" 
-    }));
-  }
-
-  updateTyresToEnabled(): ConfigurationItem[] {
-    return this.tyres.map((tyre) => ({
-      ...tyre,
-      disabledOption: false
-    }));
-  }
-
   handlePlatformChange(event: ListboxChangeEvent) {
     const previousValue = this.originalPlatformPrice;
     this.originalPlatformPrice = event.value ? event.value.price : 0;
@@ -1206,21 +1303,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
       this.originalLight = undefined;
       this.krpanService.selectedTrailerLight.set(undefined)
     }
-  }
-
-  updatePropulsionsForTyre(): ConfigurationItem[] {
-    return this.propulsions.map((propulsion) => ({
-      ...propulsion,
-      disabledOption: propulsion.id === 1 || propulsion.id === 2 
-      || propulsion.id === 5 || propulsion.id === 6
-    }));
-  }
-
-  updatePropulsionsToEnabled(): ConfigurationItem[] {
-    return this.propulsions.map((propulsion) => ({
-      ...propulsion,
-      disabledOption: false
-    }));
   }
 
   onOilCoolerChange(event: CheckboxChangeEvent){

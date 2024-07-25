@@ -72,6 +72,7 @@ export class KrpanService {
   public selectedCraneShipping = signal<ConfigurationItem | undefined>(undefined);
 
   // TRAILERS
+  public selectedPropulsion = signal<ConfigurationItem | undefined>(undefined);
   public selectedTyre = signal<ConfigurationItem | undefined>(undefined);
   public selectedBrake = signal<ConfigurationItem | undefined>(undefined);
   public selectedHandBrake = signal<ConfigurationItem | undefined>(undefined);
@@ -94,7 +95,7 @@ export class KrpanService {
   public selectedHydraulicSupportLeg = signal<ConfigurationItem | undefined>(undefined);
   public selectedGrappleLocation = signal<ConfigurationItem | undefined>(undefined);
 
-  public selectedPropulsion = signal<ConfigurationItem | undefined>(undefined);
+  
   public selectedDrawbar = signal<ConfigurationItem | undefined>(undefined);
   public selectedPlatform = signal<ConfigurationItem | undefined>(undefined);
   public selectedOilPump = signal<ConfigurationItem | undefined>(undefined);

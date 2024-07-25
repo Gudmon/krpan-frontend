@@ -12,6 +12,30 @@ export class KrpanTrailerConfigService {
   
   constructor(private httpClient: HttpClient) { }
 
+  getPropulsions(id: number): Observable<ConfigurationItem[]>{
+    return this.httpClient.get<ConfigurationItem[]>(`${this.url}/KrpanTrailerConfig/trailers/${id}/propulsions`).pipe(
+      map((propulsions: ConfigurationItem[]) => {
+        for (const propulsion of propulsions){
+          propulsion.namePrice = propulsion.name + " " + propulsion.price + "€"
+        }
+        return propulsions;
+      })
+    );
+  }
+
+  getAdjustableDrive(id: number): Observable<ConfigurationItem | null>{
+    return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/adjustabledrive`).pipe(
+      map((adjustableDrive: ConfigurationItem | null) => {
+        if (adjustableDrive) {
+          adjustableDrive.namePrice = adjustableDrive.name + " " + adjustableDrive.price + "€";
+          return adjustableDrive;
+        } else {
+          return null;
+        }
+      })
+    );
+  }
+
   getTyres(id: number): Observable<ConfigurationItem[]>{
     return this.httpClient.get<ConfigurationItem[]>(`${this.url}/KrpanTrailerConfig/trailers/${id}/tyres`).pipe(
       map((stanchions: ConfigurationItem[]) => {

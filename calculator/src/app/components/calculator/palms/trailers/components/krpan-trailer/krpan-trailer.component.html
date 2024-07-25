@@ -22,18 +22,25 @@
         <div #configElement class="flex align-middle justify-center my-10">
             <div class="w-11/12">
 
-                <div *ngIf="trailerSelected && tyres"  class="justify-content-center my-4 py-4">
+                <div *ngIf="trailerSelected && propulsions.length > 0"  class="justify-content-center my-4 py-4">
+                    <div class="flex gap-2">
+                        <span>Meghajtás</span>
+                    </div>
+                    <p-listbox optionDisabled="disabledOption" (onChange)="handlePropulsionChange($event)" formControlName="selectedPropulsion" [options]="propulsions" optionLabel="namePrice"></p-listbox>                   
+                </div>
+
+                <div *ngIf="trailerSelected && tyres.length > 0"  class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
                         <span>Kerekek</span>
                     </div>
-                    <p-listbox optionDisabled="disabledOption" (onChange)="handleTyreChange($event)" formControlName="selectedTyre" [options]="tyres" optionLabel="namePrice"></p-listbox>                   
+                    <p-listbox #selectedTyreListBox optionDisabled="disabledOption" (onChange)="handleTyreChange($event)" formControlName="selectedTyre" [options]="tyres" optionLabel="namePrice"></p-listbox>                   
                 </div>
 
                 <div *ngIf="trailerSelected && brakes.length > 0" class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
                         <span>Fék</span>
                     </div>
-                    <p-listbox (onChange)="handleBrakeChange($event)" formControlName="selectedBrake" [options]="brakes" optionLabel="namePrice"></p-listbox>                   
+                    <p-listbox #selectedBrakeListBox optionDisabled="disabledOption" (onChange)="handleBrakeChange($event)" formControlName="selectedBrake" [options]="brakes" optionLabel="namePrice"></p-listbox>                   
                 </div>
 
                 <div *ngIf="trailerSelected && handBrake" class="justify-content-center my-4 py-4">
