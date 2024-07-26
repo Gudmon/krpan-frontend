@@ -99,6 +99,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   bb4CompatibleBrakeIds = [1,3,4];
   bb5Ids = [2,4];
   bb5CompatibleTyreIds = [5,6];
+  previousPropulsionId : number | undefined = undefined;
 
   showBrakesDialog: boolean = false;
   showPropulsionsDialog: boolean = false;
@@ -167,6 +168,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   selectedConfigurationItems: ConfigurationItem[] = [];
 
   originalPropulsionPrice = 0;
+  originalAdjustableDrivePrice = 0;
   originalTyrePrice = 0;
   originalBrakePrice = 0;
   originalHandBrakePrice = 0;
@@ -613,13 +615,14 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
         updatedBrakes = this.updateBrakesForPropulsion();
         this.checkIfTyreInList(this.bb4CompatibleTyreIds);
         this.checkIfBrakeInList(this.bb4CompatibleBrakeIds);
+        this.removeAdjustableDrive();
       }
       //BB5
       else if (this.bb5Ids.includes(event.value.id)) {
         updatedTyres = this.updateTyresForBB5Propulsion();
         updatedBrakes = this.updateBrakesToEnabled();
         this.checkIfTyreInList(this.bb5CompatibleTyreIds);
-        
+        this.addAdjustableDrive(event.value.id);
       } else {
         updatedTyres = this.updateTyresToEnabled();
         updatedBrakes = this.updateBrakesToEnabled();
@@ -630,10 +633,44 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
       this.krpanService.selectedPropulsion.set(undefined);
       updatedTyres = this.updateTyresToEnabled();
       updatedBrakes = this.updateBrakesToEnabled();
+      this.removeAdjustableDrive();
+      this.previousPropulsionId = undefined;
     }
 
     this.tyres = updatedTyres;
     this.brakes = updatedBrakes;
+  }
+
+  addAdjustableDrive(id: number) {
+    this.trailerFormGroup.controls['selectedAdjustableDrive'].setValue(this.adjustableDrive);
+    this.krpanService.selectedAdjustableDrive.set(this.adjustableDrive);
+  
+    const selectedAdjustableDrive = this.trailerFormGroup.get('selectedAdjustableDrive');
+    if (
+      selectedAdjustableDrive?.value?.price !== undefined &&
+      !((this.previousPropulsionId === 2 && id === 4) || (this.previousPropulsionId === 4 && id === 2))
+    ) {
+      this.krpanService._trailerPrice.update((trailerPrice) =>
+        trailerPrice + Number(selectedAdjustableDrive.value.price)
+      );
+    }
+  
+    this.previousPropulsionId = id;
+  }
+  
+
+  removeAdjustableDrive(){
+    const selectedAdjustableDrive = this.trailerFormGroup.get('selectedAdjustableDrive');
+    if (selectedAdjustableDrive?.value?.price !== undefined) {
+      console.log(selectedAdjustableDrive?.value?.price);
+      
+      this.krpanService._trailerPrice.update((trailerPrice) =>
+        trailerPrice - Number(selectedAdjustableDrive.value.price)
+      );
+    }
+
+    this.trailerFormGroup.controls['selectedAdjustableDrive'].setValue(undefined);
+    this.krpanService.selectedAdjustableDrive.set(undefined);
   }
 
   checkIfTyreInList(ids: number[]){
@@ -710,8 +747,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   }
 
   handleTyreChange(event: ListboxChangeEvent) {
-    console.log('tyre change runs');
-    
     const previousValue = this.originalTyrePrice;
     this.originalTyrePrice = event.value ? event.value.price : 0;
     console.log(this.originalTyrePrice);

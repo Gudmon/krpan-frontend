@@ -73,6 +73,7 @@ export class KrpanService {
 
   // TRAILERS
   public selectedPropulsion = signal<ConfigurationItem | undefined>(undefined);
+  public selectedAdjustableDrive = signal<ConfigurationItem | undefined>(undefined);
   public selectedTyre = signal<ConfigurationItem | undefined>(undefined);
   public selectedBrake = signal<ConfigurationItem | undefined>(undefined);
   public selectedHandBrake = signal<ConfigurationItem | undefined>(undefined);
