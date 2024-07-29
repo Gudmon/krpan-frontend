@@ -72,6 +72,11 @@ export class KrpanService {
   public selectedCraneShipping = signal<ConfigurationItem | undefined>(undefined);
 
   // TRAILERS
+  public selectedHydraulicAdjustableChassis = signal<ConfigurationItem | undefined>(undefined);
+  public selectedLamp = signal<ConfigurationItem | undefined>(undefined);
+  public selectedChock = signal<ConfigurationItem | undefined>(undefined);
+  public selectedDrawbarSteering = signal<ConfigurationItem | undefined>(undefined);
+  public selectedSupportLeg = signal<ConfigurationItem | undefined>(undefined);
   public selectedPropulsion = signal<ConfigurationItem | undefined>(undefined);
   public selectedAdjustableDrive = signal<ConfigurationItem | undefined>(undefined);
   public selectedTyre = signal<ConfigurationItem | undefined>(undefined);
@@ -82,7 +87,7 @@ export class KrpanService {
   public selectedTopConnection = signal<ConfigurationItem | undefined>(undefined);
   public selectedClutch = signal<ConfigurationItem | undefined>(undefined);
   public selectedDrawHead = signal<ConfigurationItem | undefined>(undefined);
-  public selectedDrawBar = signal<ConfigurationItem | undefined>(undefined);
+  public selectedDrawbar = signal<ConfigurationItem | undefined>(undefined);
   public selectedCardanShaft = signal<ConfigurationItem | undefined>(undefined);
   public selectedBBox = signal<ConfigurationItem | undefined>(undefined);
   public selectedBaleTransportPlatform = signal<ConfigurationItem | undefined>(undefined);
@@ -96,24 +101,8 @@ export class KrpanService {
   public selectedHydraulicSupportLeg = signal<ConfigurationItem | undefined>(undefined);
   public selectedGrappleLocation = signal<ConfigurationItem | undefined>(undefined);
 
-  
-  public selectedDrawbar = signal<ConfigurationItem | undefined>(undefined);
-  public selectedPlatform = signal<ConfigurationItem | undefined>(undefined);
-  public selectedOilPump = signal<ConfigurationItem | undefined>(undefined);
-  public selectedOilTank = signal<ConfigurationItem | undefined>(undefined);
-  public selectedTrailerOilCooler = signal<ConfigurationItem | undefined>(undefined);
-  public selectedSupportLeg = signal<ConfigurationItem | undefined>(undefined);
-  public selectedTrailerLight = signal<ConfigurationItem | undefined>(undefined);
-  public selectedBolsterLock = signal<ConfigurationItem | undefined>(undefined);
-  public selectedWoodSorter = signal<ConfigurationItem | undefined>(undefined);
-  public selectedUnderrunProtection = signal<ConfigurationItem | undefined>(undefined);
-  public selectedBunkAdapter = signal<ConfigurationItem | undefined>(undefined);
-  public selectedBunkExtension = signal<ConfigurationItem | undefined>(undefined);
-  public selectedFrameExtension = signal<ConfigurationItem | undefined>(undefined);
   public selectedTrailerShipping = signal<ConfigurationItem | undefined>(undefined);
   public selectedMOT = signal<ConfigurationItem | undefined>(undefined);
-  public selectedStanchionExtension = signal<ConfigurationItem | undefined>(undefined);
-  public selectedHydroPack = signal<ConfigurationItem | undefined>(undefined);
 
   constructor(private httpClient: HttpClient) { }
   
@@ -187,11 +176,16 @@ export class KrpanService {
   }
 
   deleteTrailer(){
+    this.selectedHydraulicAdjustableChassis.set(undefined);
+    this.selectedLamp.set(undefined);
+    this.selectedDrawbarSteering.set(undefined);
+    this.selectedLamp.set(undefined);
+    this.selectedSupportLeg.set(undefined);
     this.selectedTyre.set(undefined);
     this.selectedBrake.set(undefined);
     this.selectedHandBrake.set(undefined);
-    this.selectedExtraStanchion.set(undefined);
-    this.selectedExtraForwarderStanchion.set(undefined);
+    this.selectedPropulsion.set(undefined);
+    this.selectedAdjustableDrive.set(undefined);
     this.selectedTopConnection.set(undefined);
     this.selectedClutch.set(undefined);
     this.selectedDrawHead.set(undefined);
@@ -199,35 +193,17 @@ export class KrpanService {
     this.selectedCardanShaft.set(undefined);
     this.selectedBBox.set(undefined);
     this.selectedBaleTransportPlatform.set(undefined);
-    this.selectedCargoSpaceExtension.set(undefined);
     this.selectedAxeHolder.set(undefined);
     this.selectedChainsawHolder.set(undefined);
     this.selectedFuelTankHolder.set(undefined);
     this.selectedToolBox.set(undefined);
-    this.selectedPlatform.set(undefined);
+    this.selectedPlato.set(undefined);
     this.selectedExtension.set(undefined);
     this.selectedHydraulicSupportLeg.set(undefined);
     this.selectedGrappleLocation.set(undefined);
-
-    this.selectedPropulsion.set(undefined);
-    this.selectedDrawbar.set(undefined);
-    this.selectedPlatform.set(undefined);
-    this.selectedOilPump.set(undefined);
-    this.selectedOilTank.set(undefined);
-    this.selectedTrailerOilCooler.set(undefined);
-    this.selectedSupportLeg.set(undefined);
-    this.selectedTrailerLight.set(undefined);
-    this.selectedBolsterLock.set(undefined);
-    this.selectedBBox.set(undefined);
-    this.selectedWoodControl.set(undefined);;
-    this.selectedUnderrunProtection.set(undefined);
-    this.selectedBunkAdapter.set(undefined);
-    this.selectedBunkExtension.set(undefined);
-    this.selectedFrameExtension.set(undefined);
+    
     this.selectedTrailerShipping.set(undefined);
     this.selectedMOT.set(undefined);
-    this.selectedStanchionExtension.set(undefined);
-    this.selectedHydroPack.set(undefined);
   }
 
   deleteCrane(){

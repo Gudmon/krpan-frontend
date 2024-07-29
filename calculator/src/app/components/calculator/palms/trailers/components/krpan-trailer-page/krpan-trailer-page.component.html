@@ -15,11 +15,20 @@
                     </div>
                 </ng-template>
                 <div class="max-h-96 overflow-auto">
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedHydraulicAdjustableChassis()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedLamp()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedHandBrake()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedChock()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedDrawbarSteering()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedSupportLeg()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedAxeHolder()"></app-accessory-item>  
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedChainsawHolder()"></app-accessory-item>  
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedFuelTankHolder()"></app-accessory-item>  
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedToolBox()"></app-accessory-item>
                     <app-accessory-item [accessoryItem]="this.krpanService.selectedPropulsion()"></app-accessory-item>
                     <app-accessory-item [accessoryItem]="this.krpanService.selectedAdjustableDrive()"></app-accessory-item>
                     <app-accessory-item [accessoryItem]="this.krpanService.selectedTyre()"></app-accessory-item>
                     <app-accessory-item [accessoryItem]="this.krpanService.selectedBrake()"></app-accessory-item>
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedHandBrake()"></app-accessory-item>
                     <app-accessory-item [accessoryItem]="this.krpanService.selectedExtraStanchion()"></app-accessory-item>
                     <app-accessory-item [accessoryItem]="this.krpanService.selectedExtraForwarderStanchion()"></app-accessory-item>
                     <app-accessory-item [accessoryItem]="this.krpanService.selectedTopConnection()"></app-accessory-item>
@@ -30,10 +39,6 @@
                     <app-accessory-item [accessoryItem]="this.krpanService.selectedBBox()"></app-accessory-item>  
                     <app-accessory-item [accessoryItem]="this.krpanService.selectedBaleTransportPlatform()"></app-accessory-item>  
                     <app-accessory-item [accessoryItem]="this.krpanService.selectedCargoSpaceExtension()"></app-accessory-item>  
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedAxeHolder()"></app-accessory-item>  
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedChainsawHolder()"></app-accessory-item>  
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedFuelTankHolder()"></app-accessory-item>  
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedToolBox()"></app-accessory-item>  
                     <app-accessory-item [accessoryItem]="this.krpanService.selectedPlato()"></app-accessory-item>  
                     <app-accessory-item [accessoryItem]="this.krpanService.selectedExtension()"></app-accessory-item>  
                     <app-accessory-item [accessoryItem]="this.krpanService.selectedHydraulicSupportLeg()"></app-accessory-item>  
@@ -81,6 +86,7 @@
             </p-accordionTab>       
         </p-accordion>    
     </div>  
+    
     <app-pdf *ngIf="(krpanService.selectedTrailer$ | async) && (krpanService.trailerSelected$ | async) || (krpanService.selectedCrane$ | async) && (krpanService.craneSelected$ | async)"></app-pdf> 
 </div> 
 <app-footer></app-footer>

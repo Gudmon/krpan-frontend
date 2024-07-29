@@ -12,6 +12,71 @@ export class KrpanTrailerConfigService {
   
   constructor(private httpClient: HttpClient) { }
 
+  getHydraulicAdjustableChassis(id: number): Observable<ConfigurationItem | null>{
+    return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/hydraulicadjustablechassis`).pipe(
+      map((hydraulicAdjustableChassis: ConfigurationItem | null) => {
+        if (hydraulicAdjustableChassis) {
+          hydraulicAdjustableChassis.namePrice = hydraulicAdjustableChassis.name + " " + hydraulicAdjustableChassis.price + "€";
+          return hydraulicAdjustableChassis;
+        } else {
+          return null;
+        }
+      })
+    );
+  }
+
+  getLamp(id: number): Observable<ConfigurationItem | null>{
+    return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/lamp`).pipe(
+      map((lamp: ConfigurationItem | null) => {
+        if (lamp) {
+          lamp.namePrice = lamp.name + " " + lamp.price + "€";
+          return lamp;
+        } else {
+          return null;
+        }
+      })
+    );
+  }
+
+  getChock(id: number): Observable<ConfigurationItem | null>{
+    return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/chock`).pipe(
+      map((chock: ConfigurationItem | null) => {
+        if (chock) {
+          chock.namePrice = chock.name + " " + chock.price + "€";
+          return chock;
+        } else {
+          return null;
+        }
+      })
+    );
+  }
+
+  getDrawbarSteering(id: number): Observable<ConfigurationItem | null>{
+    return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/drawbarsteering`).pipe(
+      map((drawbarSteering: ConfigurationItem | null) => {
+        if (drawbarSteering) {
+          drawbarSteering.namePrice = drawbarSteering.name + " " + drawbarSteering.price + "€";
+          return drawbarSteering;
+        } else {
+          return null;
+        }
+      })
+    );
+  }
+
+  getSupportLeg(id: number): Observable<ConfigurationItem | null>{
+    return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/supportleg`).pipe(
+      map((supportLeg: ConfigurationItem | null) => {
+        if (supportLeg) {
+          supportLeg.namePrice = supportLeg.name + " " + supportLeg.price + "€";
+          return supportLeg;
+        } else {
+          return null;
+        }
+      })
+    );
+  }
+
   getPropulsions(id: number): Observable<ConfigurationItem[]>{
     return this.httpClient.get<ConfigurationItem[]>(`${this.url}/KrpanTrailerConfig/trailers/${id}/propulsions`).pipe(
       map((propulsions: ConfigurationItem[]) => {

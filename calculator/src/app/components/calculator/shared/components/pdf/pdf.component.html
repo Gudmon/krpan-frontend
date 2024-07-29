@@ -1,8 +1,8 @@
 <form [formGroup]="formGroup">
     <div #configElement class="my-10">
         <div class="w-12/12 flex align-middle justify-center my-12">
-            <!-- TODO: REMOVE Disabled -->
-            <button class="py-10 px-20 bg-[--primary-color] text-sm font-bold uppercase rounded shadow hover:opacity-80 outline-none focus:outline-none" [disabled]="true"  [ngClass]="'disabled'" (click)="sendPdfAndDownload()">Mentés PDF-ben</button>
+            <!-- TODO: REMOVE Disabled [disabled]="true"  [ngClass]="'disabled'" -->
+            <button class="py-10 px-20 bg-[--primary-color] text-sm font-bold uppercase rounded shadow hover:opacity-80 outline-none focus:outline-none"  (click)="sendPdfAndDownload()">Mentés PDF-ben</button>
         </div>
         <div class="flex align-middle justify-center mb-32">
             <div class="w-11/12">

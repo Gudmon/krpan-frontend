@@ -18,6 +18,6 @@ export class EmailService {
       Name: name,
       BlobName: blobName
     }
-    return this.httpClient.post<any>(`${this.url}/Email`, email).pipe()
+    return this.httpClient.post<any>(`${this.url}/KrpanEmail`, email).pipe()
   }
 }

@@ -100,6 +100,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   bb5Ids = [2,4];
   bb5CompatibleTyreIds = [5,6];
   previousPropulsionId : number | undefined = undefined;
+  dfTrailerIds = [1,2,3,4,5];
 
   showBrakesDialog: boolean = false;
   showPropulsionsDialog: boolean = false;
@@ -122,6 +123,11 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   showFrameExtensionDialog: boolean = false;
   showHydroPackDialog: boolean = false;
 
+  hydraulicAdjustableChassis:ConfigurationItem | undefined = undefined;
+  lamp:ConfigurationItem | undefined = undefined;
+  chock:ConfigurationItem | undefined = undefined;
+  drawbarSteering:ConfigurationItem | undefined = undefined;
+  supportLeg:ConfigurationItem | undefined = undefined;
   propulsions: ConfigurationItem[] = [];
   adjustableDrive:ConfigurationItem | undefined = undefined;
   tyres: ConfigurationItem[] = [];
@@ -146,24 +152,8 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   hydraulicSupportLeg: ConfigurationItem | undefined = undefined;
   grappleLocation: ConfigurationItem | undefined = undefined;
 
-
-  drawbars: ConfigurationItem[] = [];
-  platforms: ConfigurationItem[] = [];
-  oilPumps: ConfigurationItem[] = [];
-  oilTanks: ConfigurationItem[] = [];
-  trailerOilCooler: ConfigurationItem | undefined = undefined;
-  bolsterLock: ConfigurationItem | undefined = undefined;
-  bbox: ConfigurationItem | undefined = undefined;
-  woodSorter: ConfigurationItem | undefined = undefined;
-  underrunProtection: ConfigurationItem | undefined = undefined;
-  supportLegs: ConfigurationItem[] = [];
-  lights: ConfigurationItem[] = [];
-  bunkAdapter: ConfigurationItem | undefined = undefined;
-  bunkExtension: ConfigurationItem | undefined = undefined;
-  frameExtension: ConfigurationItem | undefined = undefined;
   trailerShipping: ConfigurationItem | undefined = undefined;
   MOT: ConfigurationItem | undefined = undefined;
-  hydroPack: ConfigurationItem | undefined = undefined;
 
   selectedConfigurationItems: ConfigurationItem[] = [];
 
@@ -176,10 +166,11 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   originalExtraForwarderStanchionPrice = 0;
   originalTopConnectionPrice = 0;
   originalClutchPrice = 0;
+  originalSupportLegPrice = 0;
   originalDrawHeadPrice = 0;
   originalDrawBarPrice = 0;
   originalCardanShaftPrice = 0;
-  originalBboxPrice = 0;
+  originalBBoxPrice = 0;
   originalBaleTransportPlatformPrice = 0;
   originalCargoSpaceExtensionPrice = 0;
   originalAxeHolderPrice = 0;
@@ -190,21 +181,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   originalExtensionPrice = 0;
   originalHydraulicSupportLegPrice = 0;
   originalGrappleLocationPrice = 0;
-
-  originalDrawbarPrice = 0;
-  originalPlatformPrice = 0;
-  originalOilPumpPrice = 0;
-  originalOilTankPrice = 0;
-  originalTrailerOilCoolerPrice = 0;
-  originalBolsterLockPrice = 0;
-  originalWoodSorterPrice = 0;
-  originalUnderrunProtectionPrice = 0;
-  originalSupportLegPrice = 0;
-  originalLightPrice = 0;
-  originalBunkAdapterPrice = 0;
-  originalBunkExtensionPrice = 0;
-  originalFrameExtensionPrice = 0;
-  originalHydroPackPrice = 0;
 
   initialExtraStanchionPrice = 0;
   initialExtraStanchionNumber = 0;
@@ -232,6 +208,11 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
 
   initialTrailerPrice = 0;
 
+  originalHydraulicAdjustableChassis: ConfigurationItem | undefined = undefined;
+  originalLamp: ConfigurationItem | undefined = undefined;
+  originalChock: ConfigurationItem | undefined = undefined;
+  originalDrawbarSteering: ConfigurationItem | undefined = undefined;
+  originalSupportLeg: ConfigurationItem | undefined = undefined;
   originalPropulsion: ConfigurationItem | undefined = undefined;
   originalAdjustableDrive: ConfigurationItem | undefined = undefined;
   originalTyre: ConfigurationItem | undefined = undefined;
@@ -258,30 +239,16 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   originalHydraulicSupportLeg: ConfigurationItem | undefined = undefined;
   originalGrappleLocation: ConfigurationItem | undefined = undefined;
 
- 
-  originalDrawbar: ConfigurationItem | undefined = undefined;
-  originalPlatform: ConfigurationItem | undefined = undefined;
-  originalOilPump: ConfigurationItem | undefined = undefined;
-  originalOilTank: ConfigurationItem | undefined = undefined;
-  originalTrailerOilCooler: ConfigurationItem | undefined = undefined;
-  originalBolsterLock: ConfigurationItem | undefined = undefined;
-  originalBbox: ConfigurationItem | undefined = undefined;
-  originalWoodSorter: ConfigurationItem | undefined = undefined;
-  woodSorterArrayElements: any[] | undefined = [];
-  originalUnderrunProtection: ConfigurationItem | undefined = undefined;
-  originalSupportLeg: ConfigurationItem | undefined = undefined;
-  originalLight: ConfigurationItem | undefined = undefined;
-  originalBunkAdapter: ConfigurationItem | undefined = undefined;
-  bunkAdapterArrayElements: any[] | undefined = [];
-  originalBunkExtension: ConfigurationItem | undefined = undefined;
-  bunkExtensionArrayElements: any[] | undefined = [];
-  originalFrameExtension: ConfigurationItem | undefined = undefined;
   originalShipping: ConfigurationItem | undefined = undefined;
   originalMOT: ConfigurationItem | undefined = undefined;
-  originalHydroPack: ConfigurationItem | undefined = undefined;
 
   trailerFormGroup: FormGroup = new FormGroup({
     selectedTrailer: new FormControl<string>(''),
+    selectedHydraulicAdjustableChassis: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedLamp: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedChock: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedDrawbarSteering: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedSupportLeg: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedPropulsion: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedAdjustableDrive: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedTyre: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
@@ -305,76 +272,75 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
     selectedExtension: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedHydraulicSupportLeg: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedGrappleLocation: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
-    
-    
-    selectedDrawbar: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
-    selectedPlatform: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
-    selectedOilPump: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
-    selectedOilTank: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
-    selectedTrailerOilCooler: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
-    selectedBolsterLock: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
-    selectedBbox: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
-    selectedWoodSorter: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
-    selectedUnderrunProtection: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
-    selectedSupportLeg: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
-    selectedLight: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
-    selectedBunkAdapter: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
-    selectedBunkExtension: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
-    selectedFrameExtension: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
-    selectedShipping: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
-    selectedMOT: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
-    selectedHydroPack: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
   });
 
   private initializeFormGroup(): void {
-    
-    this.trailerFormGroup = this.fb.group({
-      selectedPropulsion: null,
-      selectedAdjustableDrive: null,
-      selectedTrailer: [this.trailer.name],
-      selectedTyre: [this.tyres[0]],
-      selectedBrake: [this.brakes[0]],
-      selectedHandBrake: null,
-      selectedExtraStanchion: null,
-      selectedExtraForwarderStanchion: null,
-      selectedTopConnection: null,
-      selectedClutch: null,
-      selectedDrawHead: null,
-      selectedDrawBar: null,
-      selectedCardanShaft: null,
-      selectedBBox: null,
-      selectedBaleTransportPlatform: null,
-      selectedCargoSpaceExtension: null,
-      selectedAxeHolder: null,
-      selectedChainsawHolder: null,
-      selectedFuelTankHolder: null,
-      selectedToolBox: null,
-      selectedPlato: null,
-      selectedExtension: null,
-      selectedHydraulicSupportLeg: null,
-      selectedGrappleLocation: null,
-
-      
-      selectedDrawbar: null,
-      selectedPlatform: null,
-      selectedOilPump: null,
-      selectedOilTank: null,
-      selectedTrailerOilCooler: null,
-      selectedBolsterLock: null,
-      selectedBbox: null,
-      selectedWoodSorter: null,
-      selectedUnderrunProtection: null,
-      selectedSupportLeg: null,
-      selectedLight: null,
-      selectedCrane: null,
-      selectedBunkAdapter: null,
-      selectedBunkExtension: null,
-      selectedFrameExtension: null,
-      selectedShipping: this.trailerShipping,
-      selectedMOT: this.MOT,
-      selectedStanchionExtension: null,
-      selectedHydroPack: null,
-    });
+    if(this.dfTrailerIds.includes(this.trailer.id)){
+      this.trailerFormGroup = this.fb.group({
+        selectedHydraulicAdjustableChassis: null,
+        selectedLamp: this.lamp,
+        selectedChock: this.chock,
+        selectedDrawbarSteering: this.drawbarSteering,
+        selectedSupportLeg: this.supportLeg,
+        selectedPropulsion: null,
+        selectedAdjustableDrive: null,
+        selectedTrailer: [this.trailer.name],
+        selectedTyre: [this.tyres[0]],
+        selectedBrake: [this.brakes[0]],
+        selectedHandBrake: this.handBrake,
+        selectedExtraStanchion: null,
+        selectedExtraForwarderStanchion: null,
+        selectedTopConnection: null,
+        selectedClutch: null,
+        selectedDrawHead: null,
+        selectedDrawBar: null,
+        selectedCardanShaft: null,
+        selectedBBox: null,
+        selectedBaleTransportPlatform: null,
+        selectedCargoSpaceExtension: null,
+        selectedAxeHolder: null,
+        selectedChainsawHolder: null,
+        selectedFuelTankHolder: null,
+        selectedToolBox: null,
+        selectedPlato: null,
+        selectedExtension: null,
+        selectedHydraulicSupportLeg: null,
+        selectedGrappleLocation: null,
+      });
+    }
+    else {
+      this.trailerFormGroup = this.fb.group({
+        selectedHydraulicAdjustableChassis: this.hydraulicAdjustableChassis,
+        selectedLamp: this.lamp,
+        selectedChock: this.chock,
+        selectedDrawbarSteering: this.drawbarSteering,
+        selectedSupportLeg: this.supportLeg,
+        selectedPropulsion: null,
+        selectedAdjustableDrive: null,
+        selectedTrailer: [this.trailer.name],
+        selectedTyre: [this.tyres[0]],
+        selectedBrake: [this.brakes[0]],
+        selectedHandBrake: this.handBrake,
+        selectedExtraStanchion: null,
+        selectedExtraForwarderStanchion: null,
+        selectedTopConnection: null,
+        selectedClutch: null,
+        selectedDrawHead: null,
+        selectedDrawBar: null,
+        selectedCardanShaft: null,
+        selectedBBox: null,
+        selectedBaleTransportPlatform: null,
+        selectedCargoSpaceExtension: this.cargoSpaceExtension,
+        selectedAxeHolder: this.axeHolder,
+        selectedChainsawHolder: this.chainsawHolder,
+        selectedFuelTankHolder: this.fuelTankHolder,
+        selectedToolBox: this.toolBox,
+        selectedPlato: null,
+        selectedExtension: null,
+        selectedHydraulicSupportLeg: null,
+        selectedGrappleLocation: null,
+      });
+    }
   }   
   private destroy$ = new Subject<void>();
   constructor(
@@ -447,6 +413,11 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   loadTrailerConfigurations(id: number){ 
     if(id){
       this.loadingService.enableLoader();
+      const hydraulicAdjustableChassis$ = this.krpanTrailerConfigService.getHydraulicAdjustableChassis(id);
+      const lamp$ = this.krpanTrailerConfigService.getLamp(id);
+      const chock$ = this.krpanTrailerConfigService.getChock(id);
+      const drawbarSteering$ = this.krpanTrailerConfigService.getDrawbarSteering(id);
+      const supportLeg$ = this.krpanTrailerConfigService.getSupportLeg(id);
       const propulsion$ = this.krpanTrailerConfigService.getPropulsions(id);
       const adjustableDrive$ = this.krpanTrailerConfigService.getAdjustableDrive(id);
       const tyres$ = this.krpanTrailerConfigService.getTyres(id);
@@ -471,17 +442,106 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
       const hydraulicSupportLeg$ = this.krpanTrailerConfigService.getHydraulicSupportLeg(id);
       const grappleLocation$ = this.krpanTrailerConfigService.getGrappleLocation(id);
       
-      const request = forkJoin([propulsion$, adjustableDrive$, tyres$, brakes$, handBrake$, extraStanchion$, extraForwarderStanchion$,
+      const request = forkJoin([hydraulicAdjustableChassis$, lamp$, chock$, drawbarSteering$, supportLeg$, 
+        propulsion$, adjustableDrive$, tyres$, brakes$, handBrake$, extraStanchion$, extraForwarderStanchion$,
         topConnection$, clutches$, drawHead$, drawBars$, cardanShaft$, bBox$, baleTransportPlatform$,
         cargoSpaceExtension$, axeHolder$, chainsawHolder$, fuelTankHolder$, toolBox$,
         plato$, extension$, hydraulicSupportLeg$, grappleLocation$
       ]);
      
-      request.subscribe(([propulsions, adjustableDrive, tyres, brakes, handBrake, extraStanchion, extraForwarderStanchion,
+      request.subscribe(([hydraulicAdjustableChassis, lamp, chock, drawbarSteering, supportLeg, 
+        propulsions, adjustableDrive, tyres, brakes, handBrake, extraStanchion, extraForwarderStanchion,
         topConnection, clutches, drawHead, drawBars, cardanShaft, bBox, baleTransportPlatform,
         cargoSpaceExtension, axeHolder, chainsawHolder, fuelTankHolder, toolBox,
         plato, extension, hydraulicSupportLeg, grappleLocation
       ]) => {
+
+        if (hydraulicAdjustableChassis){
+          this.hydraulicAdjustableChassis = hydraulicAdjustableChassis;
+        }
+
+        if (cargoSpaceExtension){
+          this.cargoSpaceExtension = cargoSpaceExtension;
+        }
+
+        if (axeHolder){
+          this.axeHolder = axeHolder;
+        }
+
+        if (chainsawHolder){
+          this.chainsawHolder = chainsawHolder;
+        }
+
+        if (fuelTankHolder){
+          this.fuelTankHolder = fuelTankHolder;
+        }
+
+        if (toolBox){
+          this.toolBox = toolBox;
+        }
+
+        if(!this.dfTrailerIds.includes(this.trailer.id)){
+          if (hydraulicAdjustableChassis){
+            this.krpanService.selectedHydraulicAdjustableChassis.set(hydraulicAdjustableChassis);
+            this.krpanService._trailerPrice.update((trailerPrice => trailerPrice + Number(hydraulicAdjustableChassis.price)));
+          }
+
+          if (cargoSpaceExtension){
+            this.krpanService.selectedCargoSpaceExtension.set(cargoSpaceExtension);
+            this.krpanService._trailerPrice.update((trailerPrice => trailerPrice + Number(cargoSpaceExtension.price)));
+          }
+
+          if (axeHolder){
+            this.krpanService.selectedAxeHolder.set(axeHolder);
+            this.krpanService._trailerPrice.update((trailerPrice => trailerPrice + Number(axeHolder.price)));
+          }
+
+          if (chainsawHolder){
+            this.krpanService.selectedChainsawHolder.set(chainsawHolder);
+            this.krpanService._trailerPrice.update((trailerPrice => trailerPrice + Number(chainsawHolder.price)));
+          }
+
+          if (fuelTankHolder){
+            this.krpanService.selectedFuelTankHolder.set(fuelTankHolder);
+            this.krpanService._trailerPrice.update((trailerPrice => trailerPrice + Number(fuelTankHolder.price)));
+          }
+
+          if (toolBox){
+            this.krpanService.selectedToolBox.set(toolBox);
+            this.krpanService._trailerPrice.update((trailerPrice => trailerPrice + Number(toolBox.price)));
+          }
+        } 
+
+        if (lamp){
+          this.lamp = lamp;
+          this.krpanService.selectedLamp.set(lamp);
+          this.krpanService._trailerPrice.update((trailerPrice => trailerPrice + Number(lamp.price)));
+        }
+
+        if (handBrake){
+          this.handBrake = handBrake;
+          this.krpanService.selectedHandBrake.set(handBrake);
+          this.krpanService._trailerPrice.update((trailerPrice => trailerPrice + Number(handBrake.price)));
+        }
+
+        if (chock){
+          this.chock = chock;
+          this.krpanService.selectedChock.set(chock);
+          this.krpanService._trailerPrice.update((trailerPrice => trailerPrice + Number(chock.price)));
+        }
+        
+        if (drawbarSteering){
+          this.drawbarSteering = drawbarSteering;
+          this.krpanService.selectedDrawbarSteering.set(drawbarSteering);
+          this.krpanService._trailerPrice.update((trailerPrice => trailerPrice + Number(drawbarSteering.price)));
+        }
+
+        if (supportLeg){
+          this.supportLeg = supportLeg;
+          this.krpanService.selectedSupportLeg.set(supportLeg);
+          this.krpanService._trailerPrice.update((trailerPrice => trailerPrice + Number(supportLeg.price)));
+        }
+        
         if (propulsions.length > 0){
           this.propulsions = propulsions;
         }
@@ -497,13 +557,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
 
         if (brakes.length > 0){
           this.brakes = brakes;
-          console.log(this.brakes);
-          
           this.krpanService.selectedBrake.set(brakes[0])
-        }
-
-        if (handBrake){
-          this.handBrake = handBrake;
         }
 
         if (extraStanchion){
@@ -529,7 +583,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
         }
 
         if (drawBars.length > 0){
-          this.drawbars = drawBars;
+          this.drawBars = drawBars;
         }
 
         if (cardanShaft){
@@ -542,26 +596,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
 
         if (baleTransportPlatform){
           this.baleTransportPlatform = baleTransportPlatform;
-        }
-
-        if (cargoSpaceExtension){
-          this.cargoSpaceExtension = cargoSpaceExtension;
-        }
-
-        if (axeHolder){
-          this.axeHolder = axeHolder;
-        }
-
-        if (chainsawHolder){
-          this.chainsawHolder = chainsawHolder;
-        }
-
-        if (fuelTankHolder){
-          this.fuelTankHolder = fuelTankHolder;
-        }
-
-        if (toolBox){
-          this.toolBox = toolBox;
         }
 
         if (plato){
@@ -1032,14 +1066,14 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
       const current = this.krpanService._trailerPrice();
       const newPrice = Number(current) + Number(event.checked[0].price);
       this.krpanService._trailerPrice.set(newPrice);
-      this.originalBboxPrice = Number(event.checked[0].price);
-      this.originalBbox = event.checked[0];
+      this.originalBBoxPrice = Number(event.checked[0].price);
+      this.originalBBox = event.checked[0];
       this.krpanService.selectedBBox.set(event.checked[0]);
     } else {
       const current = this.krpanService._trailerPrice();
-      const newPrice = Number(current) - this.originalBboxPrice;
+      const newPrice = Number(current) - this.originalBBoxPrice;
       this.krpanService._trailerPrice.set(newPrice);
-      this.originalBbox = undefined;
+      this.originalBBox = undefined;
       this.krpanService.selectedBBox.set(undefined);
     }
   }
@@ -1214,92 +1248,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
     }
   }
 
-  handlePlatformChange(event: ListboxChangeEvent) {
-    const previousValue = this.originalPlatformPrice;
-    this.originalPlatformPrice = event.value ? event.value.price : 0;
-    const nextValue = this.originalPlatformPrice;
-    const current = this.krpanService._trailerPrice();
-  
-    if (previousValue !== nextValue) {
-      const newPrice = current - previousValue + Number(nextValue);
-      this.krpanService._trailerPrice.set(newPrice);
-    }
-
-    if (event.value){
-      this.originalPlatform = event.value;
-      this.krpanService.selectedPlatform.set(event.value);
-    } else {
-      this.originalPlatform = undefined;
-      this.krpanService.selectedPlatform.set(undefined);
-    }
-  }
-
-  handleOilPumpChange(event: ListboxChangeEvent) {
-    const previousValue = this.originalOilPumpPrice;
-    this.originalOilPumpPrice = event.value ? event.value.price : 0;
-    const nextValue = this.originalOilPumpPrice;
-    const current = this.krpanService._trailerPrice();
-  
-    let updatedDrawbars: ConfigurationItem[] = [];
-
-    if (previousValue !== nextValue) {
-      const newPrice = current - previousValue + Number(nextValue);
-      this.krpanService._trailerPrice.set(newPrice);
-    }
-
-    if (event.value){
-      this.originalOilPump = event.value;
-      this.krpanService.selectedOilPump.set(event.value)
-
-      // drawbars
-      if (event.value.code === "P1" || event.value.code === "P2") {
-        updatedDrawbars = this.updateDrawbarsToEnabled();
-      } else {
-        updatedDrawbars = this.updateDrawbarsForOilPumps();
-      }
-
-    } else {
-      this.originalOilPump = undefined;
-      this.krpanService.selectedOilPump.set(undefined)
-      updatedDrawbars = this.updateDrawbarsToEnabled();
-    }
-    this.drawbars = updatedDrawbars;
-  }
-
-  updateDrawbarsForOilPumps(): ConfigurationItem[] {
-    return this.drawbars.map((drawbar) => ({
-      ...drawbar,
-      disabledOption: drawbar.code === "C6"
-    }));
-  }
-
-  updateDrawbarsToEnabled(): ConfigurationItem[] {
-    return this.drawbars.map((drawbar) => ({
-      ...drawbar,
-      disabledOption: false
-    }));
-  }
-
-  handleOilTankChange(event: ListboxChangeEvent) {
-    const previousValue = this.originalOilTankPrice;
-    this.originalOilTankPrice = event.value ? event.value.price : 0;
-    const nextValue = this.originalOilTankPrice;
-    const current = this.krpanService._trailerPrice();
-  
-    if (previousValue !== nextValue) {
-      const newPrice = current - previousValue + Number(nextValue);
-      this.krpanService._trailerPrice.set(newPrice);
-    }
-
-    if (event.value){
-      this.originalOilTank = event.value;
-      this.krpanService.selectedOilTank.set(event.value)
-    } else {
-      this.originalOilTank = undefined;
-      this.krpanService.selectedOilTank.set(undefined)
-    } 
-  }
-
   handleSupportLegChange(event: ListboxChangeEvent) {
     const previousValue = this.originalSupportLegPrice;
     this.originalSupportLegPrice = event.value ? event.value.price : 0;
@@ -1317,129 +1265,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
     } else {
       this.originalSupportLeg = undefined;
       this.krpanService.selectedSupportLeg.set(undefined)
-    }
-  }
-
-  handleLightChange(event: ListboxChangeEvent) {
-    const previousValue = this.originalLightPrice;
-    this.originalLightPrice = event.value ? event.value.price : 0;
-    const nextValue = this.originalLightPrice;
-    const current = this.krpanService._trailerPrice();
-  
-    if (previousValue !== nextValue) {
-      const newPrice = current - previousValue + Number(nextValue);
-      this.krpanService._trailerPrice.set(newPrice);
-    }
-
-    if (event.value){
-      this.originalLight = event.value;
-      this.krpanService.selectedTrailerLight.set(event.value)
-    } else {
-      this.originalLight = undefined;
-      this.krpanService.selectedTrailerLight.set(undefined)
-    }
-  }
-
-  onOilCoolerChange(event: CheckboxChangeEvent){
-    if (event.checked.length > 0) {
-      const current = this.krpanService._trailerPrice();
-      const newPrice = Number(current) + Number(event.checked[0].price);
-      this.krpanService._trailerPrice.set(newPrice);
-      this.originalTrailerOilCoolerPrice = Number(event.checked[0].price);
-      this.originalTrailerOilCooler = event.checked[0];
-      this.krpanService.selectedTrailerOilCooler.set(event.checked[0]);
-    } else {
-      const current = this.krpanService._trailerPrice();
-      const newPrice = Number(current) - this.originalTrailerOilCoolerPrice;
-      this.krpanService._trailerPrice.set(newPrice);
-      this.originalTrailerOilCooler = undefined;
-      this.krpanService.selectedTrailerOilCooler.set(undefined);
-    }
-  }
-
-  onBolsterLockChange(event: CheckboxChangeEvent){
-    if (event.checked.length > 0) {
-      const current = this.krpanService._trailerPrice();
-      const newPrice = Number(current) + Number(event.checked[0].price);
-      this.krpanService._trailerPrice.set(newPrice);
-      this.originalBolsterLockPrice = Number(event.checked[0].price);
-      this.originalBolsterLock = event.checked[0];
-      this.krpanService.selectedBolsterLock.set(event.checked[0]);
-    } else {
-      const current = this.krpanService._trailerPrice();
-      const newPrice = Number(current) - this.originalBolsterLockPrice;
-      this.krpanService._trailerPrice.set(newPrice);
-      this.originalBolsterLock = undefined;
-      this.krpanService.selectedBolsterLock.set(undefined);
-    }
-  }
-
-  onWoodSorterNumberChange(event: DropdownChangeEvent){
-    this.woodSorterNumberSelected = true;
-    const number = Number(event.value.number);
-    this.initialWoodSorterNumber = number;
-    const previousTotalPrice = Number(this.previousWoodSorterNumber) * Number(this.initialWoodSorterPrice);
-
-    if (this.originalWoodSorter) {
-        this.originalWoodSorter.name = this.originalWoodSorter.name.replace(/\s\d+ db$/, '') + " " + this.initialWoodSorterNumber + " db";
-        this.originalWoodSorter.price = this.initialWoodSorterPrice * this.initialWoodSorterNumber;
-
-        this.krpanService._trailerPrice.update(value => value - previousTotalPrice + (Number(this.initialWoodSorterPrice) * Number(this.initialWoodSorterNumber)));
-    } else {
-      this.krpanService._trailerPrice.update(value => value + previousTotalPrice + (Number(this.initialWoodSorterPrice) * Number(this.initialWoodSorterNumber)));
-    }
-    this.previousWoodSorterNumber = number;
-  }
-
-  onUnderrunProtectionChange(event: CheckboxChangeEvent){
-    if (event.checked.length > 0) {
-      const current = this.krpanService._trailerPrice();
-      const newPrice = Number(current) + Number(event.checked[0].price);
-      this.krpanService._trailerPrice.set(newPrice);
-      this.originalUnderrunProtectionPrice = Number(event.checked[0].price);
-      this.originalUnderrunProtection = event.checked[0];
-      this.krpanService.selectedUnderrunProtection.set(event.checked[0]);
-    } else {
-      const current = this.krpanService._trailerPrice();
-      const newPrice = Number(current) - this.originalUnderrunProtectionPrice;
-      this.krpanService._trailerPrice.set(newPrice);
-      this.originalUnderrunProtection = undefined;
-      this.krpanService.selectedUnderrunProtection.set(undefined);
-    }
-  }
-
-  onFrameExtensionChange(event: CheckboxChangeEvent) {
-    if (event.checked.length > 0) {
-      const current = this.krpanService._trailerPrice();
-      const newPrice = Number(current) + Number(event.checked[0].price);
-      this.krpanService._trailerPrice.set(newPrice);
-      this.originalFrameExtensionPrice = Number(event.checked[0].price);
-      this.originalFrameExtension = event.checked[0];
-      this.krpanService.selectedFrameExtension.set(event.checked[0]);
-    } else {
-      const current = this.krpanService._trailerPrice();
-      const newPrice = Number(current) - this.originalFrameExtensionPrice;
-      this.krpanService._trailerPrice.set(newPrice);
-      this.originalFrameExtension = undefined;
-      this.krpanService.selectedFrameExtension.set(undefined);
-    }
-  }
-
-
-  onHydroPackChange(event: CheckboxChangeEvent) {
-    if (event.checked.length > 0) {
-      const current = this.krpanService._trailerPrice();
-      const newPrice = Number(current) + Number(event.checked[0].price);
-      this.krpanService._trailerPrice.set(newPrice);
-      this.originalHydroPackPrice = Number(event.checked[0].price);
-      this.originalHydroPack = event.checked[0];
-      this.krpanService.selectedHydroPack.set(event.checked[0]);
-    } else {
-      const current = this.krpanService._trailerPrice();
-      const newPrice = Number(current) - this.originalHydroPackPrice;
-      this.krpanService._trailerPrice.set(newPrice);
-      this.originalHydroPack = undefined;
-      this.krpanService.selectedHydroPack.set(undefined);
     }
   }
 
@@ -1523,57 +1348,20 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
     this.originalBrakePrice = 0;
     this.originalPropulsion = undefined;
     this.originalPropulsionPrice = 0;
-    this.originalDrawbar = undefined;
-    this.originalDrawbarPrice = 0;
-    this.originalPlatform = undefined;
-    this.originalPlatformPrice = 0;
-    this.originalOilPump = undefined;
-    this.originalOilPumpPrice = 0;
-    this.originalOilTank = undefined; 
-    this.originalOilTankPrice = 0;
-    this.originalTrailerOilCooler = undefined;
-    this.originalTrailerOilCoolerPrice = 0
-    this.originalBolsterLock = undefined; 
-    this.originalBolsterLockPrice = 0;
-    this.originalBbox = undefined; 
-    this.originalBboxPrice = 0;
-    this.originalWoodSorter = undefined;
-    this.originalWoodSorterPrice = 0;
+    this.originalDrawBar = undefined;
+    this.originalDrawBarPrice = 0;
+    this.originalBBox = undefined; 
+    this.originalBBoxPrice = 0;
     this.originalHandBrake = undefined;  
     this.originalHandBrakePrice = 0;
+    this.originalAxeHolder = undefined; 
+    this.originalAxeHolderPrice = 0;
     this.originalChainsawHolder = undefined; 
     this.originalChainsawHolderPrice = 0;
-    this.originalUnderrunProtection = undefined;
-    this.originalUnderrunProtectionPrice = 0;
     this.originalSupportLeg = undefined;
     this.originalSupportLegPrice = 0;
-    this.originalLight = undefined;
-    this.originalLightPrice = 0;
     this.originalTyre = undefined; 
     this.originalTyrePrice = 0;
-    this.originalBunkAdapter = undefined;
-    this.originalBunkAdapterPrice = 0;
-    this.originalBunkExtension = undefined;
-    this.originalBunkExtensionPrice = 0;
-    this.originalFrameExtension = undefined;
-    this.originalFrameExtensionPrice = 0;
-    
-    this.woodSorterChecked = false;
-    this.woodSorterNumberSelected = false;
-    this.woodSorterArrayElements = [];
-    this.initialWoodSorterNumber = 0;
-    this.previousWoodSorterNumber = 0;
-
-    this.bunkAdapterChecked = false;
-    this.bunkAdapterNumberSelected = false;
-    this.bunkAdapterArrayElements = [];
-    this.initialBunkAdapterNumber = 0;
-    this.previousBunkAdapterNumber = 0;
-
-    this.bunkExtensionChecked = false;
-    this.bunkExtensionNumberSelected = false;
-    this.bunkExtensionArrayElements = [];
-    this.initialBunkExtensionNumber = 0;
-    this.previousBunkExtensionNumber = 0;
+  
   }
 }

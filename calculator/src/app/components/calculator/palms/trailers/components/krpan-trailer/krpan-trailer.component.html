@@ -22,6 +22,83 @@
         <div #configElement class="flex align-middle justify-center my-10">
             <div class="w-11/12">
 
+                <div *ngIf="trailerSelected && cargoSpaceExtension && !dfTrailerIds.includes(trailer.id)" class="justify-content-center my-4 py-4">
+                    <div class="flex">
+                        <p-radioButton id="CargoSpaceExtension" [value]="cargoSpaceExtension" formControlName="selectedCargoSpaceExtension"></p-radioButton>
+                        <label [for]="cargoSpaceExtension.id" class="ml-2">{{ cargoSpaceExtension.namePrice }}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="trailerSelected && hydraulicAdjustableChassis && !dfTrailerIds.includes(trailer.id)" class="justify-content-center my-4 py-4">
+                    <div class="flex">
+                        <p-radioButton id="HydraulicAdjustableChassis" [value]="hydraulicAdjustableChassis" formControlName="selectedHydraulicAdjustableChassis"></p-radioButton>
+                        <label [for]="hydraulicAdjustableChassis.id" class="ml-2">{{ hydraulicAdjustableChassis.namePrice }}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="trailerSelected && lamp" class="justify-content-center my-4 py-4">
+                    <div class="flex">
+                        <p-radioButton id="Lamp" [value]="lamp" formControlName="selectedLamp"></p-radioButton>
+                        <label [for]="lamp.id" class="ml-2">{{ lamp.namePrice }}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="trailerSelected && handBrake" class="justify-content-center my-4 py-4">
+                    <div class="flex">
+                        <p-radioButton id="HandBrake" [value]="handBrake" formControlName="selectedHandBrake"></p-radioButton>
+                        <label [for]="handBrake.id" class="ml-2">{{ handBrake.namePrice }}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="trailerSelected && chock" class="justify-content-center my-4 py-4">
+                    <div class="flex">
+                        <p-radioButton id="Chock" [value]="chock" formControlName="selectedChock"></p-radioButton>
+                        <label [for]="chock.id" class="ml-2">{{ chock.namePrice }}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="trailerSelected && drawbarSteering" class="justify-content-center my-4 py-4">
+                    <div class="flex">
+                        <p-radioButton id="DrawbarSteering" [value]="drawbarSteering" formControlName="selectedDrawbarSteering"></p-radioButton>
+                        <label [for]="drawbarSteering.id" class="ml-2">{{ drawbarSteering.namePrice }}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="trailerSelected && supportLeg" class="justify-content-center my-4 py-4">
+                    <div class="flex">
+                        <p-radioButton id="SupportLeg" [value]="supportLeg" formControlName="selectedSupportLeg"></p-radioButton>
+                        <label [for]="supportLeg.id" class="ml-2">{{ supportLeg.namePrice }}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="trailerSelected && axeHolder && !dfTrailerIds.includes(trailer.id)" class="justify-content-center my-4 py-4">
+                    <div class="flex">
+                        <p-radioButton id="AxeHolder" [value]="axeHolder" formControlName="selectedAxeHolder"></p-radioButton>
+                        <label [for]="axeHolder.id" class="ml-2">{{ axeHolder.namePrice }}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="trailerSelected && chainsawHolder && !dfTrailerIds.includes(trailer.id)" class="justify-content-center my-4 py-4">
+                    <div class="flex">
+                        <p-radioButton id="ChainsawHolder" [value]="chainsawHolder" formControlName="selectedChainsawHolder"></p-radioButton>
+                        <label [for]="chainsawHolder.id" class="ml-2">{{ chainsawHolder.namePrice }}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="trailerSelected && fuelTankHolder && !dfTrailerIds.includes(trailer.id)" class="justify-content-center my-4 py-4">
+                    <div class="flex">
+                        <p-radioButton id="FuelTankHolder" [value]="fuelTankHolder" formControlName="selectedFuelTankHolder"></p-radioButton>
+                        <label [for]="fuelTankHolder.id" class="ml-2">{{ fuelTankHolder.namePrice }}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="trailerSelected && toolBox && !dfTrailerIds.includes(trailer.id)" class="justify-content-center my-4 py-4">
+                    <div class="flex">
+                        <p-radioButton id="ToolBox" [value]="toolBox" formControlName="selectedToolBox"></p-radioButton>
+                        <label [for]="toolBox.id" class="ml-2">{{ toolBox.namePrice }}</label>
+                    </div>
+                </div>
+
                 <div *ngIf="trailerSelected && propulsions.length > 0"  class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
                         <span>Meghajtás</span>
@@ -48,13 +125,6 @@
                         <span>Fék</span>
                     </div>
                     <p-listbox #selectedBrakeListBox optionDisabled="disabledOption" (onChange)="handleBrakeChange($event)" formControlName="selectedBrake" [options]="brakes" optionLabel="namePrice"></p-listbox>                   
-                </div>
-
-                <div *ngIf="trailerSelected && handBrake" class="justify-content-center my-4 py-4">
-                    <div class="flex gap-2">
-                        <p-checkbox (onChange)="onHandBrakeChange($event)" [value]="handBrake" formControlName="selectedHandBrake" inputId="HandBrakeSelected"></p-checkbox>
-                        <label class="hover:cursor-pointer" for="HandBrakeSelected">{{handBrake.namePrice}}</label>
-                    </div>
                 </div>
 
                 <div *ngIf="trailerSelected && extraStanchion" class="justify-content-center my-4 py-4">
@@ -98,11 +168,11 @@
                     </div>
                 </div>
 
-                <div *ngIf="trailerSelected && drawbars.length > 0" class="justify-content-center my-4 py-4">
+                <div *ngIf="trailerSelected && drawBars.length > 0" class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
                         <span>Vonórúd</span>
                     </div>
-                    <p-listbox optionDisabled="disabledOption" (onChange)="handleDrawbarChange($event)" formControlName="selectedDrawbar" [options]="drawbars" optionLabel="namePrice"></p-listbox>                   
+                    <p-listbox optionDisabled="disabledOption" (onChange)="handleDrawbarChange($event)" formControlName="selectedDrawBar" [options]="drawBars" optionLabel="namePrice"></p-listbox>                   
                 </div>
 
                 <div *ngIf="trailerSelected && cardanShaft" class="justify-content-center my-4 py-4">
@@ -126,35 +196,35 @@
                     </div>
                 </div>
 
-                <div *ngIf="trailerSelected && cargoSpaceExtension" class="justify-content-center my-4 py-4">
+                <div *ngIf="trailerSelected && cargoSpaceExtension && dfTrailerIds.includes(trailer.id)" class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
                         <p-checkbox (onChange)="onCargoSpaceExtensionChange($event)" [value]="cargoSpaceExtension" formControlName="selectedCargoSpaceExtension" inputId="CargoSpaceExtensionSelected"></p-checkbox>
                         <label class="hover:cursor-pointer" for="CargoSpaceExtensionSelected">{{cargoSpaceExtension.namePrice}}</label>
                     </div>
                 </div>
 
-                <div *ngIf="trailerSelected && axeHolder" class="justify-content-center my-4 py-4">
+                <div *ngIf="trailerSelected && axeHolder && dfTrailerIds.includes(trailer.id)" class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
                         <p-checkbox (onChange)="onAxeHolderChange($event)" [value]="axeHolder" formControlName="selectedAxeHolder" inputId="AxeHolderSelected"></p-checkbox>
                         <label class="hover:cursor-pointer" for="AxeHolderSelected">{{axeHolder.namePrice}}</label>
                     </div>
                 </div>
 
-                <div *ngIf="trailerSelected && chainsawHolder" class="justify-content-center my-4 py-4">
+                <div *ngIf="trailerSelected && chainsawHolder && dfTrailerIds.includes(trailer.id)" class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
                         <p-checkbox (onChange)="onChainsawHolderChange($event)" [value]="chainsawHolder" formControlName="selectedChainsawHolder" inputId="ChainsawHolderSelected"></p-checkbox>
                         <label class="hover:cursor-pointer" for="ChainsawHolderSelected">{{chainsawHolder.namePrice}}</label>
                     </div>
                 </div>
 
-                <div *ngIf="trailerSelected && fuelTankHolder" class="justify-content-center my-4 py-4">
+                <div *ngIf="trailerSelected && fuelTankHolder && dfTrailerIds.includes(trailer.id)" class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
                         <p-checkbox (onChange)="onFuelTankHolderChange($event)" [value]="fuelTankHolder" formControlName="selectedFuelTankHolder" inputId="FuelTankHolderSelected"></p-checkbox>
                         <label class="hover:cursor-pointer" for="FuelTankHolderSelected">{{fuelTankHolder.namePrice}}</label>
                     </div>
                 </div>
 
-                <div *ngIf="trailerSelected && toolBox" class="justify-content-center my-4 py-4">
+                <div *ngIf="trailerSelected && toolBox && dfTrailerIds.includes(trailer.id)" class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
                         <p-checkbox (onChange)="onToolBoxChange($event)" [value]="toolBox" formControlName="selectedToolBox" inputId="ToolBoxSelected"></p-checkbox>
                         <label class="hover:cursor-pointer" for="ToolBoxSelected">{{toolBox.namePrice}}</label>
@@ -190,7 +260,7 @@
                     </div>
                 </div>
                 
-                <div *ngIf="trailerSelected && trailerShipping" class="justify-content-center my-4 py-4">
+                <!-- <div *ngIf="trailerSelected && trailerShipping" class="justify-content-center my-4 py-4">
                     <div class="flex">
                         <p-radioButton id="trailerShipping" [value]="trailerShipping" formControlName="selectedShipping"></p-radioButton>
                         <label [for]="trailerShipping.id" class="ml-2">{{ trailerShipping.namePrice }}</label>
@@ -202,13 +272,12 @@
                         <p-radioButton id="MOT" [value]="MOT" formControlName="selectedMOT"></p-radioButton>
                         <label [for]="MOT.id" class="ml-2">{{ MOT.namePrice }}</label>
                     </div>
-                </div>
+                </div> -->
                 
                 <hr *ngIf="trailer && !fromCrane" class="mb-2 mt-4 h-0.5 border-t-0 bg-black opacity-100 dark:opacity-50" />
             </div>
         </div>
 
-        
         <app-krpan-crane-cards *ngIf="trailer && trailer.krpanCrane && trailerSelected && (krpanService.trailerSelected$ | async) && !fromCrane" [cranes]="trailer.krpanCrane" (buttonClickEmitter)="selectCrane($event)"></app-krpan-crane-cards>
     </ng-container>
 </form>   

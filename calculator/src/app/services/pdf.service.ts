@@ -21,15 +21,15 @@ export class PdfService {
   pdfId = signal<string>("");
 
   sendPdf(body: PdfModel){
-    return this.httpClient.post<any>(`${this.url}/Pdf`, body).pipe()
+    return this.httpClient.post<any>(`${this.url}/Krpanpdf`, body).pipe()
   }
 
   getUserPdf(id: string): Observable<Blob> {
-    return this.httpClient.get(`${this.url}/Pdf/user/${id}`, { responseType: 'blob' });
+    return this.httpClient.get(`${this.url}/Krpanpdf/user/${id}`, { responseType: 'blob' });
   }
 
   getDealerPdf(id: string): Observable<Blob> {
-    return this.httpClient.get(`${this.url}/Pdf/dealer/${id}`, { responseType: 'blob' });
+    return this.httpClient.get(`${this.url}/Krpanpdf/dealer/${id}`, { responseType: 'blob' });
   }
   
   downloadPDF(formData: Record<string, any>) {

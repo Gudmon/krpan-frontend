@@ -69,59 +69,54 @@ export class PdfComponent implements OnInit{
   sendPdfAndDownload() {
     const object: PdfModel = {};
     if (this.krpanService._trailerSelected.value === true) {
-      const woodSorter = this.krpanService.selectedWoodSorter();
-      const newWoodSorter: ConfigurationItem | undefined = woodSorter
+      const extraStanchion = this.krpanService.selectedExtraStanchion();
+      const newExtraStanchion: ConfigurationItem | undefined = extraStanchion
         ? {
-            ...woodSorter,
-            price: woodSorter.price.toString(),
-          }
-        : undefined;
-
-      const bunkAdapter = this.krpanService.selectedBunkAdapter();
-      const newBunkAdapter: ConfigurationItem | undefined = bunkAdapter
-        ? {
-            ...bunkAdapter,
-            price: bunkAdapter.price.toString(),
-          }
-        : undefined;  
-      const bunkExtension = this.krpanService.selectedBunkExtension();
-      const newBunkExtension: ConfigurationItem | undefined = bunkExtension
-        ? {
-            ...bunkExtension,
-            price: bunkExtension.price.toString(),
+            ...extraStanchion,
+            price: extraStanchion.price.toString(),
           }
         : undefined;   
+      object.ExtraStanchion = newExtraStanchion;
+
+      const extraForwarderStanchion = this.krpanService.selectedExtraForwarderStanchion();
+      const newForwarderExtraStanchion: ConfigurationItem | undefined = extraForwarderStanchion
+        ? {
+            ...extraForwarderStanchion,
+            price: extraForwarderStanchion.price.toString(),
+          }
+        : undefined;   
+      object.ExtraForwarderStanchion = newForwarderExtraStanchion;
+
       object.TrailerName = this.krpanService._selectedTrailer.value?.name;
+      object.HydraulicAdjustableChassis = this.krpanService.selectedHydraulicAdjustableChassis();
+      object.Lamp = this.krpanService.selectedLamp();
+      object.Chock = this.krpanService.selectedChock();
+      object.DrawbarSteering = this.krpanService.selectedDrawbarSteering();
+      object.SupportLeg = this.krpanService.selectedSupportLeg();
       object.Tyre = this.krpanService.selectedTyre();
       object.Brake = this.krpanService.selectedBrake();
-      object.Propulsion = this.krpanService.selectedPropulsion();
-      object.Drawbar = this.krpanService.selectedDrawbar();
-      object.Platform = this.krpanService.selectedPlatform();
-      object.OilPump = this.krpanService.selectedOilPump();
-      object.OilTank = this.krpanService.selectedOilTank();
-      object.TrailerOilCooler = this.krpanService.selectedTrailerOilCooler();
-      object.BolsterLock = this.krpanService.selectedBolsterLock();
-      object.BBox = this.krpanService.selectedBBox();
-      object.WoodSorter = newWoodSorter;
       object.HandBrake = this.krpanService.selectedHandBrake();
+      object.Propulsion = this.krpanService.selectedPropulsion();
+      object.AdjustableDrive = this.krpanService.selectedAdjustableDrive();
+      object.TopConnection = this.krpanService.selectedTopConnection();
+      object.Clutch = this.krpanService.selectedClutch();
+      object.DrawHead = this.krpanService.selectedDrawHead();
+      object.DrawBar = this.krpanService.selectedDrawbar();
+      object.CardanShaft = this.krpanService.selectedCardanShaft();
+      object.BBox = this.krpanService.selectedBBox();
+      object.BaleTransportPlatform = this.krpanService.selectedBaleTransportPlatform();
+      object.CargoSpaceExtension = this.krpanService.selectedCargoSpaceExtension();
+      object.AxeHolder = this.krpanService.selectedAxeHolder();
       object.ChainsawHolder = this.krpanService.selectedChainsawHolder();
-      object.UnderrunProtection = this.krpanService.selectedUnderrunProtection();
-      object.BunkAdapter = newBunkAdapter;
-      object.BunkExtension = newBunkExtension;
-      object.FrameExtension = this.krpanService.selectedFrameExtension();
-      object.TrailerLight = this.krpanService.selectedTrailerLight();
-      object.SupportLeg = this.krpanService.selectedSupportLeg();
+      object.FueltankHolder = this.krpanService.selectedFuelTankHolder();
+      object.ToolBox = this.krpanService.selectedToolBox();
+      object.Plato = this.krpanService.selectedPlato();
+      object.Extension = this.krpanService.selectedExtension();
+      object.HydraulicSupportLeg = this.krpanService.selectedHydraulicSupportLeg();
+      object.GrappleLocation = this.krpanService.selectedGrappleLocation();
+
       object.TrailerShipping = this.krpanService.selectedTrailerShipping();
       object.MOT = this.krpanService.selectedMOT();
-      const stanchionExtension = this.krpanService.selectedStanchionExtension();
-      const newStanchionExtension: ConfigurationItem | undefined = stanchionExtension
-        ? {
-            ...stanchionExtension,
-            price: stanchionExtension.price.toString(),
-          }
-        : undefined;
-      object.StanchionExtension = newStanchionExtension;
-      object.HydroPack = this.krpanService.selectedHydroPack();
     }else {
       object.Grapples = [];
     }
@@ -213,29 +208,38 @@ export class PdfComponent implements OnInit{
 
 interface PdfTrailerModel {
   TrailerName?: string | undefined,
-  Brake?: ConfigurationItem | undefined,
-  Propulsion?: ConfigurationItem | undefined,
-  Drawbar?: ConfigurationItem | undefined,
-  Platform?: ConfigurationItem | undefined,
-  OilPump?: ConfigurationItem | undefined,
-  OilTank?: ConfigurationItem | undefined,
-  TrailerOilCooler?: ConfigurationItem | undefined,
-  BolsterLock?: ConfigurationItem | undefined,
-  BBox?: ConfigurationItem | undefined,
-  WoodSorter?: ConfigurationItem | undefined,
+  HydraulicAdjustableChassis?: ConfigurationItem | undefined,
+  Lamp?: ConfigurationItem | undefined,
   HandBrake?: ConfigurationItem | undefined,
-  ChainsawHolder?: ConfigurationItem | undefined,
-  UnderrunProtection?: ConfigurationItem | undefined,
-  BunkAdapter?: ConfigurationItem | undefined,
-  BunkExtension?: ConfigurationItem | undefined,
-  FrameExtension?: ConfigurationItem | undefined,
-  TrailerLight?: ConfigurationItem | undefined,
+  Chock?: ConfigurationItem | undefined,
+  DrawbarSteering?: ConfigurationItem | undefined,
   SupportLeg?: ConfigurationItem | undefined,
   Tyre?: ConfigurationItem | undefined,
+  Brake?: ConfigurationItem | undefined,
+  Propulsion?: ConfigurationItem | undefined,
+  AdjustableDrive?: ConfigurationItem | undefined,
+  ExtraStanchion?: ConfigurationItem | undefined,
+  ExtraForwarderStanchion?: ConfigurationItem | undefined,
+  TopConnection?: ConfigurationItem | undefined,
+  Clutch?: ConfigurationItem | undefined,
+  DrawHead?: ConfigurationItem | undefined,
+  DrawBar?: ConfigurationItem | undefined,
+  CardanShaft?: ConfigurationItem | undefined,
+  BBox?: ConfigurationItem | undefined,
+  BaleTransportPlatform?: ConfigurationItem | undefined,
+  CargoSpaceExtension?: ConfigurationItem | undefined,
+  AxeHolder?: ConfigurationItem | undefined,
+  ChainsawHolder?: ConfigurationItem | undefined,
+  FueltankHolder?: ConfigurationItem | undefined,
+  ToolBox?: ConfigurationItem | undefined,
+  Plato?: ConfigurationItem | undefined,
+  Extension?: ConfigurationItem | undefined,
+  HydraulicSupportLeg?: ConfigurationItem | undefined,
+  GrappleLocation?: ConfigurationItem | undefined,
+  
   TrailerShipping?: ConfigurationItem | undefined,
   MOT?: ConfigurationItem | undefined,
-  StanchionExtension?: ConfigurationItem | undefined,
-  HydroPack?: ConfigurationItem | undefined,
+  
 }
 
 interface PdfCraneModel {
