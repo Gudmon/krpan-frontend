@@ -5,7 +5,7 @@ export interface KrpanCrane {
     id: number;
     name: string;
     description: string;
-    price: string;
+    price: number | string;
     maxReach: string;
     maxReachWithGrabOpen: string;
     netLiftingTorque: string;

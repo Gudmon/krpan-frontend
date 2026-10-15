@@ -6,7 +6,7 @@ export interface KrpanTrailer {
     id: number;
     name: string;
     description: string;
-    price: string;
+    price: number | string;
     loadCapacity: string;
     centralBeams: string;
     loadingLength: string;

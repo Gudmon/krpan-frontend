@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { ConfigurationItem } from '../../../../../models/configuration-item';
 import { FrameType } from '../models/frame-type';
+import { formatConfigurationPrice } from '../../../../../utils/price.utils';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,12 @@ export class KrpanCraneConfigService {
   constructor(private httpClient: HttpClient) { }
 
   getFrameTypesForTrailerCrane(trailerId: number, craneId: number): Observable<ConfigurationItem[]> {
-    return this.httpClient.get<ConfigurationItem[]>(`${this.url}/KrpanCraneConfig/${trailerId}/cranes/${craneId}/availableFrameTypes`);
+    return this.httpClient.get<ConfigurationItem[]>(`${this.url}/KrpanCraneConfig/${trailerId}/cranes/${craneId}/availableFrameTypes`).pipe(
+      map((frameTypes) => frameTypes.map((frameType) => {
+        frameType.namePrice = formatConfigurationPrice(frameType);
+        return frameType;
+      }))
+    );
   }
 
   getControlBlocks(id: number): Observable<ConfigurationItem[]>{
@@ -22,7 +28,7 @@ export class KrpanCraneConfigService {
       map((controlBlocks: ConfigurationItem[]) => {
         for (const controlBlock of controlBlocks){
           controlBlock.disabledOption = false;
-          controlBlock.namePrice = controlBlock.name + " " + controlBlock.price + "€"
+          controlBlock.namePrice = formatConfigurationPrice(controlBlock);
           controlBlock.imgUrl = `../../../../../../assets/KRPAN crane-controlblock-${controlBlock.id}.jpg`;
         }
         return controlBlocks;
@@ -35,7 +41,7 @@ export class KrpanCraneConfigService {
       map((frameTypes: FrameType[]) => {
         for (const frameType of frameTypes){  
           frameType.disabledOption = false;
-          frameType.namePrice = frameType.name + " " + frameType.price + "€"
+          frameType.namePrice = formatConfigurationPrice(frameType);
 
           if (frameType.id === 6 || frameType.id === 9 || frameType.id === 11){       
             frameType.imgUrl = `../../../../../../assets/KRPAN crane-frametype-${frameType.id}.svg`
@@ -57,7 +63,7 @@ export class KrpanCraneConfigService {
     return this.httpClient.get<ConfigurationItem[]>(`${this.url}/KrpanCraneConfig/cranes/${craneId}/${frameTypeId}/controlblocks`).pipe(
       map((controlBlocks: ConfigurationItem[]) => {
         for (const controlBlock of controlBlocks){
-          controlBlock.namePrice = controlBlock.name + " " + controlBlock.price + "€"
+          controlBlock.namePrice = formatConfigurationPrice(controlBlock);
           controlBlock.imgUrl = `../../../../../../assets/KRPAN crane-controlblock-${controlBlock.id}.svg`;
         }
         return controlBlocks;
@@ -70,7 +76,7 @@ export class KrpanCraneConfigService {
       map((rotators: ConfigurationItem[]) => {
         for (const rotator of rotators){
           rotator.disabledOption = false;
-          rotator.namePrice = rotator.name + " " + rotator.price + "€"
+          rotator.namePrice = formatConfigurationPrice(rotator);
           rotator.imgUrls = [`../../../../../../assets/KRPAN crane-rotator-${rotator.id}.svg`, `../../../../../../assets/KRPAN crane-rotator-${rotator.id}-1.jpg`]
         }
         return rotators;
@@ -83,7 +89,7 @@ export class KrpanCraneConfigService {
       map((grapples: ConfigurationItem[]) => {
         for (const grapple of grapples){
           grapple.disabledOption = false;
-          grapple.namePrice = grapple.name + " " + grapple.price + "€"
+          grapple.namePrice = formatConfigurationPrice(grapple);
           grapple.imgUrl = `../../../../../../assets/KRPAN crane-grapple-${grapple.id}.jpg`;
         }
         return grapples;
@@ -96,7 +102,7 @@ export class KrpanCraneConfigService {
       map((winches: ConfigurationItem[]) => {
         for (const winch of winches){
           winch.disabledOption = false;
-          winch.namePrice = winch.name + " " + winch.price + "€"
+          winch.namePrice = formatConfigurationPrice(winch);
           winch.imgUrl = `../../../../../../assets/KRPAN crane-grapple-${winch.id}.jpg`;
         }
         return winches;
@@ -108,7 +114,7 @@ export class KrpanCraneConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanCraneConfig/cranes/${id}/protectionsleeves`).pipe(
       map((protectionSleeves: ConfigurationItem | null) => {
         if (protectionSleeves) {
-          protectionSleeves.namePrice = protectionSleeves.name + " " + protectionSleeves.price + "€";
+          protectionSleeves.namePrice = formatConfigurationPrice(protectionSleeves);
           return protectionSleeves;
         } else {
           return null;
@@ -121,7 +127,7 @@ export class KrpanCraneConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanCraneConfig/cranes/${id}/electricalfloating`).pipe(
       map((electricalFloating: ConfigurationItem | null) => {
         if (electricalFloating) {
-          electricalFloating.namePrice = electricalFloating.name + " " + electricalFloating.price + "€";
+          electricalFloating.namePrice = formatConfigurationPrice(electricalFloating);
           return electricalFloating;
         } else {
           return null;
@@ -134,7 +140,7 @@ export class KrpanCraneConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanCraneConfig/cranes/${id}/valveBlock`).pipe(
       map((valveBlock: ConfigurationItem | null) => {
         if (valveBlock) {
-          valveBlock.namePrice = valveBlock.name + " " + valveBlock.price + "€";
+          valveBlock.namePrice = formatConfigurationPrice(valveBlock);
           return valveBlock;
         } else {
           return null;
@@ -148,7 +154,7 @@ export class KrpanCraneConfigService {
       map((dampings: ConfigurationItem[]) => {
         for (const damping of dampings){
           damping.disabledOption = false;
-          damping.namePrice = damping.name + " " + damping.price + "€";
+          damping.namePrice = formatConfigurationPrice(damping);
         }
         return dampings;
       })
@@ -159,7 +165,7 @@ export class KrpanCraneConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanCraneConfig/cranes/${id}/light`).pipe(
       map((light: ConfigurationItem | null) => {
         if (light) {
-          light.namePrice = light.name + " " + light.price + "€";
+          light.namePrice = formatConfigurationPrice(light);
           return light;
         } else {
           return null;
@@ -172,7 +178,7 @@ export class KrpanCraneConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanCraneConfig/cranes/${id}/operatorseat`).pipe(
       map((operatorSeat: ConfigurationItem | null) => {
         if (operatorSeat) {
-          operatorSeat.namePrice = operatorSeat.name + " " + operatorSeat.price + "€";
+          operatorSeat.namePrice = formatConfigurationPrice(operatorSeat);
           return operatorSeat;
         } else {
           return null;
@@ -185,7 +191,7 @@ export class KrpanCraneConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanCraneConfig/cranes/${id}/oilcooler`).pipe(
       map((oilcooler: ConfigurationItem | null) => {
         if (oilcooler) {
-          oilcooler.namePrice = oilcooler.name + " " + oilcooler.price + "€";
+          oilcooler.namePrice = formatConfigurationPrice(oilcooler);
           return oilcooler;
         } else {
           return null;
@@ -199,7 +205,7 @@ export class KrpanCraneConfigService {
       map((rotatorBrakes: ConfigurationItem[]) => {
         for (const rotatorBrake of rotatorBrakes){
           rotatorBrake.disabledOption = false;
-          rotatorBrake.namePrice = rotatorBrake.name + " " + rotatorBrake.price + "€";
+          rotatorBrake.namePrice = formatConfigurationPrice(rotatorBrake);
           if (rotatorBrake.id === 2 || rotatorBrake.id === 3) rotatorBrake.imgUrl = `../../../../../../assets/KRPAN crane-rotatorbrake-2.jpg`;
           else if (rotatorBrake.id === 4 || rotatorBrake.id === 5) rotatorBrake.imgUrl = `../../../../../../assets/KRPAN crane-rotatorbrake-3.jpg`;
           
@@ -213,7 +219,7 @@ export class KrpanCraneConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanCraneConfig/cranes/${id}/joystickholder`).pipe(
       map((joystickHolder: ConfigurationItem | null) => {
         if (joystickHolder) {
-          joystickHolder.namePrice = joystickHolder.name + " " + joystickHolder.price + "€";
+          joystickHolder.namePrice = formatConfigurationPrice(joystickHolder);
           return joystickHolder;
         } else {
           return null;
@@ -227,7 +233,7 @@ export class KrpanCraneConfigService {
       map((hoseGuards: ConfigurationItem[]) => {
         for (const hoseGuard of hoseGuards){
           hoseGuard.disabledOption = false;
-          hoseGuard.namePrice = hoseGuard.name + " " + hoseGuard.price + "€";
+          hoseGuard.namePrice = formatConfigurationPrice(hoseGuard);
         }
         return hoseGuards;
       })
@@ -238,7 +244,7 @@ export class KrpanCraneConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanCraneConfig/cranes/${id}/turningdevicecounterplate`).pipe(
       map((turningDeviceCounterPlate: ConfigurationItem | null) => {
         if (turningDeviceCounterPlate) {
-          turningDeviceCounterPlate.namePrice = turningDeviceCounterPlate.name + " " + turningDeviceCounterPlate.price + "€";
+          turningDeviceCounterPlate.namePrice = formatConfigurationPrice(turningDeviceCounterPlate);
           return turningDeviceCounterPlate;
         } else {
           return null;
@@ -251,7 +257,7 @@ export class KrpanCraneConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanCraneConfig/cranes/${id}/supportlegcounterplate`).pipe(
       map((supportLegCounterPlate: ConfigurationItem | null) => {
         if (supportLegCounterPlate) {
-          supportLegCounterPlate.namePrice = supportLegCounterPlate.name + " " + supportLegCounterPlate.price + "€";
+          supportLegCounterPlate.namePrice = formatConfigurationPrice(supportLegCounterPlate);
           return supportLegCounterPlate;
         } else {
           return null;
@@ -264,7 +270,7 @@ export class KrpanCraneConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanCraneConfig/cranes/${id}/boomguard`).pipe(
       map((boomGuard: ConfigurationItem | null) => {
         if (boomGuard) {
-          boomGuard.namePrice = boomGuard.name + " " + boomGuard.price + "€";
+          boomGuard.namePrice = formatConfigurationPrice(boomGuard);
           boomGuard.imgUrl = `../../../../../../assets/KRPAN crane-boomguard-${boomGuard.id}.jpg`;
           return boomGuard;
         } else {
@@ -278,7 +284,7 @@ export class KrpanCraneConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanCraneConfig/cranes/${id}/cover`).pipe(
       map((cover: ConfigurationItem | null) => {
         if (cover) {
-          cover.namePrice = cover.name + " " + cover.price + "€";
+          cover.namePrice = formatConfigurationPrice(cover);
           return cover;
         } else {
           return null;
@@ -291,7 +297,7 @@ export class KrpanCraneConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanCraneConfig/cranes/${id}/woodcontrol`).pipe(
       map((woodControl: ConfigurationItem | null) => {
         if (woodControl) {
-          woodControl.namePrice = woodControl.name + " " + woodControl.price + "€";
+          woodControl.namePrice = formatConfigurationPrice(woodControl);
           return woodControl;
         } else {
           return null;
@@ -304,7 +310,7 @@ export class KrpanCraneConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanCraneConfig/cranes/${id}/linkage`).pipe(
       map((linkage: ConfigurationItem | null) => {
         if (linkage) {
-          linkage.namePrice = linkage.name + " " + linkage.price + "€";
+          linkage.namePrice = formatConfigurationPrice(linkage);
           return linkage;
         } else {
           return null;
@@ -317,7 +323,7 @@ export class KrpanCraneConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanCraneConfig/cranes/${id}/shipping`).pipe(
       map((shipping: ConfigurationItem | null) => {
         if (shipping) {
-          shipping.namePrice = shipping.name + " " + shipping.price + "€";
+          shipping.namePrice = formatConfigurationPrice(shipping);
           return shipping;
         } else {
           return null;

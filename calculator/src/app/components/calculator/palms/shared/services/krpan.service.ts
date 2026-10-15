@@ -9,6 +9,7 @@ import { KrpanTrailerOverview } from '../../trailers/models/krpan-trailer-overvi
 import { Cloudinary } from '@cloudinary/url-gen/instance/Cloudinary';
 import { fill } from '@cloudinary/url-gen/actions/resize';
 import { format, quality } from '@cloudinary/url-gen/actions/delivery';
+import { parsePrice } from '../../../../../utils/price.utils';
 
 @Injectable({
   providedIn: 'root'
@@ -98,6 +99,7 @@ export class KrpanService {
   public selectedClutch = signal<ConfigurationItem | undefined>(undefined);
   public selectedDrawHead = signal<ConfigurationItem | undefined>(undefined);
   public selectedDrawbar = signal<ConfigurationItem | undefined>(undefined);
+  public selectedCouplingDevice = signal<ConfigurationItem | undefined>(undefined);
   public selectedCardanShaft = signal<ConfigurationItem | undefined>(undefined);
   public selectedBBox = signal<ConfigurationItem | undefined>(undefined);
   public selectedBaleTransportPlatform = signal<ConfigurationItem | undefined>(undefined);
@@ -109,7 +111,7 @@ export class KrpanService {
   public selectedPlato = signal<ConfigurationItem | undefined>(undefined);
   public selectedExtension = signal<ConfigurationItem | undefined>(undefined);
   public selectedGrappleLocation = signal<ConfigurationItem | undefined>(undefined);
-
+    
   public selectedTrailerShipping = signal<ConfigurationItem | undefined>(undefined);
   public selectedMOT = signal<ConfigurationItem | undefined>(undefined);
 
@@ -131,10 +133,12 @@ export class KrpanService {
     
     return this.httpClient.get<KrpanTrailer>(`${this.url}/Krpan/trailers/${id}`).pipe(
       map((trailer: KrpanTrailer) => {
-       
-        for (const crane of trailer.krpanCrane){
-          crane.imgUrl = `../../../../../assets/${crane.name}-1.jpg`
-        }
+        trailer.images = (trailer.imageUrls ?? []).map((imageUrl) => this.cld.image(imageUrl));
+        trailer.price = parsePrice(trailer.price);
+
+        // for (const crane of trailer.krpanCrane){
+        //   crane.imgUrl = `../../../../../assets/${crane.name}-1.jpg`
+        // }
         //this._selectedTrailer.next(trailer);
         
         return trailer;
@@ -148,6 +152,7 @@ export class KrpanService {
       map((craneOverViews: KrpanCraneOverview[]) => {
         for (const craneOverView of craneOverViews) {
           craneOverView.imgUrl = `../../../../../assets/${craneOverView.name}-1.jpg`;
+          craneOverView.price = parsePrice(craneOverView.price);
         }
         return craneOverViews;
       })
@@ -159,6 +164,7 @@ export class KrpanService {
 
     return this.httpClient.get<KrpanCrane>(`${this.url}/Krpan/cranes/${id}`).pipe(
       map((crane: KrpanCrane) => {
+        crane.price = parsePrice(crane.price);
         crane.videoIds = this.getVideosByKey(crane.name)
         //this._selectedCrane.next(crane);
         crane.imgUrls = [`../../../../../assets/${crane.name}-1.jpg`]

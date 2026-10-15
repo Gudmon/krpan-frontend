@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { formatPriceValue } from '../../utils/price.utils';
 
 @Pipe({
   name: 'formatPrice',
@@ -6,11 +7,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FormatPricePipe implements PipeTransform {
 
-  transform(price: number | null): string {
-    if (price !== null && price !== undefined) {
-      return price.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + ' €';
-    } else {
-      return '';
-    }
+  transform(price: number | string | null | undefined): string {
+    return formatPriceValue(price);
   }
 }

@@ -6,5 +6,5 @@ export interface KrpanCraneOverview {
     netLiftingTorque: string;
     liftCapacityAtFourMeters: string;
     imgUrl: string;  
-    price: string;
+    price: number | string;
 }

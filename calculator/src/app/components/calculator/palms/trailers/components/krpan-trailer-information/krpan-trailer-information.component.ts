@@ -68,9 +68,9 @@ export class KrpanTrailerInformationComponent implements OnInit, AfterViewInit {
     return window.innerWidth < 900;
   }
 
-  getCranes(){
-    return this.trailer.krpanCrane.map(krpanCrane => ({ id: krpanCrane.id, name: krpanCrane.name }));
-  }
+  // getCranes(){
+  //   return this.trailer.krpanCrane.map(krpanCrane => ({ id: krpanCrane.id, name: krpanCrane.name }));
+  // }
 
   craneSelectedEmit(craneId: number){
     this.craneSelected.emit(craneId)

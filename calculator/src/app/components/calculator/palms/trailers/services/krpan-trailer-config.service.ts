@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, forkJoin, map } from 'rxjs';
 import { ConfigurationItem } from '../../../../../models/configuration-item';
+import { formatConfigurationPrice } from '../../../../../utils/price.utils';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,44 @@ export class KrpanTrailerConfigService {
   
   constructor(private httpClient: HttpClient) { }
 
+  getTrailerConfiguration(id: number) {
+    return forkJoin({
+      hydraulicAdjustableChassis: this.getHydraulicAdjustableChassis(id),
+      lamp: this.getLamp(id),
+      chock: this.getChock(id),
+      drawbarSteering: this.getDrawbarSteering(id),
+      supportLegs: this.getSupportLeg(id),
+      propulsions: this.getPropulsions(id),
+      adjustableDrive: this.getAdjustableDrive(id),
+      tyres: this.getTyres(id),
+      brakes: this.getBrakes(id),
+      handBrake: this.getHandBrake(id),
+      extraStanchion: this.getExtraStanchion(id),
+      extraForwarderStanchion: this.getExtraForwarderStanchion(id),
+      topConnection: this.getTopConnection(id),
+      clutches: this.getClutches(id),
+      drawHead: this.getDrawHead(id),
+      drawBars: this.getDrawbars(id),
+      couplingDevices: this.getCouplingDevices(id),
+      cardanShaft: this.getCardanShaft(id),
+      bBox: this.getBBox(id),
+      baleTransportPlatform: this.getBaleTransportPlatform(id),
+      cargoSpaceExtension: this.getCargoSpaceExtension(id),
+      axeHolder: this.getAxeHolder(id),
+      chainsawHolder: this.getChainsawHolder(id),
+      fuelTankHolder: this.getFuelTankHolder(id),
+      toolBox: this.getToolBox(id),
+      plato: this.getPlato(id),
+      extension: this.getExtension(id),
+      grappleLocation: this.getGrappleLocation(id)
+    });
+  }
+
   getHydraulicAdjustableChassis(id: number): Observable<ConfigurationItem | null>{
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/hydraulicadjustablechassis`).pipe(
       map((hydraulicAdjustableChassis: ConfigurationItem | null) => {
         if (hydraulicAdjustableChassis) {
-          hydraulicAdjustableChassis.namePrice = hydraulicAdjustableChassis.name + " " + hydraulicAdjustableChassis.price + "€";
+          hydraulicAdjustableChassis.namePrice = formatConfigurationPrice(hydraulicAdjustableChassis);
           return hydraulicAdjustableChassis;
         } else {
           return null;
@@ -29,7 +63,7 @@ export class KrpanTrailerConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/lamp`).pipe(
       map((lamp: ConfigurationItem | null) => {
         if (lamp) {
-          lamp.namePrice = lamp.name + " " + lamp.price + "€";
+          lamp.namePrice = formatConfigurationPrice(lamp);
           return lamp;
         } else {
           return null;
@@ -42,7 +76,7 @@ export class KrpanTrailerConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/chock`).pipe(
       map((chock: ConfigurationItem | null) => {
         if (chock) {
-          chock.namePrice = chock.name + " " + chock.price + "€";
+          chock.namePrice = formatConfigurationPrice(chock);
           return chock;
         } else {
           return null;
@@ -55,7 +89,7 @@ export class KrpanTrailerConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/drawbarsteering`).pipe(
       map((drawbarSteering: ConfigurationItem | null) => {
         if (drawbarSteering) {
-          drawbarSteering.namePrice = drawbarSteering.name + " " + drawbarSteering.price + "€";
+          drawbarSteering.namePrice = formatConfigurationPrice(drawbarSteering);
           return drawbarSteering;
         } else {
           return null;
@@ -64,16 +98,12 @@ export class KrpanTrailerConfigService {
     );
   }
 
-  getSupportLeg(id: number): Observable<ConfigurationItem | null>{
-    return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/supportleg`).pipe(
-      map((supportLeg: ConfigurationItem | null) => {
-        if (supportLeg) {
-          supportLeg.namePrice = supportLeg.name + " " + supportLeg.price + "€";
-          return supportLeg;
-        } else {
-          return null;
-        }
-      })
+  getSupportLeg(id: number): Observable<ConfigurationItem[]>{
+    return this.httpClient.get<ConfigurationItem[]>(`${this.url}/KrpanTrailerConfig/trailers/${id}/supportleg`).pipe(
+      map((supportLegs) => supportLegs.map((supportLeg) => {
+        supportLeg.namePrice = formatConfigurationPrice(supportLeg);
+        return supportLeg;
+      }))
     );
   }
 
@@ -81,7 +111,7 @@ export class KrpanTrailerConfigService {
     return this.httpClient.get<ConfigurationItem[]>(`${this.url}/KrpanTrailerConfig/trailers/${id}/propulsions`).pipe(
       map((propulsions: ConfigurationItem[]) => {
         for (const propulsion of propulsions){
-          propulsion.namePrice = propulsion.name + " " + propulsion.price + "€"
+          propulsion.namePrice = formatConfigurationPrice(propulsion)
         }
         return propulsions;
       })
@@ -92,7 +122,7 @@ export class KrpanTrailerConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/adjustabledrive`).pipe(
       map((adjustableDrive: ConfigurationItem | null) => {
         if (adjustableDrive) {
-          adjustableDrive.namePrice = adjustableDrive.name + " " + adjustableDrive.price + "€";
+          adjustableDrive.namePrice = formatConfigurationPrice(adjustableDrive);
           return adjustableDrive;
         } else {
           return null;
@@ -105,7 +135,7 @@ export class KrpanTrailerConfigService {
     return this.httpClient.get<ConfigurationItem[]>(`${this.url}/KrpanTrailerConfig/trailers/${id}/tyres`).pipe(
       map((stanchions: ConfigurationItem[]) => {
         for (const stanchion of stanchions){
-          stanchion.namePrice = stanchion.name + " " + stanchion.price + "€"
+          stanchion.namePrice = formatConfigurationPrice(stanchion)
         }
         return stanchions;
       })
@@ -116,7 +146,7 @@ export class KrpanTrailerConfigService {
     return this.httpClient.get<ConfigurationItem[]>(`${this.url}/KrpanTrailerConfig/trailers/${id}/brakes`).pipe(
       map((brakes: ConfigurationItem[]) => {
         for (const brake of brakes){
-          brake.namePrice = brake.name + " " + brake.price + "€"
+          brake.namePrice = formatConfigurationPrice(brake)
         }    
         return brakes;
       })
@@ -127,7 +157,7 @@ export class KrpanTrailerConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/handbrake`).pipe(
       map((handBrake: ConfigurationItem | null) => {
         if (handBrake) {
-          handBrake.namePrice = handBrake.name + " " + handBrake.price + "€";
+          handBrake.namePrice = formatConfigurationPrice(handBrake);
           return handBrake;
         } else {
           return null;
@@ -140,7 +170,7 @@ export class KrpanTrailerConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/extrastanchion`).pipe(
       map((extraStanchion: ConfigurationItem | null) => {
         if (extraStanchion) {
-          extraStanchion.namePrice = extraStanchion.name + " " + extraStanchion.price + "€";
+          extraStanchion.namePrice = formatConfigurationPrice(extraStanchion);
           return extraStanchion;
         } else {
           return null;
@@ -153,7 +183,7 @@ export class KrpanTrailerConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/extraforwarderstanchion`).pipe(
       map((extraForwarderStanchion: ConfigurationItem | null) => {
         if (extraForwarderStanchion) {
-          extraForwarderStanchion.namePrice = extraForwarderStanchion.name + " " + extraForwarderStanchion.price + "€";
+          extraForwarderStanchion.namePrice = formatConfigurationPrice(extraForwarderStanchion);
           return extraForwarderStanchion;
         } else {
           return null;
@@ -166,7 +196,7 @@ export class KrpanTrailerConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/topconnection`).pipe(
       map((topConnection: ConfigurationItem | null) => {
         if (topConnection) {
-          topConnection.namePrice = topConnection.name + " " + topConnection.price + "€";
+          topConnection.namePrice = formatConfigurationPrice(topConnection);
           return topConnection;
         } else {
           return null;
@@ -179,7 +209,7 @@ export class KrpanTrailerConfigService {
     return this.httpClient.get<ConfigurationItem[]>(`${this.url}/KrpanTrailerConfig/trailers/${id}/clutches`).pipe(
       map((clutches: ConfigurationItem[]) => {
         for (const clutch of clutches){
-          clutch.namePrice = clutch.name + " " + clutch.price + "€"
+          clutch.namePrice = formatConfigurationPrice(clutch)
         }
         return clutches;
       })
@@ -190,7 +220,7 @@ export class KrpanTrailerConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/drawhead`).pipe(
       map((drawHead: ConfigurationItem | null) => {
         if (drawHead) {
-          drawHead.namePrice = drawHead.name + " " + drawHead.price + "€";
+          drawHead.namePrice = formatConfigurationPrice(drawHead);
           return drawHead;
         } else {
           return null;
@@ -203,9 +233,20 @@ export class KrpanTrailerConfigService {
     return this.httpClient.get<ConfigurationItem[]>(`${this.url}/KrpanTrailerConfig/trailers/${id}/drawbars`).pipe(
       map((drawBars: ConfigurationItem[]) => {
         for (const drawBar of drawBars){
-          drawBar.namePrice = drawBar.name + " " + drawBar.price + "€"
+          drawBar.namePrice = formatConfigurationPrice(drawBar)
         }
         return drawBars;
+      })
+    );
+  }
+
+  getCouplingDevices(id: number): Observable<ConfigurationItem[]>{
+    return this.httpClient.get<ConfigurationItem[]>(`${this.url}/KrpanTrailerConfig/trailers/${id}/couplingdevices`).pipe(
+      map((couplingDevices: ConfigurationItem[]) => {
+        for (const couplingDevice of couplingDevices){
+          couplingDevice.namePrice = formatConfigurationPrice(couplingDevice)
+        }
+        return couplingDevices;
       })
     );
   }
@@ -214,7 +255,7 @@ export class KrpanTrailerConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/cardanshaft`).pipe(
       map((cardanShaft: ConfigurationItem | null) => {
         if (cardanShaft) {
-          cardanShaft.namePrice = cardanShaft.name + " " + cardanShaft.price + "€";
+          cardanShaft.namePrice = formatConfigurationPrice(cardanShaft);
           return cardanShaft;
         } else {
           return null;
@@ -227,7 +268,7 @@ export class KrpanTrailerConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/bbox`).pipe(
       map((bBox: ConfigurationItem | null) => {
         if (bBox) {
-          bBox.namePrice = bBox.name + " " + bBox.price + "€";
+          bBox.namePrice = formatConfigurationPrice(bBox);
           return bBox;
         } else {
           return null;
@@ -240,7 +281,7 @@ export class KrpanTrailerConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/baletransportplatform`).pipe(
       map((baleTransformPlatform: ConfigurationItem | null) => {
         if (baleTransformPlatform) {
-          baleTransformPlatform.namePrice = baleTransformPlatform.name + " " + baleTransformPlatform.price + "€";
+          baleTransformPlatform.namePrice = formatConfigurationPrice(baleTransformPlatform);
           return baleTransformPlatform;
         } else {
           return null;
@@ -253,7 +294,7 @@ export class KrpanTrailerConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/cargospaceextension`).pipe(
       map((cargoSpaceExtension: ConfigurationItem | null) => {
         if (cargoSpaceExtension) {
-          cargoSpaceExtension.namePrice = cargoSpaceExtension.name + " " + cargoSpaceExtension.price + "€";
+          cargoSpaceExtension.namePrice = formatConfigurationPrice(cargoSpaceExtension);
           return cargoSpaceExtension;
         } else {
           return null;
@@ -266,7 +307,7 @@ export class KrpanTrailerConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/axeholder`).pipe(
       map((axeHolder: ConfigurationItem | null) => {
         if (axeHolder) {
-          axeHolder.namePrice = axeHolder.name + " " + axeHolder.price + "€";
+          axeHolder.namePrice = formatConfigurationPrice(axeHolder);
           return axeHolder;
         } else {
           return null;
@@ -279,7 +320,7 @@ export class KrpanTrailerConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/chainsawholder`).pipe(
       map((chainsawHolder: ConfigurationItem | null) => {
         if (chainsawHolder) {
-          chainsawHolder.namePrice = chainsawHolder.name + " " + chainsawHolder.price + "€";
+          chainsawHolder.namePrice = formatConfigurationPrice(chainsawHolder);
           return chainsawHolder;
         } else {
           return null;
@@ -292,7 +333,7 @@ export class KrpanTrailerConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/fueltankholder`).pipe(
       map((fueltankHolder: ConfigurationItem | null) => {
         if (fueltankHolder) {
-          fueltankHolder.namePrice = fueltankHolder.name + " " + fueltankHolder.price + "€";
+          fueltankHolder.namePrice = formatConfigurationPrice(fueltankHolder);
           return fueltankHolder;
         } else {
           return null;
@@ -305,7 +346,7 @@ export class KrpanTrailerConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/toolbox`).pipe(
       map((toolBox: ConfigurationItem | null) => {
         if (toolBox) {
-          toolBox.namePrice = toolBox.name + " " + toolBox.price + "€";
+          toolBox.namePrice = formatConfigurationPrice(toolBox);
           return toolBox;
         } else {
           return null;
@@ -318,7 +359,7 @@ export class KrpanTrailerConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/plato`).pipe(
       map((plato: ConfigurationItem | null) => {
         if (plato) {
-          plato.namePrice = plato.name + " " + plato.price + "€";
+          plato.namePrice = formatConfigurationPrice(plato);
           return plato;
         } else {
           return null;
@@ -331,7 +372,7 @@ export class KrpanTrailerConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/extension`).pipe(
       map((extension: ConfigurationItem | null) => {
         if (extension) {
-          extension.namePrice = extension.name + " " + extension.price + "€";
+          extension.namePrice = formatConfigurationPrice(extension);
           return extension;
         } else {
           return null;
@@ -344,7 +385,7 @@ export class KrpanTrailerConfigService {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/grapplelocation`).pipe(
       map((grappleLocation: ConfigurationItem | null) => {
         if (grappleLocation) {
-          grappleLocation.namePrice = grappleLocation.name + " " + grappleLocation.price + "€";
+          grappleLocation.namePrice = formatConfigurationPrice(grappleLocation);
           return grappleLocation;
         } else {
           return null;

@@ -13,10 +13,6 @@
 <div *ngIf="(krpanService.trailerSelected$ | async) && !fromCrane" class="mx-auto">
     <app-krpan-trailer-calculator-hints *ngIf="hintsChecked"></app-krpan-trailer-calculator-hints>
 </div>
-<div *ngIf="(krpanService.trailerSelected$ | async) && !fromCrane" class="mx-auto">
-    <app-krpan-trailer-equipment *ngIf="hintsChecked" [trailer]="trailer"></app-krpan-trailer-equipment>
-</div>
-
 <form [formGroup]="trailerFormGroup">
     <ng-container *ngIf="(krpanService.trailerSelected$ | async)" class="bg-slate-200">
         <div #configElement class="flex align-middle justify-center my-10">
@@ -64,11 +60,13 @@
                     </div>
                 </div>
 
-                <div *ngIf="trailerSelected && supportLeg" class="justify-content-center my-4 py-4">
-                    <div class="flex">
-                        <p-radioButton id="SupportLeg" [value]="supportLeg" formControlName="selectedSupportLeg"></p-radioButton>
-                        <label [for]="supportLeg.id" class="ml-2">{{ supportLeg.namePrice }}</label>
-                    </div>
+                <div *ngIf="trailerSelected && supportLegs.length > 0" class="justify-content-center my-4 py-4">
+                    <p-listbox
+                        (onChange)="handleSupportLegChange($event)"
+                        formControlName="selectedSupportLeg"
+                        [options]="supportLegs"
+                        optionLabel="namePrice">
+                    </p-listbox>
                 </div>
 
                 <div *ngIf="trailerSelected && axeHolder && !dfTrailerIds.includes(trailer.id)" class="justify-content-center my-4 py-4">
@@ -154,11 +152,11 @@
                     </div>
                 </div>
 
-                <div *ngIf="trailerSelected && clucthes.length > 0" class="justify-content-center my-4 py-4">
+                <div *ngIf="trailerSelected && clutches.length > 0" class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
                         <span>Tengelykapcsoló</span>
                     </div>
-                    <p-listbox optionDisabled="disabledOption" (onChange)="handleClutchChange($event)" formControlName="selectedClutch" [options]="clucthes" optionLabel="namePrice"></p-listbox>                   
+                    <p-listbox optionDisabled="disabledOption" (onChange)="handleClutchChange($event)" formControlName="selectedClutch" [options]="clutches" optionLabel="namePrice"></p-listbox>
                 </div>
 
                 <div *ngIf="trailerSelected && drawHead" class="justify-content-center my-4 py-4">
@@ -170,9 +168,16 @@
 
                 <div *ngIf="trailerSelected && drawBars.length > 0" class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
-                        <span>Vonórúd</span>
+                        <span>Vonószerkezet</span>
                     </div>
                     <p-listbox optionDisabled="disabledOption" (onChange)="handleDrawbarChange($event)" formControlName="selectedDrawBar" [options]="drawBars" optionLabel="namePrice"></p-listbox>                   
+                </div>
+
+                <div *ngIf="trailerSelected && couplingDevices.length > 0" class="justify-content-center my-4 py-4">
+                    <div class="flex gap-2">
+                        <span>Vonórúd</span>
+                    </div>
+                    <p-listbox optionDisabled="disabledOption" (onChange)="handleCouplingDeviceChange($event)" formControlName="selectedCouplingDevice" [options]="couplingDevices" optionLabel="namePrice"></p-listbox>                   
                 </div>
 
                 <div *ngIf="trailerSelected && cardanShaft" class="justify-content-center my-4 py-4">
@@ -244,21 +249,6 @@
                         <label class="hover:cursor-pointer" for="ExtensionSelected">{{extension.namePrice}}</label>
                     </div>
                 </div>
-                
-                <!-- <div *ngIf="trailerSelected && trailerShipping" class="justify-content-center my-4 py-4">
-                    <div class="flex">
-                        <p-radioButton id="trailerShipping" [value]="trailerShipping" formControlName="selectedShipping"></p-radioButton>
-                        <label [for]="trailerShipping.id" class="ml-2">{{ trailerShipping.namePrice }}</label>
-                    </div>
-                </div>
-
-                <div *ngIf="trailerSelected && MOT" class="justify-content-center my-4 py-4">
-                    <div class="flex">
-                        <p-radioButton id="MOT" [value]="MOT" formControlName="selectedMOT"></p-radioButton>
-                        <label [for]="MOT.id" class="ml-2">{{ MOT.namePrice }}</label>
-                    </div>
-                </div> -->
-                
                 <hr *ngIf="trailer && !fromCrane" class="mb-2 mt-4 h-0.5 border-t-0 bg-black opacity-100 dark:opacity-50" />
             </div>
         </div>
@@ -266,5 +256,3 @@
         <app-krpan-crane-cards *ngIf="trailer && trailer.krpanCrane && trailerSelected && (krpanService.trailerSelected$ | async) && !fromCrane" [cranes]="trailer.krpanCrane" (buttonClickEmitter)="selectCrane($event)"></app-krpan-crane-cards>
     </ng-container>
 </form>   
-
-
