@@ -112,7 +112,6 @@ export class PdfComponent implements OnInit{
       object.ToolBox = this.krpanService.selectedToolBox();
       object.Plato = this.krpanService.selectedPlato();
       object.Extension = this.krpanService.selectedExtension();
-      object.HydraulicSupportLeg = this.krpanService.selectedHydraulicSupportLeg();
       object.GrappleLocation = this.krpanService.selectedGrappleLocation();
 
       object.TrailerShipping = this.krpanService.selectedTrailerShipping();
@@ -234,7 +233,6 @@ interface PdfTrailerModel {
   ToolBox?: ConfigurationItem | undefined,
   Plato?: ConfigurationItem | undefined,
   Extension?: ConfigurationItem | undefined,
-  HydraulicSupportLeg?: ConfigurationItem | undefined,
   GrappleLocation?: ConfigurationItem | undefined,
   
   TrailerShipping?: ConfigurationItem | undefined,

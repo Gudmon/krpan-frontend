@@ -340,19 +340,6 @@ export class KrpanTrailerConfigService {
     );
   }
 
-  getHydraulicSupportLeg(id: number): Observable<ConfigurationItem | null> {
-    return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/hydraulicsupportleg`).pipe(
-      map((hydraulicSupportLeg: ConfigurationItem | null) => {
-        if (hydraulicSupportLeg) {
-          hydraulicSupportLeg.namePrice = hydraulicSupportLeg.name + " " + hydraulicSupportLeg.price + "€";
-          return hydraulicSupportLeg;
-        } else {
-          return null;
-        }
-      })
-    );
-  }
-
   getGrappleLocation(id: number): Observable<ConfigurationItem | null> {
     return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/grapplelocation`).pipe(
       map((grappleLocation: ConfigurationItem | null) => {

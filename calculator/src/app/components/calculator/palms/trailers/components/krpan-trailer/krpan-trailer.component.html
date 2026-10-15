@@ -244,21 +244,6 @@
                         <label class="hover:cursor-pointer" for="ExtensionSelected">{{extension.namePrice}}</label>
                     </div>
                 </div>
-
-                <!-- TODO: DATA UNDER DISCUSSION -->
-                <div *ngIf="trailerSelected && hydraulicSupportLeg" class="justify-content-center my-4 py-4">
-                    <div class="flex gap-2">
-                        <p-checkbox (onChange)="onHydraulicSupportLegChange($event)" [value]="hydraulicSupportLeg" formControlName="selectedHydraulicSupportLeg" inputId="HydraulicSupportLegSelected"></p-checkbox>
-                        <label class="hover:cursor-pointer" for="HydraulicSupportLegSelected">{{hydraulicSupportLeg.namePrice}}</label>
-                    </div>
-                </div>
-
-                <div *ngIf="trailerSelected && grappleLocation" class="justify-content-center my-4 py-4">
-                    <div class="flex gap-2">
-                        <p-checkbox (onChange)="onGrappleLocationChange($event)" [value]="grappleLocation" formControlName="selectedGrappleLocation" inputId="GrappleLocationgSelected"></p-checkbox>
-                        <label class="hover:cursor-pointer" for="GrappleLocationSelected">{{grappleLocation.namePrice}}</label>
-                    </div>
-                </div>
                 
                 <!-- <div *ngIf="trailerSelected && trailerShipping" class="justify-content-center my-4 py-4">
                     <div class="flex">

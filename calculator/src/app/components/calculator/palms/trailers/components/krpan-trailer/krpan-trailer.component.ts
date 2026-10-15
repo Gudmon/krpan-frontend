@@ -150,7 +150,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   toolBox: ConfigurationItem | undefined = undefined;
   plato: ConfigurationItem | undefined = undefined;
   extension: ConfigurationItem | undefined = undefined;
-  hydraulicSupportLeg: ConfigurationItem | undefined = undefined;
   grappleLocation: ConfigurationItem | undefined = undefined;
 
   trailerShipping: ConfigurationItem | undefined = undefined;
@@ -180,7 +179,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   originalToolBoxPrice = 0;
   originalPlatoPrice = 0;
   originalExtensionPrice = 0;
-  originalHydraulicSupportLegPrice = 0;
   originalGrappleLocationPrice = 0;
 
   initialExtraStanchionPrice = 0;
@@ -237,7 +235,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   originalToolBox: ConfigurationItem | undefined = undefined;
   originalPlato: ConfigurationItem | undefined = undefined;
   originalExtension: ConfigurationItem | undefined = undefined;
-  originalHydraulicSupportLeg: ConfigurationItem | undefined = undefined;
   originalGrappleLocation: ConfigurationItem | undefined = undefined;
 
   originalShipping: ConfigurationItem | undefined = undefined;
@@ -271,7 +268,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
     selectedToolBox: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedPlato: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedExtension: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
-    selectedHydraulicSupportLeg: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedGrappleLocation: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
   });
 
@@ -305,7 +301,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
         selectedToolBox: null,
         selectedPlato: null,
         selectedExtension: null,
-        selectedHydraulicSupportLeg: null,
         selectedGrappleLocation: null,
       });
     }
@@ -338,7 +333,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
         selectedToolBox: this.toolBox,
         selectedPlato: null,
         selectedExtension: null,
-        selectedHydraulicSupportLeg: null,
         selectedGrappleLocation: null,
       });
     }
@@ -450,21 +444,20 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
       const toolBox$ = this.krpanTrailerConfigService.getToolBox(id);
       const plato$ = this.krpanTrailerConfigService.getPlato(id);
       const extension$ = this.krpanTrailerConfigService.getExtension(id);
-      const hydraulicSupportLeg$ = this.krpanTrailerConfigService.getHydraulicSupportLeg(id);
       const grappleLocation$ = this.krpanTrailerConfigService.getGrappleLocation(id);
       
       const request = forkJoin([hydraulicAdjustableChassis$, lamp$, chock$, drawbarSteering$, supportLeg$, 
         propulsion$, adjustableDrive$, tyres$, brakes$, handBrake$, extraStanchion$, extraForwarderStanchion$,
         topConnection$, clutches$, drawHead$, drawBars$, cardanShaft$, bBox$, baleTransportPlatform$,
         cargoSpaceExtension$, axeHolder$, chainsawHolder$, fuelTankHolder$, toolBox$,
-        plato$, extension$, hydraulicSupportLeg$, grappleLocation$
+        plato$, extension$, grappleLocation$
       ]);
      
       request.subscribe(([hydraulicAdjustableChassis, lamp, chock, drawbarSteering, supportLeg, 
         propulsions, adjustableDrive, tyres, brakes, handBrake, extraStanchion, extraForwarderStanchion,
         topConnection, clutches, drawHead, drawBars, cardanShaft, bBox, baleTransportPlatform,
         cargoSpaceExtension, axeHolder, chainsawHolder, fuelTankHolder, toolBox,
-        plato, extension, hydraulicSupportLeg, grappleLocation
+        plato, extension, grappleLocation
       ]) => {
 
         if (hydraulicAdjustableChassis){
@@ -615,10 +608,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
 
         if (extension){
           this.extension = extension;
-        }
-
-        if (hydraulicSupportLeg){
-          this.hydraulicSupportLeg = hydraulicSupportLeg;
         }
 
         if (grappleLocation){
@@ -1222,23 +1211,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
       this.krpanService._trailerPrice.set(newPrice);
       this.originalExtension = undefined;
       this.krpanService.selectedExtension.set(undefined);
-    }
-  }
-
-  onHydraulicSupportLegChange(event: CheckboxChangeEvent){
-    if (event.checked.length > 0) {
-      const current = this.krpanService._trailerPrice();
-      const newPrice = Number(current) + Number(event.checked[0].price);
-      this.krpanService._trailerPrice.set(newPrice);
-      this.originalHydraulicSupportLegPrice = Number(event.checked[0].price);
-      this.originalHydraulicSupportLeg = event.checked[0];
-      this.krpanService.selectedHydraulicSupportLeg.set(event.checked[0]);
-    } else {
-      const current = this.krpanService._trailerPrice();
-      const newPrice = Number(current) - this.originalHydraulicSupportLegPrice;
-      this.krpanService._trailerPrice.set(newPrice);
-      this.originalHydraulicSupportLeg = undefined;
-      this.krpanService.selectedHydraulicSupportLeg.set(undefined);
     }
   }
 

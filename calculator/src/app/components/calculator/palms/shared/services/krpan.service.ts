@@ -108,7 +108,6 @@ export class KrpanService {
   public selectedToolBox = signal<ConfigurationItem | undefined>(undefined);
   public selectedPlato = signal<ConfigurationItem | undefined>(undefined);
   public selectedExtension = signal<ConfigurationItem | undefined>(undefined);
-  public selectedHydraulicSupportLeg = signal<ConfigurationItem | undefined>(undefined);
   public selectedGrappleLocation = signal<ConfigurationItem | undefined>(undefined);
 
   public selectedTrailerShipping = signal<ConfigurationItem | undefined>(undefined);
@@ -207,7 +206,6 @@ export class KrpanService {
     this.selectedToolBox.set(undefined);
     this.selectedPlato.set(undefined);
     this.selectedExtension.set(undefined);
-    this.selectedHydraulicSupportLeg.set(undefined);
     this.selectedGrappleLocation.set(undefined);
     
     this.selectedTrailerShipping.set(undefined);
