@@ -48,6 +48,7 @@ import { KrpanCraneCardsComponent } from '../../../cranes/components/krpan-crane
 import { KrpanTrailerCardsComponent } from '../krpan-trailer-cards/krpan-trailer-cards.component';
 import { KrpanService } from '../../../shared/services/krpan.service';
 import { KrpanTrailerEquipmentComponent } from '../krpan-trailer-equipment/krpan-trailer-equipment.component';
+import { KrpanTrailerOverview } from '../../models/krpan-trailer-overview';
 
 @Component({
     selector: 'app-krpan-trailer',
@@ -366,8 +367,18 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
         this.krpanService._trailerSelected.next(false);
         this.krpanService._craneSelected.next(false);
         this.krpanService._selectedTrailer.next(undefined);
-        this.krpanService._selectedCrane.next(undefined);
-        this.krpanService._selectedTrailer.next(response); 
+        this.krpanService._selectedCrane.next(undefined); 
+        const trailer: KrpanTrailerOverview = {
+                        id: response.id,
+                        name: response.name,
+                        loadCapacity: response.loadCapacity,
+                        loadingLength: response.loadingLength,
+                        loadingLengthWithExtension: response.loadingLengthWithExtension,
+                        weight: response.weight,
+                        imageUrl: response.imageUrls?.at(0) ?? '',
+                        image: response.images[0]
+                    };
+                    this.krpanService._selectedTrailer.next(trailer);
       }
      
       this.trailer = response as KrpanTrailer;

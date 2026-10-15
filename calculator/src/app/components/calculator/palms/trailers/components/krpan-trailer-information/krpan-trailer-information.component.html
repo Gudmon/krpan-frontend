@@ -29,26 +29,52 @@
     
             </div>
             <div class="basis-2/3 flex flex-col align-middle justify-center">
-                <img loading="eager" (click)="displayBasic = true" src="{{trailer.imgUrls[0]}}" alt="Trailer Image 1" class="hover:cursor-pointer">    
+                @if (trailer.images[0]) {
+                    <advanced-image
+                        loading="eager"
+                        class="flex hover:cursor-pointer"
+                        (click)="imageSelected(trailer.images[0], 0)"
+                        [cldImg]="trailer.images[0]"
+                    ></advanced-image>
+                } @else {
+                    <p>loading</p>
+                }
                 <div class="flex bg-white">
-                    <div id="video-holder" class="grid grid-cols-4 gap-2 mt-6">
-                        @for (imageUrl of trailer.imgUrls; track $index) {
-                            <p-image [src]="imageUrl" loading="eager" alt='Trailer Image' />
+                    <div id="video-holder" class="grid grid-cols-4">
+                        @for (image of thumbnails; track $index) {
+                            <advanced-image
+                                loading="eager"
+                                class="flex hover:cursor-pointer"
+                                (click)="imageSelected(trailer.images[$index], $index)"
+                                [cldImg]="image"
+                            ></advanced-image>
                         }
                     </div>
-                    <p-galleria [value]="images" [(visible)]="displayBasic" [responsiveOptions]="responsiveOptions" [containerStyle]="galleryContainerStyle" [numVisible]="2"
-                        [circular]="true" [fullScreen]="true" [showItemNavigators]="true" [showThumbnails]="false">
+                    <p-galleria
+                        appendTo="self"
+                        [value]="images"
+                        [(visible)]="displayBasic"
+                        [(activeIndex)]="activeIndex"
+                        [responsiveOptions]="responsiveOptions"
+                        [containerStyle]="galleryContainerStyle"
+                        [circular]="true"
+                        [fullScreen]="true"
+                        [showItemNavigators]="true"
+                        [showThumbnails]="false"
+                    >
                         <ng-template pTemplate="item" let-item>
-                            <img loading="eager" [src]="item.itemImageSrc" style="width: 100%; display: block;"/>
-                        </ng-template>          
+                            <div class="gallery-item-wrapper">
+                                <img loading="eager" decoding="async" [src]="item.itemImageSrc" />
+                            </div>
+                        </ng-template>
                     </p-galleria>
                 </div>
                 @if (!smallScreen()) {
                     <div class="grid grid-cols-2 lg:grid-cols-3 gap-2">
-                    @for (videoId of trailer.videoIds; track $index) {
+                    @for (videoUrl of trailer.videoUrls; track $index) {
                         <div #youTubePlayer>
                             <youtube-player
-                                [videoId]="videoId"
+                                [videoId]="videoUrl"
                                 suggestedQuality="highres"
                                 [width]="videoWidth"
                                 [height]="videoHeight">
@@ -61,10 +87,10 @@
         </div>
         @if (smallScreen()) {
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mx-10">
-            @for (videoId of trailer.videoIds; track $index) {
+            @for (videoUrl of trailer.videoUrls; track $index) {
                 <div #youTubePlayer>
                     <youtube-player
-                        [videoId]="videoId"
+                        [videoId]="videoUrl"
                         suggestedQuality="highres"
                         [width]="videoWidth"
                         [height]="videoHeight">

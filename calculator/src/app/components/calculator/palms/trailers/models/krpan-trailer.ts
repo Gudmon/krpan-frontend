@@ -1,3 +1,4 @@
+import { CloudinaryImage } from "@cloudinary/url-gen/assets/CloudinaryImage";
 import { KrpanCrane } from "../../cranes/models/krpan-crane";
 import { KrpanCraneOverview } from "../../cranes/models/krpan-crane-overview";
 
@@ -18,7 +19,8 @@ export interface KrpanTrailer {
     drawbarAngle: string;
     krpanCrane: KrpanCraneOverview[];
     selectedCrane?: KrpanCrane;
-    imgUrls: string[];
-    imgUrl: string;
-    videoIds?: string[];
+    
+    imageUrls?: string[];
+    images: CloudinaryImage[];
+    videoUrls?: string[];
 }

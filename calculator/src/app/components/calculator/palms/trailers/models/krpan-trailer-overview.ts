@@ -1,3 +1,4 @@
+import { CloudinaryImage } from "@cloudinary/url-gen/assets/CloudinaryImage";
 
 
 export interface KrpanTrailerOverview {
@@ -7,5 +8,6 @@ export interface KrpanTrailerOverview {
     loadingLength: string;
     loadingLengthWithExtension: string;
     weight: string
-    imgUrl: string  
+    imageUrl: string  
+    image: CloudinaryImage;
 }

@@ -21,6 +21,8 @@
     "@angular/platform-browser-dynamic": "^17.1.0",
     "@angular/router": "^17.1.0",
     "@angular/youtube-player": "^17.3.5",
+    "@cloudinary/ng": "^2.1.6",
+    "@cloudinary/url-gen": "^1.22.0",
     "json-server": "^1.0.0-alpha.23",
     "jspdf": "^2.5.1",
     "primeicons": "^6.0.1",

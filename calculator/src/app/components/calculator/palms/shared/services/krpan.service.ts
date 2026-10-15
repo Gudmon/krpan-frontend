@@ -6,6 +6,10 @@ import { KrpanCraneOverview } from '../../cranes/models/krpan-crane-overview';
 import { KrpanCrane } from '../../cranes/models/krpan-crane';
 import { ConfigurationItem } from '../../../../../models/configuration-item';
 import { KrpanTrailerOverview } from '../../trailers/models/krpan-trailer-overview';
+import { Cloudinary } from '@cloudinary/url-gen/instance/Cloudinary';
+import { fill } from '@cloudinary/url-gen/actions/resize';
+import { format, quality } from '@cloudinary/url-gen/actions/delivery';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -43,6 +47,12 @@ export class KrpanService {
   public trailerSelected$ = this._trailerSelected.asObservable();
 
   public _totalPrice = computed(() => this._trailerPrice() + this._cranePrice());
+
+  cld = new Cloudinary({
+        cloud: {
+            cloudName: 'dhidgc7eu'
+        }
+    });
 
   videos = new Map<string, string[]>();
 
@@ -108,13 +118,13 @@ export class KrpanService {
   
   getTrailers(): Observable<KrpanTrailerOverview[]> {
     return this.httpClient.get<KrpanTrailerOverview[]>(`${this.url}/Krpan/trailers`).pipe(
-        map((trailerOvewViews: KrpanTrailerOverview[]) => {
-            for (const trailerOvewView of trailerOvewViews) {
-               trailerOvewView.imgUrl = `../../../../../assets/${trailerOvewView.name}-1-card.jpg`;
-            }  
-            return trailerOvewViews;
-        })
-    );
+            map((trailerOvewViews: KrpanTrailerOverview[]) => {
+                trailerOvewViews.map((trailerOvewView) => {
+                    trailerOvewView.image = this.cld.image(trailerOvewView.imageUrl).resize(fill().width(300).height(200));
+                });
+                return trailerOvewViews;
+            })
+        );
 }
 
   getTrailer(id: number): Observable<KrpanTrailer>{
@@ -122,8 +132,6 @@ export class KrpanService {
     
     return this.httpClient.get<KrpanTrailer>(`${this.url}/Krpan/trailers/${id}`).pipe(
       map((trailer: KrpanTrailer) => {
-        trailer.videoIds = this.getVideosByKey(trailer.name)
-        trailer.imgUrls = [`../../../../../assets/${trailer.name}-1.jpg`]
        
         for (const crane of trailer.krpanCrane){
           crane.imgUrl = `../../../../../assets/${crane.name}-1.jpg`
@@ -156,7 +164,7 @@ export class KrpanService {
         //this._selectedCrane.next(crane);
         crane.imgUrls = [`../../../../../assets/${crane.name}-1.jpg`]
         for (const trailer of crane.krpanTrailer){
-            trailer.imgUrl = `../../../../../assets/${trailer.name}-1.jpg`;
+            trailer.imageUrl = `../../../../../assets/${trailer.name}-1.jpg`;
         }
         return crane;
       })
