@@ -21,12 +21,11 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '19.9.0'
+          node-version: '20'
 
       - run: |
-          npm install -g @angular/cli@latest
-          npm install
-          ng build
+          npm ci
+          npm run build
         name: npm install and build
         working-directory: ./calculator
 
