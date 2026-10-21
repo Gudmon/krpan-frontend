@@ -134,7 +134,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
       selectedLamp: this.lamp,
       selectedChock: this.chock,
       selectedDrawbarSteering: this.drawbarSteering,
-      selectedSupportLeg: [this.supportLegs[0] ?? null],
+      selectedSupportLeg: [this.originalSupportLeg ?? null],
       selectedPropulsion: null,
       selectedAdjustableDrive: null,
       selectedTrailer: [this.trailer.name],
@@ -320,8 +320,8 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
 
         if (supportLegs.length > 0){
           this.supportLegs = supportLegs;
-          this.originalSupportLeg = supportLegs[0];
-          this.krpanService.selectedSupportLeg.set(supportLegs[0]);
+          this.originalSupportLeg = supportLegs.find((supportLeg) => parsePrice(supportLeg.price) === 0);
+          this.krpanService.selectedSupportLeg.set(this.originalSupportLeg);
         }
         
         if (propulsions.length > 0){
