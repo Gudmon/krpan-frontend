@@ -25,8 +25,7 @@ export class KrpanTrailerConfigService {
       tyres: this.getTyres(id),
       brakes: this.getBrakes(id),
       handBrake: this.getHandBrake(id),
-      extraStanchion: this.getExtraStanchion(id),
-      extraForwarderStanchion: this.getExtraForwarderStanchion(id),
+      stanchions: this.getStanchions(id),
       topConnection: this.getTopConnection(id),
       clutches: this.getClutches(id),
       drawHead: this.getDrawHead(id),
@@ -166,29 +165,12 @@ export class KrpanTrailerConfigService {
     );
   }
 
-  getExtraStanchion(id: number): Observable<ConfigurationItem | null> {
-    return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/extrastanchion`).pipe(
-      map((extraStanchion: ConfigurationItem | null) => {
-        if (extraStanchion) {
-          extraStanchion.namePrice = formatConfigurationPrice(extraStanchion);
-          return extraStanchion;
-        } else {
-          return null;
-        }
-      })
-    );
-  }
-
-  getExtraForwarderStanchion(id: number): Observable<ConfigurationItem | null>{
-    return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/extraforwarderstanchion`).pipe(
-      map((extraForwarderStanchion: ConfigurationItem | null) => {
-        if (extraForwarderStanchion) {
-          extraForwarderStanchion.namePrice = formatConfigurationPrice(extraForwarderStanchion);
-          return extraForwarderStanchion;
-        } else {
-          return null;
-        }
-      })
+  getStanchions(id: number): Observable<ConfigurationItem[]> {
+    return this.httpClient.get<ConfigurationItem[]>(`${this.url}/KrpanTrailerConfig/trailers/${id}/stanchions`).pipe(
+      map((stanchions) => stanchions.map((stanchion) => {
+        stanchion.namePrice = formatConfigurationPrice(stanchion);
+        return stanchion;
+      }))
     );
   }
 

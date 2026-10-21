@@ -93,8 +93,7 @@ export class KrpanService {
   public selectedTyre = signal<ConfigurationItem | undefined>(undefined);
   public selectedBrake = signal<ConfigurationItem | undefined>(undefined);
   public selectedHandBrake = signal<ConfigurationItem | undefined>(undefined);
-  public selectedExtraStanchion = signal<ConfigurationItem | undefined>(undefined);
-  public selectedExtraForwarderStanchion = signal<ConfigurationItem | undefined>(undefined);
+  public selectedStanchion = signal<ConfigurationItem | undefined>(undefined);
   public selectedTopConnection = signal<ConfigurationItem | undefined>(undefined);
   public selectedClutch = signal<ConfigurationItem | undefined>(undefined);
   public selectedDrawHead = signal<ConfigurationItem | undefined>(undefined);

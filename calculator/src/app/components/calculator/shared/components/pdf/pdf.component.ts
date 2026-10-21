@@ -69,24 +69,6 @@ export class PdfComponent implements OnInit{
   sendPdfAndDownload() {
     const object: PdfModel = {};
     if (this.krpanService._trailerSelected.value === true) {
-      const extraStanchion = this.krpanService.selectedExtraStanchion();
-      const newExtraStanchion: ConfigurationItem | undefined = extraStanchion
-        ? {
-            ...extraStanchion,
-            price: extraStanchion.price.toString(),
-          }
-        : undefined;   
-      object.ExtraStanchion = newExtraStanchion;
-
-      const extraForwarderStanchion = this.krpanService.selectedExtraForwarderStanchion();
-      const newForwarderExtraStanchion: ConfigurationItem | undefined = extraForwarderStanchion
-        ? {
-            ...extraForwarderStanchion,
-            price: extraForwarderStanchion.price.toString(),
-          }
-        : undefined;   
-      object.ExtraForwarderStanchion = newForwarderExtraStanchion;
-
       object.TrailerName = this.krpanService._selectedTrailer.value?.name;
       object.HydraulicAdjustableChassis = this.krpanService.selectedHydraulicAdjustableChassis();
       object.Lamp = this.krpanService.selectedLamp();
@@ -96,6 +78,7 @@ export class PdfComponent implements OnInit{
       object.Tyre = this.krpanService.selectedTyre();
       object.Brake = this.krpanService.selectedBrake();
       object.HandBrake = this.krpanService.selectedHandBrake();
+      object.Stanchion = this.krpanService.selectedStanchion();
       object.Propulsion = this.krpanService.selectedPropulsion();
       object.AdjustableDrive = this.krpanService.selectedAdjustableDrive();
       object.TopConnection = this.krpanService.selectedTopConnection();
@@ -217,8 +200,7 @@ interface PdfTrailerModel {
   Brake?: ConfigurationItem | undefined,
   Propulsion?: ConfigurationItem | undefined,
   AdjustableDrive?: ConfigurationItem | undefined,
-  ExtraStanchion?: ConfigurationItem | undefined,
-  ExtraForwarderStanchion?: ConfigurationItem | undefined,
+  Stanchion?: ConfigurationItem | undefined,
   TopConnection?: ConfigurationItem | undefined,
   Clutch?: ConfigurationItem | undefined,
   DrawHead?: ConfigurationItem | undefined,

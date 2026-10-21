@@ -18,10 +18,11 @@
         <div #configElement class="flex align-middle justify-center my-10">
             <div class="w-11/12">
 
-                <div *ngIf="trailerSelected && cargoSpaceExtension && !dfTrailerIds.includes(trailer.id)" class="justify-content-center my-4 py-4">
-                    <div class="flex">
-                        <p-radioButton id="CargoSpaceExtension" [value]="cargoSpaceExtension" formControlName="selectedCargoSpaceExtension"></p-radioButton>
-                        <label [for]="cargoSpaceExtension.id" class="ml-2">{{ cargoSpaceExtension.namePrice }}</label>
+                <div *ngIf="trailerSelected && cargoSpaceExtension" class="justify-content-center my-4 py-4">
+                    <div class="flex gap-2">
+                        <p-radioButton *ngIf="isCargoSpaceExtensionFree" inputId="CargoSpaceExtensionDefault" [value]="cargoSpaceExtension" formControlName="selectedCargoSpaceExtension"></p-radioButton>
+                        <p-checkbox *ngIf="!isCargoSpaceExtensionFree" (onChange)="onCargoSpaceExtensionChange($event)" [value]="cargoSpaceExtension" formControlName="selectedCargoSpaceExtension" inputId="CargoSpaceExtensionSelected"></p-checkbox>
+                        <label class="hover:cursor-pointer" [attr.for]="isCargoSpaceExtensionFree ? 'CargoSpaceExtensionDefault' : 'CargoSpaceExtensionSelected'">{{cargoSpaceExtension.namePrice}}</label>
                     </div>
                 </div>
 
@@ -125,24 +126,11 @@
                     <p-listbox #selectedBrakeListBox optionDisabled="disabledOption" (onChange)="handleBrakeChange($event)" formControlName="selectedBrake" [options]="brakes" optionLabel="namePrice"></p-listbox>                   
                 </div>
 
-                <div *ngIf="trailerSelected && extraStanchion" class="justify-content-center my-4 py-4">
+                <div *ngIf="trailerSelected && stanchions.length > 0" class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
-                        <p-checkbox #extraStanchionCheckBox (onChange)="onExtraStanchionChange($event)" [value]="extraStanchion" formControlName="selectedExtraStanchion" inputId="ExtraStanchionSelected"></p-checkbox>
-                        <label class="hover:cursor-pointer pt-2" for="ExtraStanchionSelected">{{extraStanchion.namePrice}}</label>
+                        <span>Rakonca</span>
                     </div>
-                </div>
-                <div *ngIf="trailerSelected && extraStanchion" class="justify-content-center">
-                    <p-dropdown *ngIf="extraStanchionChecked" [disabled]="!extraStanchionChecked" #extraStanchionDropdown (onChange)="onExtraStanchionNumberChange($event)" [options]="extraStanchionArrayElements" optionLabel="number" placeholder="Válasszon egy számot..."></p-dropdown>
-                </div>
-
-                <div *ngIf="trailerSelected && extraForwarderStanchion" class="justify-content-center my-4 py-4">
-                    <div class="flex gap-2">
-                        <p-checkbox #extraForwarderStanchionCheckBox (onChange)="onExtraForwarderStanchionChange($event)" [value]="extraForwarderStanchion" formControlName="selectedExtraForwarderStanchion" inputId="ExtraForwarderStanchionSelected"></p-checkbox>
-                        <label class="hover:cursor-pointer pt-2" for="ExtraForwarderStanchionSelected">{{extraForwarderStanchion.namePrice}}</label>
-                    </div>
-                </div>
-                <div *ngIf="trailerSelected && extraForwarderStanchion" class="justify-content-center">
-                    <p-dropdown *ngIf="extraForwarderStanchionChecked" [disabled]="!extraForwarderStanchionChecked" #extraForwarderStanchionDropdown (onChange)="onExtraForwarderStanchionNumberChange($event)" [options]="extraForwarderStanchionArrayElements" optionLabel="number" placeholder="Válasszon egy számot..."></p-dropdown>
+                    <p-listbox (onChange)="handleStanchionChange($event)" formControlName="selectedStanchion" [options]="stanchions" optionLabel="namePrice"></p-listbox>
                 </div>
 
                 <div *ngIf="trailerSelected && topConnection" class="justify-content-center my-4 py-4">
@@ -201,12 +189,6 @@
                     </div>
                 </div>
 
-                <div *ngIf="trailerSelected && cargoSpaceExtension && dfTrailerIds.includes(trailer.id)" class="justify-content-center my-4 py-4">
-                    <div class="flex gap-2">
-                        <p-checkbox (onChange)="onCargoSpaceExtensionChange($event)" [value]="cargoSpaceExtension" formControlName="selectedCargoSpaceExtension" inputId="CargoSpaceExtensionSelected"></p-checkbox>
-                        <label class="hover:cursor-pointer" for="CargoSpaceExtensionSelected">{{cargoSpaceExtension.namePrice}}</label>
-                    </div>
-                </div>
 
                 <div *ngIf="trailerSelected && axeHolder && dfTrailerIds.includes(trailer.id)" class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
