@@ -17,7 +17,7 @@ export class KrpanTrailerConfigService {
     return forkJoin({
       hydraulicAdjustableChassis: this.getHydraulicAdjustableChassis(id),
       lamp: this.getLamp(id),
-      trailerBrakeLamp: this.getTrailerBrakeLamp(id),
+      trailerBrakeLamp: this.getTrailerBrakeLamps(id),
       wheelChock: this.getWheelChock(id),
       mechanicalAdjustableFrame: this.getMechanicalAdjustableFrame(id),
       drawbarSteering: this.getDrawbarSteering(id),
@@ -71,9 +71,9 @@ export class KrpanTrailerConfigService {
     );
   }
 
-  getTrailerBrakeLamp(id: number): Observable<ConfigurationItem[]> {
+  getTrailerBrakeLamps(id: number): Observable<ConfigurationItem[]> {
     return this.httpClient.get<ConfigurationItem[]>(
-      `${this.url}/KrpanTrailerConfig/trailers/${id}/trailerbrakelamp`
+      `${this.url}/KrpanTrailerConfig/trailers/${id}/trailerbrakelamps`
     ).pipe(
       map((trailerBrakeLamps) => trailerBrakeLamps.map((trailerBrakeLamp) => {
         trailerBrakeLamp.namePrice = formatConfigurationPrice(trailerBrakeLamp);
