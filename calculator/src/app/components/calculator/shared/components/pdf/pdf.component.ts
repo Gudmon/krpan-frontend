@@ -72,6 +72,7 @@ export class PdfComponent implements OnInit{
       object.TrailerName = this.krpanService._selectedTrailer.value?.name;
       object.HydraulicAdjustableChassis = this.krpanService.selectedHydraulicAdjustableChassis();
       object.Lamp = this.krpanService.selectedLamp();
+      object.TrailerBrakeLamp = this.krpanService.selectedTrailerBrakeLamp();
       object.WheelChock = this.krpanService.selectedWheelChock();
       object.MechanicalAdjustableFrame = this.krpanService.selectedMechanicalAdjustableFrame();
       object.DrawbarSteering = this.krpanService.selectedDrawbarSteering();
@@ -191,6 +192,7 @@ interface PdfTrailerModel {
   TrailerName?: string | undefined,
   HydraulicAdjustableChassis?: ConfigurationItem | undefined,
   Lamp?: ConfigurationItem | undefined,
+  TrailerBrakeLamp?: ConfigurationItem | undefined,
   HandBrake?: ConfigurationItem | undefined,
   WheelChock?: ConfigurationItem | undefined,
   MechanicalAdjustableFrame?: ConfigurationItem | undefined,

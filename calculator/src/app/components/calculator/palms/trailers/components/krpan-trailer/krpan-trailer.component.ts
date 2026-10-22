@@ -46,6 +46,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
 
   hydraulicAdjustableChassis:ConfigurationItem | undefined = undefined;
   lamp:ConfigurationItem | undefined = undefined;
+  trailerBrakeLamps: ConfigurationItem[] = [];
   wheelChock: ConfigurationItem | undefined = undefined;
   mechanicalAdjustableFrame: ConfigurationItem | undefined = undefined;
   drawbarSteering:ConfigurationItem | undefined = undefined;
@@ -78,6 +79,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   originalTyre: ConfigurationItem | undefined = undefined;
   originalBrake: ConfigurationItem | undefined = undefined;
   originalHandBrake: ConfigurationItem | undefined = undefined;
+  originalTrailerBrakeLamp: ConfigurationItem | undefined = undefined;
   originalStanchion: ConfigurationItem | undefined = undefined;
   originalClutch: ConfigurationItem | undefined = undefined;
   originalDrawBar: ConfigurationItem | undefined = undefined;
@@ -98,6 +100,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
     selectedTrailer: new FormControl<string>(''),
     selectedHydraulicAdjustableChassis: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedLamp: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedTrailerBrakeLamp: new FormControl<ConfigurationItem | null>(null),
     selectedWheelChock: new FormControl<ConfigurationItem | null>(null),
     selectedMechanicalAdjustableFrame: new FormControl<ConfigurationItem | null>(null),
     selectedDrawbarSteering: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
@@ -130,6 +133,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
     this.trailerFormGroup = this.fb.group({
       selectedHydraulicAdjustableChassis: isDfTrailer ? null : this.hydraulicAdjustableChassis,
       selectedLamp: this.lamp,
+      selectedTrailerBrakeLamp: this.originalTrailerBrakeLamp ?? null,
       selectedWheelChock: this.originalWheelChock,
       selectedMechanicalAdjustableFrame: this.originalMechanicalAdjustableFrame,
       selectedDrawbarSteering: this.drawbarSteering,
@@ -231,7 +235,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
       this.krpanTrailerConfigService.getTrailerConfiguration(id)
       .pipe(takeUntil(this.destroy$))
       .subscribe(({
-        hydraulicAdjustableChassis, lamp, wheelChock, mechanicalAdjustableFrame, drawbarSteering, supportLegs,
+        hydraulicAdjustableChassis, lamp, trailerBrakeLamp, wheelChock, mechanicalAdjustableFrame, drawbarSteering, supportLegs,
         propulsions, adjustableDrive, tyres, brakes, handBrake, stanchions,
         clutches, drawBars, couplingDevices,
         cardanShaft, bBox, baleTransportPlatform, cargoSpaceExtension, axeHolder,
@@ -296,6 +300,11 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
           this.krpanService.selectedLamp.set(lamp);
           this.krpanService._trailerPrice.update((trailerPrice => trailerPrice + Number(lamp.price)));
         }
+
+        this.trailerBrakeLamps = trailerBrakeLamp;
+        this.originalTrailerBrakeLamp = trailerBrakeLamp.find((item) => parsePrice(item.price) === 0)
+          ?? trailerBrakeLamp[0];
+        this.krpanService.selectedTrailerBrakeLamp.set(this.originalTrailerBrakeLamp);
 
         if (handBrake){
           this.handBrake = handBrake;
@@ -390,7 +399,8 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
           parsePrice(this.originalSupportLeg?.price) +
           parsePrice(this.originalStanchion?.price) +
           parsePrice(this.originalWheelChock?.price) +
-          parsePrice(this.originalMechanicalAdjustableFrame?.price)
+          parsePrice(this.originalMechanicalAdjustableFrame?.price) +
+          parsePrice(this.originalTrailerBrakeLamp?.price)
         );
         this.trailerSelected = true;
         this.initializeFormGroup();
@@ -684,13 +694,24 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
     );
   }
 
+  handleTrailerBrakeLampChange(event: ListboxChangeEvent) {
+    this.updateSingleSelectionPrice(
+      this.originalTrailerBrakeLamp,
+      event.value,
+      (trailerBrakeLamp) => {
+        this.originalTrailerBrakeLamp = trailerBrakeLamp;
+        this.krpanService.selectedTrailerBrakeLamp.set(trailerBrakeLamp);
+      }
+    );
+  }
+
   private updateSingleSelectionPrice(
     previousItem: ConfigurationItem | undefined,
     item: ConfigurationItem | null | undefined,
     updateSelection: (item: ConfigurationItem | undefined) => void
   ): void {
-    const previousPrice = Number(previousItem?.price ?? 0);
-    const nextPrice = item ? Number(item.price) : 0;
+    const previousPrice = parsePrice(previousItem?.price);
+    const nextPrice = parsePrice(item?.price);
 
     if (previousPrice !== nextPrice) {
       this.krpanService._trailerPrice.update((total) => total - previousPrice + nextPrice);
@@ -750,6 +771,8 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
     this.trailerSelected = false;
     this.originalBrake = undefined;
     this.originalStanchion = undefined;
+    this.originalTrailerBrakeLamp = undefined;
+    this.trailerBrakeLamps = [];
     this.krpanService.selectedStanchion.set(undefined);
     this.originalPropulsion = undefined;
     this.originalDrawBar = undefined;
