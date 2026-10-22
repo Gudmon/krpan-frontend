@@ -86,6 +86,7 @@ export class KrpanService {
   public selectedHydraulicAdjustableChassis = signal<ConfigurationItem | undefined>(undefined);
   public selectedLamp = signal<ConfigurationItem | undefined>(undefined);
   public selectedWheelChock = signal<ConfigurationItem | undefined>(undefined);
+  public selectedMechanicalAdjustableFrame = signal<ConfigurationItem | undefined>(undefined);
   public selectedDrawbarSteering = signal<ConfigurationItem | undefined>(undefined);
   public selectedSupportLeg = signal<ConfigurationItem | undefined>(undefined);
   public selectedPropulsion = signal<ConfigurationItem | undefined>(undefined);
