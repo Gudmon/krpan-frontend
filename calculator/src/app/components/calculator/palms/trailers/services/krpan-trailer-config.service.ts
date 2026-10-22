@@ -17,7 +17,7 @@ export class KrpanTrailerConfigService {
     return forkJoin({
       hydraulicAdjustableChassis: this.getHydraulicAdjustableChassis(id),
       lamp: this.getLamp(id),
-      chock: this.getChock(id),
+      wheelChock: this.getWheelChock(id),
       drawbarSteering: this.getDrawbarSteering(id),
       supportLegs: this.getSupportLeg(id),
       propulsions: this.getPropulsions(id),
@@ -71,12 +71,12 @@ export class KrpanTrailerConfigService {
     );
   }
 
-  getChock(id: number): Observable<ConfigurationItem | null>{
-    return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/chock`).pipe(
-      map((chock: ConfigurationItem | null) => {
-        if (chock) {
-          chock.namePrice = formatConfigurationPrice(chock);
-          return chock;
+  getWheelChock(id: number): Observable<ConfigurationItem | null> {
+    return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/wheelchock`).pipe(
+      map((wheelChock: ConfigurationItem | null) => {
+        if (wheelChock) {
+          wheelChock.namePrice = formatConfigurationPrice(wheelChock);
+          return wheelChock;
         } else {
           return null;
         }

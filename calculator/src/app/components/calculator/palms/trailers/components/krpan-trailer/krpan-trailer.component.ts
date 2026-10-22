@@ -46,7 +46,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
 
   hydraulicAdjustableChassis:ConfigurationItem | undefined = undefined;
   lamp:ConfigurationItem | undefined = undefined;
-  chock:ConfigurationItem | undefined = undefined;
+  wheelChock: ConfigurationItem | undefined = undefined;
   drawbarSteering:ConfigurationItem | undefined = undefined;
   supportLegs: ConfigurationItem[] = [];
   propulsions: ConfigurationItem[] = [];
@@ -74,6 +74,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
 
   originalSupportLeg: ConfigurationItem | undefined = undefined;
   originalPropulsion: ConfigurationItem | undefined = undefined;
+  originalWheelChock: ConfigurationItem | undefined = undefined;
   originalTyre: ConfigurationItem | undefined = undefined;
   originalBrake: ConfigurationItem | undefined = undefined;
   originalHandBrake: ConfigurationItem | undefined = undefined;
@@ -99,7 +100,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
     selectedTrailer: new FormControl<string>(''),
     selectedHydraulicAdjustableChassis: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedLamp: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
-    selectedChock: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedWheelChock: new FormControl<ConfigurationItem | null>(null),
     selectedDrawbarSteering: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedSupportLeg: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedPropulsion: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
@@ -132,7 +133,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
     this.trailerFormGroup = this.fb.group({
       selectedHydraulicAdjustableChassis: isDfTrailer ? null : this.hydraulicAdjustableChassis,
       selectedLamp: this.lamp,
-      selectedChock: this.chock,
+      selectedWheelChock: this.originalWheelChock,
       selectedDrawbarSteering: this.drawbarSteering,
       selectedSupportLeg: [this.originalSupportLeg ?? null],
       selectedPropulsion: null,
@@ -234,7 +235,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
       this.krpanTrailerConfigService.getTrailerConfiguration(id)
       .pipe(takeUntil(this.destroy$))
       .subscribe(({
-        hydraulicAdjustableChassis, lamp, chock, drawbarSteering, supportLegs,
+        hydraulicAdjustableChassis, lamp, wheelChock, drawbarSteering, supportLegs,
         propulsions, adjustableDrive, tyres, brakes, handBrake, stanchions,
         topConnection, clutches, drawHead, drawBars, couplingDevices,
         cardanShaft, bBox, baleTransportPlatform, cargoSpaceExtension, axeHolder,
@@ -306,11 +307,9 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
           this.krpanService._trailerPrice.update((trailerPrice => trailerPrice + Number(handBrake.price)));
         }
 
-        if (chock){
-          this.chock = chock;
-          this.krpanService.selectedChock.set(chock);
-          this.krpanService._trailerPrice.update((trailerPrice => trailerPrice + Number(chock.price)));
-        }
+        this.wheelChock = wheelChock ?? undefined;
+        this.originalWheelChock = wheelChock ?? undefined;
+        this.krpanService.selectedWheelChock.set(this.originalWheelChock);
         
         if (drawbarSteering){
           this.drawbarSteering = drawbarSteering;
@@ -397,7 +396,8 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
         this.krpanService._trailerPrice.set(
           parsePrice(this.trailer.price) +
           parsePrice(this.originalSupportLeg?.price) +
-          parsePrice(this.originalStanchion?.price)
+          parsePrice(this.originalStanchion?.price) +
+          parsePrice(this.originalWheelChock?.price)
         );
         this.trailerSelected = true;
         this.initializeFormGroup();

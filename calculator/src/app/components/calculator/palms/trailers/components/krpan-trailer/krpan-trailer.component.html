@@ -47,10 +47,14 @@
                     </div>
                 </div>
 
-                <div *ngIf="trailerSelected && chock" class="justify-content-center my-4 py-4">
+                <div *ngIf="trailerSelected && wheelChock" class="justify-content-center my-4 py-4">
                     <div class="flex">
-                        <p-radioButton id="Chock" [value]="chock" formControlName="selectedChock"></p-radioButton>
-                        <label [for]="chock.id" class="ml-2">{{ chock.namePrice }}</label>
+                        <p-radioButton
+                            inputId="WheelChock"
+                            [value]="wheelChock"
+                            formControlName="selectedWheelChock">
+                        </p-radioButton>
+                        <label for="WheelChock" class="ml-2">{{ wheelChock.namePrice }}</label>
                     </div>
                 </div>
 

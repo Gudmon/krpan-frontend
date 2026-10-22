@@ -85,7 +85,7 @@ export class KrpanService {
   // TRAILERS
   public selectedHydraulicAdjustableChassis = signal<ConfigurationItem | undefined>(undefined);
   public selectedLamp = signal<ConfigurationItem | undefined>(undefined);
-  public selectedChock = signal<ConfigurationItem | undefined>(undefined);
+  public selectedWheelChock = signal<ConfigurationItem | undefined>(undefined);
   public selectedDrawbarSteering = signal<ConfigurationItem | undefined>(undefined);
   public selectedSupportLeg = signal<ConfigurationItem | undefined>(undefined);
   public selectedPropulsion = signal<ConfigurationItem | undefined>(undefined);
