@@ -44,11 +44,10 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   previousPropulsionId : number | undefined = undefined;
   dfTrailerIds = [1,2,3,4,5];
 
-  hydraulicAdjustableChassis:ConfigurationItem | undefined = undefined;
+  frame:ConfigurationItem | undefined = undefined;
   lamp:ConfigurationItem | undefined = undefined;
   trailerBrakeLamps: ConfigurationItem[] = [];
   wheelChock: ConfigurationItem | undefined = undefined;
-  mechanicalAdjustableFrame: ConfigurationItem | undefined = undefined;
   drawbarSteering:ConfigurationItem | undefined = undefined;
   supportLegs: ConfigurationItem[] = [];
   propulsions: ConfigurationItem[] = [];
@@ -75,7 +74,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   originalSupportLeg: ConfigurationItem | undefined = undefined;
   originalPropulsion: ConfigurationItem | undefined = undefined;
   originalWheelChock: ConfigurationItem | undefined = undefined;
-  originalMechanicalAdjustableFrame: ConfigurationItem | undefined = undefined;
   originalTyre: ConfigurationItem | undefined = undefined;
   originalBrake: ConfigurationItem | undefined = undefined;
   originalHandBrake: ConfigurationItem | undefined = undefined;
@@ -98,11 +96,10 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
 
   trailerFormGroup: FormGroup = new FormGroup({
     selectedTrailer: new FormControl<string>(''),
-    selectedHydraulicAdjustableChassis: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+    selectedFrame: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedLamp: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedTrailerBrakeLamp: new FormControl<ConfigurationItem | null>(null),
     selectedWheelChock: new FormControl<ConfigurationItem | null>(null),
-    selectedMechanicalAdjustableFrame: new FormControl<ConfigurationItem | null>(null),
     selectedDrawbarSteering: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedSupportLeg: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedPropulsion: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
@@ -131,11 +128,10 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
     const isDfTrailer = this.dfTrailerIds.includes(this.trailer.id);
 
     this.trailerFormGroup = this.fb.group({
-      selectedHydraulicAdjustableChassis: isDfTrailer ? null : this.hydraulicAdjustableChassis,
+      selectedFrame: isDfTrailer ? null : this.frame,
       selectedLamp: this.lamp,
       selectedTrailerBrakeLamp: this.originalTrailerBrakeLamp ?? null,
       selectedWheelChock: this.originalWheelChock,
-      selectedMechanicalAdjustableFrame: this.originalMechanicalAdjustableFrame,
       selectedDrawbarSteering: this.drawbarSteering,
       selectedSupportLeg: [this.originalSupportLeg ?? null],
       selectedPropulsion: null,
@@ -235,15 +231,15 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
       this.krpanTrailerConfigService.getTrailerConfiguration(id)
       .pipe(takeUntil(this.destroy$))
       .subscribe(({
-        hydraulicAdjustableChassis, lamp, trailerBrakeLamp, wheelChock, mechanicalAdjustableFrame, drawbarSteering, supportLegs,
+        frame, lamp, trailerBrakeLamp, wheelChock, drawbarSteering, supportLegs,
         propulsions, adjustableDrive, tyres, brakes, handBrake, stanchions,
         clutches, drawBars, couplingDevices,
         cardanShaft, bBox, baleTransportPlatform, cargoSpaceExtension, axeHolder,
         chainsawHolder, fuelTankHolder, toolBox, plato, extension, grappleLocation
       }) => {
 
-        if (hydraulicAdjustableChassis){
-          this.hydraulicAdjustableChassis = hydraulicAdjustableChassis;
+        if (frame){
+          this.frame = frame;
         }
 
         this.cargoSpaceExtension = cargoSpaceExtension ?? undefined;
@@ -269,9 +265,9 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
         }
 
         if(!this.dfTrailerIds.includes(this.trailer.id)){
-          if (hydraulicAdjustableChassis){
-            this.krpanService.selectedHydraulicAdjustableChassis.set(hydraulicAdjustableChassis);
-            this.krpanService._trailerPrice.update((trailerPrice => trailerPrice + Number(hydraulicAdjustableChassis.price)));
+          if (frame){
+            this.krpanService.selectedFrame.set(frame);
+            this.krpanService._trailerPrice.update((trailerPrice => trailerPrice + Number(frame.price)));
           }
 
           if (axeHolder){
@@ -316,10 +312,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
         this.originalWheelChock = wheelChock ?? undefined;
         this.krpanService.selectedWheelChock.set(this.originalWheelChock);
 
-        this.mechanicalAdjustableFrame = mechanicalAdjustableFrame ?? undefined;
-        this.originalMechanicalAdjustableFrame = mechanicalAdjustableFrame ?? undefined;
-        this.krpanService.selectedMechanicalAdjustableFrame.set(this.originalMechanicalAdjustableFrame);
-        
         if (drawbarSteering){
           this.drawbarSteering = drawbarSteering;
           this.krpanService.selectedDrawbarSteering.set(drawbarSteering);
@@ -399,7 +391,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
           parsePrice(this.originalSupportLeg?.price) +
           parsePrice(this.originalStanchion?.price) +
           parsePrice(this.originalWheelChock?.price) +
-          parsePrice(this.originalMechanicalAdjustableFrame?.price) +
           parsePrice(this.originalTrailerBrakeLamp?.price)
         );
         this.trailerSelected = true;

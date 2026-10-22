@@ -83,11 +83,10 @@ export class KrpanService {
   public selectedCraneShipping = signal<ConfigurationItem | undefined>(undefined);
 
   // TRAILERS
-  public selectedHydraulicAdjustableChassis = signal<ConfigurationItem | undefined>(undefined);
+  public selectedFrame = signal<ConfigurationItem | undefined>(undefined);
   public selectedLamp = signal<ConfigurationItem | undefined>(undefined);
   public selectedTrailerBrakeLamp = signal<ConfigurationItem | undefined>(undefined);
   public selectedWheelChock = signal<ConfigurationItem | undefined>(undefined);
-  public selectedMechanicalAdjustableFrame = signal<ConfigurationItem | undefined>(undefined);
   public selectedDrawbarSteering = signal<ConfigurationItem | undefined>(undefined);
   public selectedSupportLeg = signal<ConfigurationItem | undefined>(undefined);
   public selectedPropulsion = signal<ConfigurationItem | undefined>(undefined);
@@ -188,7 +187,7 @@ export class KrpanService {
   }
 
   deleteTrailer(){
-    this.selectedHydraulicAdjustableChassis.set(undefined);
+    this.selectedFrame.set(undefined);
     this.selectedLamp.set(undefined);
     this.selectedTrailerBrakeLamp.set(undefined);
     this.selectedDrawbarSteering.set(undefined);

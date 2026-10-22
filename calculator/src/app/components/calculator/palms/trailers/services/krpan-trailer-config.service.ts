@@ -15,11 +15,10 @@ export class KrpanTrailerConfigService {
 
   getTrailerConfiguration(id: number) {
     return forkJoin({
-      hydraulicAdjustableChassis: this.getHydraulicAdjustableChassis(id),
+      frame: this.getFrame(id),
       lamp: this.getLamp(id),
       trailerBrakeLamp: this.getTrailerBrakeLamps(id),
       wheelChock: this.getWheelChock(id),
-      mechanicalAdjustableFrame: this.getMechanicalAdjustableFrame(id),
       drawbarSteering: this.getDrawbarSteering(id),
       supportLegs: this.getSupportLeg(id),
       propulsions: this.getPropulsions(id),
@@ -45,12 +44,12 @@ export class KrpanTrailerConfigService {
     });
   }
 
-  getHydraulicAdjustableChassis(id: number): Observable<ConfigurationItem | null>{
-    return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/hydraulicadjustablechassis`).pipe(
-      map((hydraulicAdjustableChassis: ConfigurationItem | null) => {
-        if (hydraulicAdjustableChassis) {
-          hydraulicAdjustableChassis.namePrice = formatConfigurationPrice(hydraulicAdjustableChassis);
-          return hydraulicAdjustableChassis;
+  getFrame(id: number): Observable<ConfigurationItem | null>{
+    return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/frame`).pipe(
+      map((frame: ConfigurationItem | null) => {
+        if (frame) {
+          frame.namePrice = formatConfigurationPrice(frame);
+          return frame;
         } else {
           return null;
         }
@@ -88,21 +87,6 @@ export class KrpanTrailerConfigService {
         if (wheelChock) {
           wheelChock.namePrice = formatConfigurationPrice(wheelChock);
           return wheelChock;
-        } else {
-          return null;
-        }
-      })
-    );
-  }
-
-  getMechanicalAdjustableFrame(id: number): Observable<ConfigurationItem | null> {
-    return this.httpClient.get<ConfigurationItem>(
-      `${this.url}/KrpanTrailerConfig/trailers/${id}/mechanicaladjustableframe`
-    ).pipe(
-      map((mechanicalAdjustableFrame: ConfigurationItem | null) => {
-        if (mechanicalAdjustableFrame) {
-          mechanicalAdjustableFrame.namePrice = formatConfigurationPrice(mechanicalAdjustableFrame);
-          return mechanicalAdjustableFrame;
         } else {
           return null;
         }
