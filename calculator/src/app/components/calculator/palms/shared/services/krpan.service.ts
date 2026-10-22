@@ -95,9 +95,7 @@ export class KrpanService {
   public selectedBrake = signal<ConfigurationItem | undefined>(undefined);
   public selectedHandBrake = signal<ConfigurationItem | undefined>(undefined);
   public selectedStanchion = signal<ConfigurationItem | undefined>(undefined);
-  public selectedTopConnection = signal<ConfigurationItem | undefined>(undefined);
   public selectedClutch = signal<ConfigurationItem | undefined>(undefined);
-  public selectedDrawHead = signal<ConfigurationItem | undefined>(undefined);
   public selectedDrawbar = signal<ConfigurationItem | undefined>(undefined);
   public selectedCouplingDevice = signal<ConfigurationItem | undefined>(undefined);
   public selectedCardanShaft = signal<ConfigurationItem | undefined>(undefined);
@@ -199,9 +197,7 @@ export class KrpanService {
     this.selectedHandBrake.set(undefined);
     this.selectedPropulsion.set(undefined);
     this.selectedAdjustableDrive.set(undefined);
-    this.selectedTopConnection.set(undefined);
     this.selectedClutch.set(undefined);
-    this.selectedDrawHead.set(undefined);
     this.selectedDrawbar.set(undefined);
     this.selectedCardanShaft.set(undefined);
     this.selectedBBox.set(undefined);

@@ -82,9 +82,7 @@ export class PdfComponent implements OnInit{
       object.Stanchion = this.krpanService.selectedStanchion();
       object.Propulsion = this.krpanService.selectedPropulsion();
       object.AdjustableDrive = this.krpanService.selectedAdjustableDrive();
-      object.TopConnection = this.krpanService.selectedTopConnection();
       object.Clutch = this.krpanService.selectedClutch();
-      object.DrawHead = this.krpanService.selectedDrawHead();
       object.DrawBar = this.krpanService.selectedDrawbar();
       object.CardanShaft = this.krpanService.selectedCardanShaft();
       object.BBox = this.krpanService.selectedBBox();
@@ -203,9 +201,7 @@ interface PdfTrailerModel {
   Propulsion?: ConfigurationItem | undefined,
   AdjustableDrive?: ConfigurationItem | undefined,
   Stanchion?: ConfigurationItem | undefined,
-  TopConnection?: ConfigurationItem | undefined,
   Clutch?: ConfigurationItem | undefined,
-  DrawHead?: ConfigurationItem | undefined,
   DrawBar?: ConfigurationItem | undefined,
   CardanShaft?: ConfigurationItem | undefined,
   BBox?: ConfigurationItem | undefined,

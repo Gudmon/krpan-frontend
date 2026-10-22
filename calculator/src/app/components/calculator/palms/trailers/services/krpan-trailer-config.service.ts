@@ -27,9 +27,7 @@ export class KrpanTrailerConfigService {
       brakes: this.getBrakes(id),
       handBrake: this.getHandBrake(id),
       stanchions: this.getStanchions(id),
-      topConnection: this.getTopConnection(id),
       clutches: this.getClutches(id),
-      drawHead: this.getDrawHead(id),
       drawBars: this.getDrawbars(id),
       couplingDevices: this.getCouplingDevices(id),
       cardanShaft: this.getCardanShaft(id),
@@ -190,19 +188,6 @@ export class KrpanTrailerConfigService {
     );
   }
 
-  getTopConnection(id: number): Observable<ConfigurationItem | null>{
-    return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/topconnection`).pipe(
-      map((topConnection: ConfigurationItem | null) => {
-        if (topConnection) {
-          topConnection.namePrice = formatConfigurationPrice(topConnection);
-          return topConnection;
-        } else {
-          return null;
-        }
-      })
-    );
-  }
-
   getClutches(id: number): Observable<ConfigurationItem[]>{
     return this.httpClient.get<ConfigurationItem[]>(`${this.url}/KrpanTrailerConfig/trailers/${id}/clutches`).pipe(
       map((clutches: ConfigurationItem[]) => {
@@ -210,19 +195,6 @@ export class KrpanTrailerConfigService {
           clutch.namePrice = formatConfigurationPrice(clutch)
         }
         return clutches;
-      })
-    );
-  }
-
-  getDrawHead(id: number): Observable<ConfigurationItem | null>{
-    return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanTrailerConfig/trailers/${id}/drawhead`).pipe(
-      map((drawHead: ConfigurationItem | null) => {
-        if (drawHead) {
-          drawHead.namePrice = formatConfigurationPrice(drawHead);
-          return drawHead;
-        } else {
-          return null;
-        }
       })
     );
   }

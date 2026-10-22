@@ -56,9 +56,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   brakes: ConfigurationItem[] = [];
   handBrake: ConfigurationItem | undefined = undefined;
   stanchions: ConfigurationItem[] = [];
-  topConnection: ConfigurationItem | undefined = undefined;
   clutches: ConfigurationItem[] = [];
-  drawHead: ConfigurationItem | undefined = undefined;
   drawBars: ConfigurationItem[] = [];
   couplingDevices: ConfigurationItem[] = [];
   cardanShaft: ConfigurationItem | undefined = undefined;
@@ -81,9 +79,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
   originalBrake: ConfigurationItem | undefined = undefined;
   originalHandBrake: ConfigurationItem | undefined = undefined;
   originalStanchion: ConfigurationItem | undefined = undefined;
-  originalTopConnection: ConfigurationItem | undefined = undefined;
   originalClutch: ConfigurationItem | undefined = undefined;
-  originalDrawHead: ConfigurationItem | undefined = undefined;
   originalDrawBar: ConfigurationItem | undefined = undefined;
   originalCouplingDevice: ConfigurationItem | undefined = undefined;
   originalCardanShaft: ConfigurationItem | undefined = undefined;
@@ -112,9 +108,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
     selectedBrake: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedHandBrake: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedStanchion: new FormControl<ConfigurationItem | null>(null),
-    selectedTopConnection: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedClutch: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
-    selectedDrawHead: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedDrawBar: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedCouplingDevice: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
     selectedCardanShaft: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
@@ -147,9 +141,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
       selectedBrake: [this.brakes[0]],
       selectedHandBrake: this.handBrake,
       selectedStanchion: [this.originalStanchion ?? null],
-      selectedTopConnection: null,
       selectedClutch: null,
-      selectedDrawHead: null,
       selectedDrawBar: [this.originalDrawBar ?? null],
       selectedCouplingDevice: [this.originalCouplingDevice ?? null],
       selectedCardanShaft: null,
@@ -241,7 +233,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
       .subscribe(({
         hydraulicAdjustableChassis, lamp, wheelChock, mechanicalAdjustableFrame, drawbarSteering, supportLegs,
         propulsions, adjustableDrive, tyres, brakes, handBrake, stanchions,
-        topConnection, clutches, drawHead, drawBars, couplingDevices,
+        clutches, drawBars, couplingDevices,
         cardanShaft, bBox, baleTransportPlatform, cargoSpaceExtension, axeHolder,
         chainsawHolder, fuelTankHolder, toolBox, plato, extension, grappleLocation
       }) => {
@@ -353,16 +345,8 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
         this.originalStanchion = stanchions.find((stanchion) => parsePrice(stanchion.price) === 0);
         this.krpanService.selectedStanchion.set(this.originalStanchion);
 
-        if (topConnection){
-          this.topConnection = topConnection;
-        }
-
         if (clutches.length > 0){
           this.clutches = clutches;
-        }
-
-        if (drawHead){
-          this.drawHead = drawHead;
         }
 
         if (drawBars.length > 0){
@@ -575,13 +559,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
     );
   }
 
-  onTopConnectionChange(event: CheckboxChangeEvent){
-    this.updateCheckboxSelection(event, this.originalTopConnection, (item) => {
-      this.originalTopConnection = item;
-      this.krpanService.selectedTopConnection.set(item);
-    });
-  }
-
   handleClutchChange(event: ListboxChangeEvent) {
     this.updateSingleSelectionPrice(
       this.originalClutch,
@@ -591,13 +568,6 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
         this.krpanService.selectedClutch.set(clutch);
       }
     );
-  }
-
-  onDrawHeadChange(event: CheckboxChangeEvent){
-    this.updateCheckboxSelection(event, this.originalDrawHead, (item) => {
-      this.originalDrawHead = item;
-      this.krpanService.selectedDrawHead.set(item);
-    });
   }
 
   handleDrawbarChange(event: ListboxChangeEvent) {
