@@ -128,7 +128,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
     const isDfTrailer = this.dfTrailerIds.includes(this.trailer.id);
 
     this.trailerFormGroup = this.fb.group({
-      selectedFrame: isDfTrailer ? null : this.frame,
+      selectedFrame: this.frame,
       selectedLamp: this.lamp,
       selectedTrailerBrakeLamp: this.originalTrailerBrakeLamp ?? null,
       selectedWheelChock: this.originalWheelChock,
@@ -264,12 +264,11 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
           this.toolBox = toolBox;
         }
 
-        if(!this.dfTrailerIds.includes(this.trailer.id)){
-          if (frame){
-            this.krpanService.selectedFrame.set(frame);
-            this.krpanService._trailerPrice.update((trailerPrice => trailerPrice + Number(frame.price)));
-          }
+        if (frame){
+          this.krpanService.selectedFrame.set(frame);
+        }
 
+        if(!this.dfTrailerIds.includes(this.trailer.id)){
           if (axeHolder){
             this.krpanService.selectedAxeHolder.set(axeHolder);
             this.krpanService._trailerPrice.update((trailerPrice => trailerPrice + Number(axeHolder.price)));
@@ -388,6 +387,7 @@ export class KrpanTrailerComponent implements OnInit, OnDestroy{
 
         this.krpanService._trailerPrice.set(
           parsePrice(this.trailer.price) +
+          parsePrice(frame?.price) +
           parsePrice(this.originalSupportLeg?.price) +
           parsePrice(this.originalStanchion?.price) +
           parsePrice(this.originalWheelChock?.price) +
