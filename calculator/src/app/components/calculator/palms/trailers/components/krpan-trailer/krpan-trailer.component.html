@@ -132,25 +132,41 @@
                     <p-listbox optionDisabled="disabledOption" (onChange)="handlePropulsionChange($event)" formControlName="selectedPropulsion" [options]="propulsions" optionLabel="namePrice"></p-listbox>                   
                 </div>
 
-                <div *ngIf="trailerSelected && adjustableDrive && (originalPropulsion?.id === 2 || originalPropulsion?.id === 4)" class="justify-content-center my-4 py-4">
+                <div *ngIf="trailerSelected && adjustableDrive && (originalPropulsion?.id === 3 || originalPropulsion?.id === 4)" class="justify-content-center my-4 py-4">
                     <div class="flex">
-                        <p-radioButton id="AdjustableDrive" [value]="adjustableDrive" formControlName="selectedAdjustableDrive"></p-radioButton>
-                        <label [for]="adjustableDrive.id" class="ml-2">{{ adjustableDrive.namePrice }}</label>
+                        <p-radioButton
+                            inputId="AdjustableDrive"
+                            [value]="adjustableDrive"
+                            formControlName="selectedAdjustableDrive">
+                        </p-radioButton>
+                        <label for="AdjustableDrive" class="ml-2">{{ adjustableDrive.namePrice }}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="trailerSelected && adjustableDrive && (originalPropulsion?.id === 1 || originalPropulsion?.id === 2)" class="justify-content-center my-4 py-4">
+                    <div class="flex">
+                        <p-checkbox
+                            (onChange)="onAdjustableDriveChange($event)"
+                            [value]="adjustableDrive"
+                            formControlName="selectedAdjustableDrive"
+                            inputId="AdjustableDriveOptional">
+                        </p-checkbox>
+                        <label for="AdjustableDriveOptional" class="ml-2">{{ adjustableDrive.namePrice }}</label>
                     </div>
                 </div>
 
                 <div *ngIf="trailerSelected && tyres.length > 0"  class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
-                        <span>Kerekek</span>
+                        <span>Abroncsok</span>
                     </div>
-                    <p-listbox #selectedTyreListBox optionDisabled="disabledOption" (onChange)="handleTyreChange($event)" formControlName="selectedTyre" [options]="tyres" optionLabel="namePrice"></p-listbox>                   
+                    <p-listbox optionDisabled="disabledOption" (onChange)="handleTyreChange($event)" formControlName="selectedTyre" [options]="tyres" optionLabel="namePrice"></p-listbox>
                 </div>
 
                 <div *ngIf="trailerSelected && brakes.length > 0" class="justify-content-center my-4 py-4">
                     <div class="flex gap-2">
                         <span>Fék</span>
                     </div>
-                    <p-listbox #selectedBrakeListBox optionDisabled="disabledOption" (onChange)="handleBrakeChange($event)" formControlName="selectedBrake" [options]="brakes" optionLabel="namePrice"></p-listbox>                   
+                    <p-listbox optionDisabled="disabledOption" (onChange)="handleBrakeChange($event)" formControlName="selectedBrake" [options]="brakes" optionLabel="namePrice"></p-listbox>
                 </div>
 
                 <div *ngIf="trailerSelected && stanchions.length > 0" class="justify-content-center my-4 py-4">
