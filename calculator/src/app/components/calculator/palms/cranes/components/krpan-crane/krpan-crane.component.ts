@@ -6,10 +6,11 @@ import { KrpanService } from '../../../shared/services/krpan.service';
 import { LoadingService } from '../../../../../../services/loading.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { KrpanCrane } from '../../models/krpan-crane';
+import { KrpanCraneOverview } from '../../models/krpan-crane-overview';
 import { CommonModule } from '@angular/common';
 import { ConfigurationItem } from '../../../../../../models/configuration-item';
 import { KrpanCraneConfigService } from '../../services/krpan-crane-config.service';
-import { Subject, forkJoin, takeUntil } from 'rxjs';
+import { Subject, forkJoin, of, takeUntil } from 'rxjs';
 import { ListboxChangeEvent, ListboxModule } from 'primeng/listbox';
 import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AccordionModule } from 'primeng/accordion';
@@ -45,6 +46,7 @@ import { KrpanCraneCalculatorHintsComponent } from "../krpan-crane-calculator-hi
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { KrpanTrailerCardsComponent } from '../../../trailers/components/krpan-trailer-cards/krpan-trailer-cards.component';
 import { KrpanTrailerOverview } from '../../../trailers/models/krpan-trailer-overview';
+import { parsePrice } from '../../../../../../utils/price.utils';
 
 @Component({
     selector: 'app-krpan-crane',
@@ -151,9 +153,10 @@ export class KrpanCraneComponent implements OnInit, OnDestroy {
         this.krpanService.selectedCrane$
         .pipe(takeUntil(this.destroy$))
         .subscribe((crane) => {
-          
           this.id = crane?.id;
-          this.loadCraneConfigurations(this.id!);
+          if (crane) {
+            this.loadCraneConfigurations(crane.id, crane);
+          }
           this.krpanService._selectedAccordion.set(1);
         });
       } else {
@@ -177,13 +180,32 @@ export class KrpanCraneComponent implements OnInit, OnDestroy {
       window.open(url, '_blank');
       }
 
-    loadCraneConfigurations(id: number){ 
+    loadCraneConfigurations(id: number, selectedCrane?: KrpanCraneOverview){
+        const cranePrice = selectedCrane ? parsePrice(selectedCrane.price) : parsePrice(this.crane.price);
+        this.krpanService._cranePrice.set(cranePrice);
+
+        if (selectedCrane) {
+          this.craneSelected = false;
+          this.krpanService._craneSelected.next(false);
+          this.krpanService.selectedSlewingDrive.set(undefined);
+          this.originalSlewingDrive = undefined;
+          this.originalSlewingDrivePrice = 0;
+          this.slewingDrive = undefined;
+          this.craneFormGroup.reset();
+        }
+
         this.loadingService.enableLoader();
+        const crane$ = selectedCrane ? this.krpanService.getCrane(id) : of(this.crane);
         const slewingDrive$ = this.krpanCraneConfigService.getSlewingDrive(id);
-        
-        const request = forkJoin([slewingDrive$]);
-       
-        request.subscribe(([slewingDrive]) => {
+
+        forkJoin({ crane: crane$, slewingDrive: slewingDrive$ }).subscribe(({ crane, slewingDrive }) => {
+            if (selectedCrane && this.krpanService._selectedCrane.value?.id !== selectedCrane.id) {
+              return;
+            }
+
+            this.crane = crane;
+            this.krpanService._cranePrice.set(parsePrice(crane.price));
+
             if(slewingDrive){
               this.slewingDrive = slewingDrive;
               this.krpanService.selectedSlewingDrive.set(slewingDrive);
@@ -191,10 +213,9 @@ export class KrpanCraneComponent implements OnInit, OnDestroy {
 
             this.initializeFormGroup();
             this.craneSelected = true;
-            this.krpanService._cranePrice.update(cranePrice => cranePrice + Number(this.crane.price));
+            this.krpanService._craneSelected.next(true);
         }).add(() => {
           this.loadingService.disableLoader();
-          this.krpanService._craneSelected.next(true);
         })
     } 
 

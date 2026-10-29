@@ -17,7 +17,7 @@ export interface KrpanTrailer {
     weight: string;
     frameSteeringCylinders: string;
     drawbarAngle: string;
-    krpanCrane: KrpanCraneOverview[];
+    cranes: KrpanCraneOverview[];
     selectedCrane?: KrpanCrane;
     
     imageUrls?: string[];
