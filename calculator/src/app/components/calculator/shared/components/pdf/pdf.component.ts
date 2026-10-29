@@ -98,8 +98,6 @@ export class PdfComponent implements OnInit{
 
       object.TrailerShipping = this.krpanService.selectedTrailerShipping();
       object.MOT = this.krpanService.selectedMOT();
-    }else {
-      object.Grapples = [];
     }
 
     if (this.krpanService._craneSelected.value === true) {
@@ -111,31 +109,8 @@ export class PdfComponent implements OnInit{
         namePrice: this.krpanService._selectedCrane.value!.name + " " + this.krpanService._selectedCrane.value!.price + "€"
       }
       object.Crane = crane;
-      object.ControlBlock = this.krpanService.selectedControlBlock();
-      object.FrameType = this.krpanService.selectedFrameType();
-      object.Rotator = this.krpanService.selectedRotator();
-      object.Grapple = this.krpanService.selectedGrapple();
-      object.Grapples = this.krpanService.selectedGrapples;
-      object.Winch = this.krpanService.selectedWinch();
-      object.ProtectionSleeves = this.krpanService.selectedProtectionSleeves();
-      object.ElectricalFloating = this.krpanService.selectedElectricalFloating();
-      object.ValveBlock = this.krpanService.selectedValveBlock();
-      object.Damping = this.krpanService.selectedDamping();
-      object.CraneLight = this.krpanService.selectedCraneLight();
-      object.OperatorSeat = this.krpanService.selectedOperatorSeat();
-      object.CraneOilCooler = this.krpanService.selectedCraneOilCooler();
-      object.RotatorBrake = this.krpanService.selectedRotatorBrake();
-      object.JoystickHolder = this.krpanService.selectedJoystickHolder();
-      object.HoseGuard = this.krpanService.selectedHoseGuard();
-      object.TurningDeviceCounterPlate = this.krpanService.selectedTurningDeviceCounterPlate();
-      object.SupportLegCounterPlate = this.krpanService.selectedSupportLegCounterPlate();
-      object.BoomGuard = this.krpanService.selectedBoomGuard();
-      object.Cover = this.krpanService.selectedCover();
-      object.WoodControl = this.krpanService.selectedWoodControl();
-      object.Linkage = this.krpanService.selectedLinkage();
-      object.CraneShipping = this.krpanService.selectedCraneShipping();
-    } else {
-      object.Grapples = [];
+      object.SlewingDrive = this.krpanService.selectedSlewingDrive();
+    
     }
 
     object.totalPrice = this.krpanService._totalPrice().toString();
@@ -222,29 +197,7 @@ interface PdfTrailerModel {
 
 interface PdfCraneModel {
   Crane?: ConfigurationItem | undefined,
-  ControlBlock?: ConfigurationItem | undefined,
-  FrameType?: ConfigurationItem | undefined,
-  Rotator?: ConfigurationItem | undefined,
-  Grapple?: ConfigurationItem | undefined,
-  Grapples?: (ConfigurationItem | undefined)[],
-  Winch?: ConfigurationItem | undefined,
-  ProtectionSleeves?: ConfigurationItem | undefined,
-  ElectricalFloating?: ConfigurationItem | undefined,
-  ValveBlock?: ConfigurationItem | undefined,
-  Damping?: ConfigurationItem | undefined,
-  CraneLight?: ConfigurationItem | undefined,
-  OperatorSeat?: ConfigurationItem | undefined,
-  CraneOilCooler?: ConfigurationItem | undefined,
-  RotatorBrake?: ConfigurationItem | undefined,
-  JoystickHolder?: ConfigurationItem | undefined,
-  HoseGuard?: ConfigurationItem | undefined,
-  TurningDeviceCounterPlate?: ConfigurationItem | undefined,
-  SupportLegCounterPlate?: ConfigurationItem | undefined,
-  BoomGuard?: ConfigurationItem | undefined,
-  Cover?: ConfigurationItem | undefined,
-  WoodControl?: ConfigurationItem | undefined,
-  Linkage?: ConfigurationItem | undefined,
-  CraneShipping?: ConfigurationItem | undefined,
+  SlewingDrive?: ConfigurationItem | undefined
 }
 
 export interface PdfModel extends PdfTrailerModel, PdfCraneModel{

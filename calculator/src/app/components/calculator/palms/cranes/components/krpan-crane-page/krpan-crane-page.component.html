@@ -15,31 +15,7 @@
                     </div>
                 </ng-template>
                 <div class="max-h-96 overflow-auto">
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedControlBlock()"></app-accessory-item>
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedFrameType()"></app-accessory-item>
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedRotator()"></app-accessory-item>
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedGrapple()"></app-accessory-item>
-                    @for (grapple of this.krpanService.selectedGrapples; track $index) {
-                        <app-accessory-item [accessoryItem]="grapple"></app-accessory-item>
-                    }                   
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedWinch()"></app-accessory-item>
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedProtectionSleeves()"></app-accessory-item>
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedElectricalFloating()"></app-accessory-item>
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedValveBlock()"></app-accessory-item>
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedDamping()"></app-accessory-item>
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedCraneLight()"></app-accessory-item>
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedOperatorSeat()"></app-accessory-item>
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedCraneOilCooler()"></app-accessory-item>
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedRotatorBrake()"></app-accessory-item>
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedJoystickHolder()"></app-accessory-item>
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedHoseGuard()"></app-accessory-item>
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedTurningDeviceCounterPlate()"></app-accessory-item>
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedSupportLegCounterPlate()"></app-accessory-item>
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedBoomGuard()"></app-accessory-item>
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedCover()"></app-accessory-item>
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedWoodControl()"></app-accessory-item>
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedLinkage()"></app-accessory-item>
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedCraneShipping()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedSlewingDrive()"></app-accessory-item>
                 </div>             
             </p-accordionTab>
 

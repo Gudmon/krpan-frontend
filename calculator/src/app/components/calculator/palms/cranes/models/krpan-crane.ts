@@ -19,7 +19,7 @@ export interface KrpanCrane {
     oilQuantityInTank: string;
     slewCylinders: string;
     telescopicStages: string;
-    krpanTrailer: KrpanTrailerOverview[];
+    trailers: KrpanTrailerOverview[];
     selectedTrailer?: KrpanTrailer;
     imgUrls: string[];
     imgUrl: string;

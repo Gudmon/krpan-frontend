@@ -57,7 +57,7 @@ export class KrpanCraneInformationComponent implements OnInit, AfterViewInit {
   }
 
   getTrailers(): { id: number, name: string }[] {
-    return this.crane.krpanTrailer.map(krpanTrailer => ({ id: krpanTrailer.id, name: krpanTrailer.name }));
+    return this.crane.trailers.map(krpanTrailer => ({ id: krpanTrailer.id, name: krpanTrailer.name }));
   }
 
   trailerSelectedEmit(trailerId: number){

@@ -14,6 +14,19 @@ export class KrpanCraneConfigService {
 
   constructor(private httpClient: HttpClient) { }
 
+  getSlewingDrive(id: number): Observable<ConfigurationItem | null> {
+    return this.httpClient.get<ConfigurationItem>(`${this.url}/KrpanCraneConfig/cranes/${id}/slewingdrive`).pipe(
+      map((slewingDrive: ConfigurationItem | null) => {
+        if (slewingDrive) {
+          slewingDrive.namePrice = formatConfigurationPrice(slewingDrive);
+          return slewingDrive;
+        } else {
+          return null;
+        }
+      })
+    );
+  }
+
   getFrameTypesForTrailerCrane(trailerId: number, craneId: number): Observable<ConfigurationItem[]> {
     return this.httpClient.get<ConfigurationItem[]>(`${this.url}/KrpanCraneConfig/${trailerId}/cranes/${craneId}/availableFrameTypes`).pipe(
       map((frameTypes) => frameTypes.map((frameType) => {

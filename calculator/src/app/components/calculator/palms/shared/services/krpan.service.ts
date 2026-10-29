@@ -58,29 +58,7 @@ export class KrpanService {
   videos = new Map<string, string[]>();
 
   // CRANES
-  public selectedControlBlock = signal<ConfigurationItem | undefined>(undefined);
-  public selectedFrameType = signal<ConfigurationItem | undefined>(undefined);
-  public selectedRotator = signal<ConfigurationItem | undefined>(undefined);
-  public selectedGrapple = signal<ConfigurationItem | undefined>(undefined);
-  public selectedGrapples: (ConfigurationItem | undefined)[] = [];
-  public selectedWinch = signal<ConfigurationItem | undefined>(undefined);
-  public selectedProtectionSleeves = signal<ConfigurationItem | undefined>(undefined);
-  public selectedElectricalFloating = signal<ConfigurationItem | undefined>(undefined);
-  public selectedValveBlock = signal<ConfigurationItem | undefined>(undefined);
-  public selectedDamping = signal<ConfigurationItem | undefined>(undefined);
-  public selectedCraneLight = signal<ConfigurationItem | undefined>(undefined);
-  public selectedOperatorSeat = signal<ConfigurationItem | undefined>(undefined);
-  public selectedCraneOilCooler = signal<ConfigurationItem | undefined>(undefined);
-  public selectedRotatorBrake = signal<ConfigurationItem | undefined>(undefined);
-  public selectedJoystickHolder = signal<ConfigurationItem | undefined>(undefined);
-  public selectedHoseGuard = signal<ConfigurationItem | undefined>(undefined);
-  public selectedTurningDeviceCounterPlate = signal<ConfigurationItem | undefined>(undefined);
-  public selectedSupportLegCounterPlate = signal<ConfigurationItem | undefined>(undefined);
-  public selectedBoomGuard = signal<ConfigurationItem | undefined>(undefined);
-  public selectedCover = signal<ConfigurationItem | undefined>(undefined);
-  public selectedWoodControl = signal<ConfigurationItem | undefined>(undefined);
-  public selectedLinkage = signal<ConfigurationItem | undefined>(undefined);
-  public selectedCraneShipping = signal<ConfigurationItem | undefined>(undefined);
+  public selectedSlewingDrive = signal<ConfigurationItem | undefined>(undefined);
 
   // TRAILERS
   public selectedFrame = signal<ConfigurationItem | undefined>(undefined);
@@ -166,7 +144,7 @@ export class KrpanService {
         crane.videoIds = this.getVideosByKey(crane.name)
         //this._selectedCrane.next(crane);
         crane.imgUrls = [`../../../../../assets/${crane.name}-1.jpg`]
-        for (const trailer of crane.krpanTrailer){
+        for (const trailer of crane.trailers){
             trailer.imageUrl = `../../../../../assets/${trailer.name}-1.jpg`;
         }
         return crane;
@@ -216,28 +194,6 @@ export class KrpanService {
   }
 
   deleteCrane(){
-    this.selectedControlBlock.set(undefined);
-    this.selectedFrameType.set(undefined);
-    this.selectedRotator.set(undefined);
-    this.selectedGrapple.set(undefined);
-    this.selectedGrapples = [];
-    this.selectedWinch.set(undefined);
-    this.selectedProtectionSleeves.set(undefined);
-    this.selectedElectricalFloating.set(undefined);
-    this.selectedValveBlock.set(undefined);
-    this.selectedDamping.set(undefined);
-    this.selectedCraneLight.set(undefined);
-    this.selectedOperatorSeat.set(undefined);
-    this.selectedCraneOilCooler.set(undefined);
-    this.selectedRotatorBrake.set(undefined);
-    this.selectedJoystickHolder.set(undefined);
-    this.selectedHoseGuard.set(undefined);
-    this.selectedTurningDeviceCounterPlate.set(undefined);
-    this.selectedSupportLegCounterPlate.set(undefined);
-    this.selectedBoomGuard.set(undefined);
-    this.selectedCover.set(undefined);
-    this.selectedWoodControl.set(undefined);
-    this.selectedLinkage.set(undefined);
-    this.selectedCraneShipping.set(undefined);
+    this.selectedSlewingDrive.set(undefined);
   }
 }
