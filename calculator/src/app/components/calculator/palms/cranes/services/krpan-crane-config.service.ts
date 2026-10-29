@@ -27,6 +27,19 @@ export class KrpanCraneConfigService {
     );
   }
 
+  getCraneControls(id: number): Observable<ConfigurationItem[]>{
+    return this.httpClient.get<ConfigurationItem[]>(`${this.url}/KrpanCraneConfig/cranes/${id}/cranecontrols`).pipe(
+      map((craneControls: ConfigurationItem[]) => {
+        for (const controlBlock of craneControls){
+          controlBlock.disabledOption = false;
+          controlBlock.namePrice = formatConfigurationPrice(controlBlock);
+          controlBlock.imgUrl = `../../../../../../assets/KRPAN crane-controlblock-${controlBlock.id}.jpg`;
+        }
+        return craneControls;
+      })
+    );
+  }
+
   getFrameTypesForTrailerCrane(trailerId: number, craneId: number): Observable<ConfigurationItem[]> {
     return this.httpClient.get<ConfigurationItem[]>(`${this.url}/KrpanCraneConfig/${trailerId}/cranes/${craneId}/availableFrameTypes`).pipe(
       map((frameTypes) => frameTypes.map((frameType) => {

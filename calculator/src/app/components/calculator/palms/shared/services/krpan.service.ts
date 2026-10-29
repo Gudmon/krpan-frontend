@@ -59,6 +59,8 @@ export class KrpanService {
 
   // CRANES
   public selectedSlewingDrive = signal<ConfigurationItem | undefined>(undefined);
+  public selectedCraneControl = signal<ConfigurationItem | undefined>(undefined);
+
 
   // TRAILERS
   public selectedFrame = signal<ConfigurationItem | undefined>(undefined);

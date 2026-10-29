@@ -78,13 +78,16 @@ export class KrpanCraneComponent implements OnInit, OnDestroy {
 
     showSlewingDriveDialog: boolean = false;
 
-    controlBlocks: ConfigurationItem[] = [];
+    
     slewingDrive: ConfigurationItem | undefined = undefined;
+    craneControls: ConfigurationItem[] = [];
 
     originalSlewingDrivePrice = 0;
+    originalCraneControlPrice = 0;
      
     originalCrane: ConfigurationItem | undefined = undefined;
     originalSlewingDrive: ConfigurationItem | undefined = undefined;
+    originalCraneControl: ConfigurationItem | undefined = undefined;
 
       // get selectedGrapples(): FormArray {
       //   return this.craneFormGroup.get('selectedGrapples') as FormArray;
@@ -106,6 +109,7 @@ export class KrpanCraneComponent implements OnInit, OnDestroy {
     craneFormGroup: FormGroup = new FormGroup({
         selectedCrane: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
         selectedSlewingDrive: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+        selectedCraneControl: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
       
     });
 
@@ -113,6 +117,7 @@ export class KrpanCraneComponent implements OnInit, OnDestroy {
         this.craneFormGroup = this.fb.group({
             selectedCrane: null,
             selectedSlewingDrive: this.slewingDrive,
+            selectedCraneControl: this.craneControls[0],
         });
     }  
     private destroy$ = new Subject<void>();
@@ -197,8 +202,9 @@ export class KrpanCraneComponent implements OnInit, OnDestroy {
         this.loadingService.enableLoader();
         const crane$ = selectedCrane ? this.krpanService.getCrane(id) : of(this.crane);
         const slewingDrive$ = this.krpanCraneConfigService.getSlewingDrive(id);
+        const craneControls$ = this.krpanCraneConfigService.getCraneControls(id);
 
-        forkJoin({ crane: crane$, slewingDrive: slewingDrive$ }).subscribe(({ crane, slewingDrive }) => {
+        forkJoin({ crane: crane$, slewingDrive: slewingDrive$, craneControls: craneControls$ }).subscribe(({ crane, slewingDrive, craneControls }) => {
             if (selectedCrane && this.krpanService._selectedCrane.value?.id !== selectedCrane.id) {
               return;
             }
@@ -209,6 +215,11 @@ export class KrpanCraneComponent implements OnInit, OnDestroy {
             if(slewingDrive){
               this.slewingDrive = slewingDrive;
               this.krpanService.selectedSlewingDrive.set(slewingDrive);
+            }
+
+            if(craneControls){
+              this.craneControls = craneControls;
+              this.krpanService.selectedCraneControl.set(craneControls[0]);
             }
 
             this.initializeFormGroup();
@@ -235,6 +246,32 @@ export class KrpanCraneComponent implements OnInit, OnDestroy {
         this.krpanService.selectedSlewingDrive.set(undefined)
       }
     }
+
+    handleCraneControlChange(event: ListboxChangeEvent) {
+    this.updateSingleSelectionPrice(
+      this.originalCraneControl,
+      event.value,
+      (craneControl) => {
+        this.originalCraneControl = craneControl;
+        this.krpanService.selectedCraneControl.set(craneControl);
+      }
+    );
+  }
+
+  private updateSingleSelectionPrice(
+    previousItem: ConfigurationItem | undefined,
+    item: ConfigurationItem | null | undefined,
+    updateSelection: (item: ConfigurationItem | undefined) => void
+  ): void {
+    const previousPrice = parsePrice(previousItem?.price);
+    const nextPrice = parsePrice(item?.price);
+
+    if (previousPrice !== nextPrice) {
+      this.krpanService._cranePrice.update((total) => total - previousPrice + nextPrice);
+    }
+
+    updateSelection(item ?? undefined);
+  }
     
     selectTrailer(trailer: KrpanTrailerOverview){
       this.krpanService._selectedTrailer.next(trailer);
