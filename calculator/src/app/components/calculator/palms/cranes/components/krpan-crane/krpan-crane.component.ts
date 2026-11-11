@@ -80,14 +80,26 @@ export class KrpanCraneComponent implements OnInit, OnDestroy {
 
     
     slewingDrive: ConfigurationItem | undefined = undefined;
+    
     craneControls: ConfigurationItem[] = [];
+    controlLevelProtection: ConfigurationItem | undefined = undefined;
+    tractorHydraulics: ConfigurationItem | undefined = undefined;
+    rotators: ConfigurationItem[] = [];
+    grapples: ConfigurationItem[] = [];
 
     originalSlewingDrivePrice = 0;
     originalCraneControlPrice = 0;
+    originalControlLevelProtectionPrice = 0;
+    originalTractorHydraulicsPrice = 0;
+    originalRotatorPrice = 0;
      
     originalCrane: ConfigurationItem | undefined = undefined;
     originalSlewingDrive: ConfigurationItem | undefined = undefined;
     originalCraneControl: ConfigurationItem | undefined = undefined;
+    originalControlLevelProtection: ConfigurationItem | undefined = undefined;
+    originalTractorHydraulics: ConfigurationItem | undefined = undefined;
+    originalRotator: ConfigurationItem | undefined = undefined;
+    originalGrapple: ConfigurationItem | undefined = undefined;
 
       // get selectedGrapples(): FormArray {
       //   return this.craneFormGroup.get('selectedGrapples') as FormArray;
@@ -110,6 +122,10 @@ export class KrpanCraneComponent implements OnInit, OnDestroy {
         selectedCrane: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
         selectedSlewingDrive: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
         selectedCraneControl: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+        selectedControlLevelProtection: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+        selectedTractorHydraulics: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+        selectedRotator: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
+        selectedGrapple: new FormControl<ConfigurationItem>({id: 0, name: '', code: '', price: 0, namePrice: ''}),
       
     });
 
@@ -118,6 +134,10 @@ export class KrpanCraneComponent implements OnInit, OnDestroy {
             selectedCrane: null,
             selectedSlewingDrive: this.slewingDrive,
             selectedCraneControl: this.craneControls[0],
+            selectedControlLevelProtection: this.controlLevelProtection,
+            selectedTractorHydraulics: this.tractorHydraulics,
+            selectedRotator: this.rotators[0],
+            selectedGrapple: this.grapples[0],
         });
     }  
     private destroy$ = new Subject<void>();
@@ -203,8 +223,13 @@ export class KrpanCraneComponent implements OnInit, OnDestroy {
         const crane$ = selectedCrane ? this.krpanService.getCrane(id) : of(this.crane);
         const slewingDrive$ = this.krpanCraneConfigService.getSlewingDrive(id);
         const craneControls$ = this.krpanCraneConfigService.getCraneControls(id);
+        const controlLevelProtection$ = this.krpanCraneConfigService.getControlLevelProtection(id);
+        const tractorHydraulics$ = this.krpanCraneConfigService.getTractorHydraulics(id);
+        const rotators$ = this.krpanCraneConfigService.getRotators(id);
 
-        forkJoin({ crane: crane$, slewingDrive: slewingDrive$, craneControls: craneControls$ }).subscribe(({ crane, slewingDrive, craneControls }) => {
+        forkJoin({ crane: crane$, slewingDrive: slewingDrive$, craneControls: craneControls$, controlLevelProtection: controlLevelProtection$, 
+          tractorHydraulics: tractorHydraulics$, rotators: rotators$ })
+            .subscribe(({ crane, slewingDrive, craneControls, controlLevelProtection, tractorHydraulics, rotators }) => {
             if (selectedCrane && this.krpanService._selectedCrane.value?.id !== selectedCrane.id) {
               return;
             }
@@ -220,6 +245,21 @@ export class KrpanCraneComponent implements OnInit, OnDestroy {
             if(craneControls){
               this.craneControls = craneControls;
               this.krpanService.selectedCraneControl.set(craneControls[0]);
+            }
+
+            if(controlLevelProtection){
+              this.controlLevelProtection = controlLevelProtection;
+              this.krpanService.selectedControlLevelProtection.set(controlLevelProtection);
+            }
+
+            if(tractorHydraulics){
+              this.tractorHydraulics = tractorHydraulics;
+              this.krpanService.selectedTractorHydraulics.set(tractorHydraulics);
+            }
+
+            if(rotators){
+              this.rotators = rotators;
+              this.krpanService.selectedRotator.set(rotators[0]);
             }
 
             this.initializeFormGroup();
@@ -248,14 +288,59 @@ export class KrpanCraneComponent implements OnInit, OnDestroy {
     }
 
     handleCraneControlChange(event: ListboxChangeEvent) {
-    this.updateSingleSelectionPrice(
-      this.originalCraneControl,
-      event.value,
-      (craneControl) => {
-        this.originalCraneControl = craneControl;
-        this.krpanService.selectedCraneControl.set(craneControl);
+      this.updateSingleSelectionPrice(
+        this.originalCraneControl,
+        event.value,
+        (craneControl) => {
+          this.originalCraneControl = craneControl;
+          this.krpanService.selectedCraneControl.set(craneControl);
+        }
+      );
+  }
+
+  onControlLevelProtectionChange(event: CheckboxChangeEvent){
+      if (event.checked.length > 0) {
+        const current = this.krpanService._cranePrice();
+        const newPrice = current + Number(event.checked[0].price);
+        this.krpanService._cranePrice.set(newPrice);
+        this.originalControlLevelProtectionPrice = Number(event.checked[0].price);
+        this.originalControlLevelProtection = event.checked[0];
+        this.krpanService.selectedControlLevelProtection.set(event.checked[0])
+      } else {
+        const current = this.krpanService._cranePrice();
+        const newPrice = current - this.originalControlLevelProtectionPrice;
+        this.krpanService._cranePrice.set(newPrice);
+        this.originalControlLevelProtection = undefined;
+        this.krpanService.selectedControlLevelProtection.set(undefined)
       }
-    );
+    }
+
+  onTractorHydraulicsChange(event: CheckboxChangeEvent){
+    if (event.checked.length > 0) {
+      const current = this.krpanService._cranePrice();
+      const newPrice = current + Number(event.checked[0].price);
+      this.krpanService._cranePrice.set(newPrice);
+      this.originalTractorHydraulicsPrice = Number(event.checked[0].price);
+      this.originalTractorHydraulics = event.checked[0];
+      this.krpanService.selectedTractorHydraulics.set(event.checked[0])
+    } else {
+      const current = this.krpanService._cranePrice();
+      const newPrice = current - this.originalTractorHydraulicsPrice;
+      this.krpanService._cranePrice.set(newPrice);
+      this.originalTractorHydraulics = undefined;
+      this.krpanService.selectedTractorHydraulics.set(undefined)
+    }
+  }
+  
+  handleRotatorChange(event: ListboxChangeEvent) {
+      this.updateSingleSelectionPrice(
+        this.originalRotator,
+        event.value,
+        (rotator) => {
+          this.originalRotator = rotator;
+          this.krpanService.selectedRotator.set(rotator);
+        }
+      );
   }
 
   private updateSingleSelectionPrice(
@@ -281,7 +366,12 @@ export class KrpanCraneComponent implements OnInit, OnDestroy {
         this.craneFormGroup.reset();
         this.originalSlewingDrive = undefined;
         this.originalSlewingDrivePrice = 0;
-        
+        this.originalControlLevelProtection = undefined;
+        this.originalControlLevelProtectionPrice = 0;
+        this.originalTractorHydraulics = undefined;
+        this.originalTractorHydraulicsPrice = 0;
+        this.originalRotator = undefined;
+        this.originalRotatorPrice = 0;
       }
 
       toggleDialog(dialogType: string, show: boolean) {

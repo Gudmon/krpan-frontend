@@ -60,6 +60,10 @@ export class KrpanService {
   // CRANES
   public selectedSlewingDrive = signal<ConfigurationItem | undefined>(undefined);
   public selectedCraneControl = signal<ConfigurationItem | undefined>(undefined);
+  public selectedControlLevelProtection = signal<ConfigurationItem | undefined>(undefined);
+  public selectedTractorHydraulics = signal<ConfigurationItem | undefined>(undefined);
+  public selectedRotator = signal<ConfigurationItem | undefined>(undefined);
+  public selectedGrapple = signal<ConfigurationItem | undefined>(undefined);
 
 
   // TRAILERS

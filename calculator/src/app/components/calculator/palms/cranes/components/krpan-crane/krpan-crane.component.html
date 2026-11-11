@@ -31,6 +31,24 @@
                     </div>
                     <p-listbox optionDisabled="disabledOption" (onChange)="handleCraneControlChange($event)" formControlName="selectedCraneControl" [options]="craneControls" optionLabel="namePrice"></p-listbox>                   
                 </div>
+                <div *ngIf="craneSelected && controlLevelProtection" class="justify-content-center my-4 py-4">
+                    <div class="flex">
+                        <p-radioButton inputId="controlLevelProtection" [value]="controlLevelProtection" formControlName="selectedControlLevelProtection"></p-radioButton>
+                        <label for="controlLevelProtection" class="ml-2">{{ controlLevelProtection.namePrice }}</label>
+                    </div>
+                </div>
+                <div *ngIf="craneSelected && tractorHydraulics" class="justify-content-center my-4 py-4">
+                    <div class="flex">
+                        <p-radioButton inputId="tractorHydraulics" [value]="tractorHydraulics" formControlName="selectedTractorHydraulics"></p-radioButton>
+                        <label for="tractorHydraulics" class="ml-2">{{ tractorHydraulics.namePrice }}</label>
+                    </div>
+                </div>
+                <div *ngIf="craneSelected && craneControls.length > 0" class="justify-content-center my-4 py-4">
+                    <div class="flex gap-2">
+                        <span>Rotátor</span>
+                    </div>
+                    <p-listbox optionDisabled="disabledOption" (onChange)="handleRotatorChange($event)" formControlName="selectedRotator" [options]="rotators" optionLabel="namePrice"></p-listbox>                   
+                </div>
                 <hr *ngIf="crane && !fromTrailer" class="mb-2 mt-4 h-0.5 border-t-0 bg-black opacity-100 dark:opacity-50" />
             </div>
         </div>

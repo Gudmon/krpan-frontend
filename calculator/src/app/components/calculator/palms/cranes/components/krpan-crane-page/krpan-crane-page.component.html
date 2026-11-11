@@ -15,8 +15,11 @@
                     </div>
                 </ng-template>
                 <div class="max-h-96 overflow-auto">
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedSlewingDrive()"></app-accessory-item>
-                    <app-accessory-item [accessoryItem]="this.krpanService.selectedCraneControl()"></app-accessory-item>
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedSlewingDrive()"></app-accessory-item>                     
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedCraneControl()"></app-accessory-item>                     
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedControlLevelProtection()"></app-accessory-item>                     
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedTractorHydraulics()"></app-accessory-item>                     
+                    <app-accessory-item [accessoryItem]="this.krpanService.selectedRotator()"></app-accessory-item>
                 </div>             
             </p-accordionTab>
 
